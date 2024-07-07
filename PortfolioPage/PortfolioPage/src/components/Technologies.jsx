@@ -9,7 +9,7 @@ import { FaJava, FaPython, FaHtml5, FaCss3Alt } from "react-icons/fa";
 const Technologies = () => {
   return (
     <div className="border-b border-neutral-800 pb-24">
-      <h2 className="my-20 text-center text-4xl">Technologies / Languages</h2>
+      <h2 className="my-20 text-center text-4xl font-semibold">Technologies / Languages</h2>
       <div className="flex flex-wrap items-center justify-center gap-4">
         <div className="rounded-2xl border-4 border-neutral-800 p-4"> 
           <FaPython className="text-5xl text-yellow-400"/> {/* Python yellow */}
