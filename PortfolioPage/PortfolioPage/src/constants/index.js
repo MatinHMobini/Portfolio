@@ -3,9 +3,11 @@ import project2 from "../assets/projects/project-2.jpg";
 import project3 from "../assets/projects/project-3.jpg";
 import project4 from "../assets/projects/project-4.jpg";
 
-export const HERO_CONTENT = `I am a passionate developer with a knack for crafting __. With _ years of  experience, I have honed my skills in .`;
+export const HERO_CONTENT = `I am a passionate developer with a knack for Problem Solving and Team-Work. With 5+ years of  experience, I have honed my skills in Topics related to Artificial Intelligence, Web Development and Android Development.`;
 
-export const ABOUT_TEXT = `I am a dedicated and versatile full stack developer with a passion for creating efficient and user-friendly web applications. With 5 years of professional experience, I have worked with a variety of technologies, including React, Next.js, Node.js, MySQL, PostgreSQL, and MongoDB. My journey in web development began with a deep curiosity for how things work, and it has evolved into a career where I continuously strive to learn and adapt to new challenges. I thrive in collaborative environments and enjoy solving complex problems to deliver high-quality solutions. Outside of coding, I enjoy staying active, exploring new technologies, and contributing to open-source projects.`;
+export const ABOUT_TEXT = `Greetings! I'm Matin Mobini, a Honours Computer Science student at the University of Ottawa with a GPA of 3.9(4.0 scale). As a Website Developer at a upcoming startup called CrisperMe, I managed server maintenance and contributed to both backend such as data gathering/managment and frontend development such as creating additions to the company website. 
+Proficient in Java, Python, JavaScript, HTML, SQL, GoLang, Prolog and Scheme, I've successfully applied these skills in projects like CrisperMe and other various Personal/University projects that can be found at my GitHub. My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on Communucation and Team-Work.
+ My academic achievements include making the Dean's Honour List and receiving a Merit Scholarship, reflecting my commitment to excellence.`;
 
 export const EXPERIENCES = [
   {

@@ -1,4 +1,4 @@
-import aboutImg from "../assets/about.jpg";
+import aboutImg from "../assets/codergif.gif";
 import { ABOUT_TEXT } from "../constants";
 
 const About = () => {
