@@ -5,9 +5,14 @@ import project4 from "../assets/projects/project-4.jpg";
 
 export const HERO_CONTENT = `I am a passionate developer with a knack for Problem Solving and Team-Work. With 5+ years of  experience, I have honed my skills in Topics related to Artificial Intelligence, Web Development and Android Development.`;
 
-export const ABOUT_TEXT = `Greetings! I'm Matin Mobini, a Honours Computer Science student at the University of Ottawa with a GPA of 3.9(4.0 scale). As a Website Developer at a upcoming startup called CrisperMe, I managed server maintenance and contributed to both backend such as data gathering/managment and frontend development such as creating additions to the company website. 
-Proficient in Java, Python, JavaScript, HTML, SQL, GoLang, Prolog and Scheme, I've successfully applied these skills in projects like CrisperMe and other various Personal/University projects that can be found at my GitHub. My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on Communucation and Team-Work.
- My academic achievements include making the Dean's Honour List and receiving a Merit Scholarship, reflecting my commitment to excellence.`;
+export const ABOUT_TEXT = `
+Greetings! I'm Matin Mobini, a Honours Computer Science student at the University of Ottawa with a GPA of 3.9 (4.0 scale). 
+As a Website Developer at a startup called CrisperMe, I managed server maintenance and contributed to both backend such as data gathering/management and frontend development such as creating additions to the company website.
+Proficient in Java, Python, JavaScript, HTML, SQL, GoLang, Prolog, and Scheme. I've successfully applied these skills in projects like CrisperMe and various personal/university projects available on my GitHub.
+My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on communication and teamwork.
+My academic achievements include making the Dean's Honour List and receiving a Merit Scholarship, reflecting my commitment to excellence.
+`;
+
 
 export const EXPERIENCES = [
   {

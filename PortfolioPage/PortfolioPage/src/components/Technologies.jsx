@@ -9,7 +9,9 @@ import { FaJava, FaPython, FaHtml5, FaCss3Alt, FaFilePowerpoint, FaFileWord, FaF
 import { SiLibreoffice } from "react-icons/si";
 import { SiJupyter } from "react-icons/si";
 import { TbSql } from "react-icons/tb";
-import './Technologies.css'; // Import custom CSS file for animations
+import './Technologies.css'; // Importing custom CSS file for animations
+import { motion } from 'framer-motion';
+
 
 const Technologies = () => {
   const [filter, setFilter] = useState('All');
@@ -49,9 +51,17 @@ const Technologies = () => {
 
   return (
     <div className="border-b border-neutral-800 pb-24">
-      <h2 className="my-20 text-center text-4xl font-semibold">Technologies / Languages</h2>
+      <motion.h2 
+      whileInView={{opacity:1, y: 0}}
+      initial={{opacity: 0, y: -100}}
+      transition={{duration:0.5, delay: 0.4}}
+      className="my-20 text-center text-4xl font-semibold">Technical Proficiencies</motion.h2>
       
-      <div className="flex justify-center mb-8">
+      <motion.div 
+      whileInView={{opacity:1, x: 0}}
+      initial={{opacity: 0, x: -100}}
+      transition={{duration:0.5, delay: 0.4}}
+      className="flex justify-center mb-8">
         <button 
           className={`mx-2 px-4 py-2 border rounded ${filter === 'All' ? 'bg-blue-500 text-white' : 'bg-black text-white'}`}
           onClick={() => setFilter('All')}
@@ -70,9 +80,13 @@ const Technologies = () => {
         >
           Other Tools
         </button>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <motion.div 
+      whileInView={{opacity:1, x: 0}}
+      initial={{opacity: 0, x: -100}}
+      transition={{duration:0.5, delay: 0.4}}
+      className="flex flex-wrap items-center justify-center gap-4">
         {filteredIcons.map((iconItem, index) => (
           <div 
             key={index} 
@@ -84,7 +98,7 @@ const Technologies = () => {
             </span>
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
