@@ -7,41 +7,33 @@ export const HERO_CONTENT = `I am a passionate developer with a knack for Proble
 
 export const ABOUT_TEXT = `
 Greetings! I'm Matin Mobini, a Honours Computer Science student at the University of Ottawa with a GPA of 3.9 (4.0 scale). 
-As a Website Developer at a startup called CrisperMe, I managed server maintenance and contributed to both backend such as data gathering/management and frontend development such as creating additions to the company website.
+As a Website Developer at a upcoming startup called CrisperMe, I managed server maintenance and I also played a key role in frontend development, including the implementation of new features and enhancements to the company website, such as optimizing user interfaces, improving navigation menus, and integrating interactive components. Additionally, I contributed to the backend development such as data gathering/management with use of tools such as MySql.
 Proficient in Java, Python, JavaScript, HTML, SQL, GoLang, Prolog, and Scheme. I've successfully applied these skills in projects like CrisperMe and various personal/university projects available on my GitHub.
-My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on communication and teamwork.
 My academic achievements include making the Dean's Honour List and receiving a Merit Scholarship, reflecting my commitment to excellence.
 `;
+ 
+
+
+//My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on communication and teamwork.
 
 
 export const EXPERIENCES = [
   {
-    year: "2023 - Present",
-    role: "Senior Full Stack Developer",
-    company: "Google Inc.",
-    description: `Led a team in developing and maintaining web applications using JavaScript, React.js, and Node.js. Implemented RESTful APIs and integrated with MongoDB databases. Collaborated with stakeholders to define project requirements and timelines.`,
-    technologies: ["Javascript", "React.js", "Next.js", "mongoDB"],
-  },
-  {
     year: "2022 - 2023",
-    role: "Frontend Developer",
-    company: "Adobe",
-    description: `Designed and developed user interfaces for web applications using Next.js and React. Worked closely with backend developers to integrate frontend components with Node.js APIs. Implemented responsive designs and optimized frontend performance.`,
-    technologies: ["HTML", "CSS", "Vue.js", "mySQL"],
+    role: "Website Developer",
+    company: "Upcoming Startup: CrisperMe",
+    description: `I oversaw server maintenance and I played a pivotal role in frontend development, implementing new features and enhancements to the company website, such as optimizing user interfaces, refining navigation menus, and integrating interactive components. Additionally, I also contributed to backend development, including data collection and management using MySQL.`,
+    technologies: ["Java", "Pyton", "JavaScript", "Node.js", "HTML", "SQL", "TypeScript", "XAMPP", "MySQL", "GitLab/Github"],
   },
   {
-    year: "2021 - 2022",
-    role: "Full Stack Developer",
-    company: "Facebook",
-    description: `Developed and maintained web applications using JavaScript, React.js, and Node.js. Designed and implemented RESTful APIs for data communication. Collaborated with cross-functional teams to deliver high-quality software products on schedule.`,
-    technologies: ["Python", "Svelte", "Three.js", "Postgres"],
-  },
-  {
-    year: "2020 - 2021",
-    role: "Software Engineer",
-    company: "Paypal",
-    description: `Contributed to the development of web applications using JavaScript, React.js, and Node.js. Managed databases and implemented data storage solutions using MongoDB. Worked closely with product managers to prioritize features and enhancements.`,
-    technologies: ["Ruby", "Rails", "PHP", "Sqlite"],
+    year: "2022 - Ongoing",
+    role: "Retail Supervisor",
+    company: "Shoppers Drug Mart",
+    description: `
+    • Customer Service & Assistance
+    • Supervising
+    • Restocking & Organization`,
+    technologies: ["Communication", "Teamwork", "Customer Service", "Organization Skills"],
   },
 ];
 
