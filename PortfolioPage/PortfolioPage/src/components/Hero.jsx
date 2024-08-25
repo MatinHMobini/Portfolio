@@ -8,7 +8,7 @@ const container = (delay) => ({
     visible: {
         x: 0,
         opacity: 1,
-        transition: { duration: 0.5, delay },
+        transition: { duration: 2, delay },
     },
 });
 
@@ -20,16 +20,18 @@ const Hero = () => {
     const handleMouseMove = (e) => {
         if (titleRef.current) {
             const titleRect = titleRef.current.getBoundingClientRect();
-            const x = e.clientX - (titleRect.left + titleRect.width / 2);
-            const y = e.clientY - (titleRect.top + titleRect.height / 2);
+            const titleCenterX = titleRect.left + titleRect.width / 2;
+            const titleCenterY = titleRect.top + titleRect.height / 2;
+            const x = e.clientX - titleCenterX;
+            const y = e.clientY - titleCenterY;
             const distance = Math.sqrt(x * x + y * y);
-            const maxDistance = 200; // Distance within which the title moves
+            const maxDistance = 300; // Distance within which the title moves
 
             let moveX = 0;
             let moveY = 0;
 
             if (distance < maxDistance) {
-                // Calculate movement direction
+                // Calculate movement direction based on cursor position
                 moveX = -(x / distance) * (maxDistance - distance) * 0.4;
                 moveY = -(y / distance) * (maxDistance - distance) * 0.4;
 
@@ -52,7 +54,7 @@ const Hero = () => {
         controls.start({
             x: position.x,
             y: position.y,
-            transition: { duration: 0.2, ease: "easeOut" },
+            transition: { duration: 0.4, ease: "easeOut" },
         });
     }, [position, controls]);
 
@@ -73,7 +75,7 @@ const Hero = () => {
                         <motion.button
                             initial={{ opacity: 0.6 }}
                             whileHover={{
-                                scale: 1.2,
+                                scale: 1.4,
                                 transition: { duration: 1 },
                             }}
                             whileTap={{ scale: 0.9 }}

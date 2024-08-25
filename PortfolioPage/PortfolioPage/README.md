@@ -1,8 +1,28 @@
-# React + Vite
+# 🖥️ Matin Mobini's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my Portfolio repository! This is where I showcase my skills, projects, and experience in Computer Science.
 
-Currently, two official plugins are available:
+## 🚀 About the Portfolio
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This portfolio highlights:
+
+- **Hero:** Introduction and specializations.
+- **About Me:** My background and key achievements.
+- **Technical Proficiencies:** Languages and tools I use.
+- **Experience:** My roles and applied skills.
+- **Projects:** Showcasing my work.
+- **Contact:** How to get in touch.
+
+## 🛠️ Technologies Used
+
+- **Frontend:** React.js, Tailwind CSS, JavaScript, HTML
+- **Animations:** Framer Motion
+- **Hosting:** GitHub Pages
+
+## 📧 Contact
+
+- **Email:** hmobinimatin@gmail.com
+- **LinkedIn:** [Matin Mobini](https://www.linkedin.com/in/matin-mobini-56aa56277/)
+
+
+Thank you for visiting my portfolio!
