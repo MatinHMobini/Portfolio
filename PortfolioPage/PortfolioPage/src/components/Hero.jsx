@@ -1,5 +1,6 @@
 import { HERO_CONTENT } from "../constants";
 import profilePic from "../assets/MatinMobiniProfile.png";
+import thoughtBubble from "../assets/thoughtbubble.png";
 import { motion, useAnimation } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
@@ -62,7 +63,14 @@ const Hero = () => {
         <div className="border-b border-neutral-900 pb-4 lg:mb-35" onMouseMove={handleMouseMove}>
             <div className="flex flex-wrap">
                 <div className="w-full lg:w-1/2">
-                    <div className="flex flex-col item-center lg:items-start">
+                    <div className="relative flex flex-col item-center lg:items-start">
+                        
+                        {/* Adjusting the thought bubble position based on screen size */}
+                        <div className="absolute top-[-120px] left-[-30px] sm:top-[-120px] sm:left-[-40px] lg:top-[-70px] lg:left-[-50px] flex items-center">
+                            <img src={thoughtBubble} alt="Thought Bubble" className="w-32 h-32" />
+                            <span className="font-semibold my-2 max-w-xl py-6 absolute text-black text-xl ml-7 mt-[-20px]">Try To Tag Me!</span>
+                        </div>
+                        
                         <motion.h1
                             ref={titleRef}
                             initial={{ x: 0, y: 0 }}
