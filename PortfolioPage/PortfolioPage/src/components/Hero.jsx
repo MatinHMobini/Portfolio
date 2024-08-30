@@ -4,6 +4,7 @@ import thoughtBubble from "../assets/thoughtbubble.png";
 import { motion, useAnimation } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
+// Animation container with delay
 const container = (delay) => ({
     hidden: { x: -100, opacity: 0 },
     visible: {
@@ -14,10 +15,11 @@ const container = (delay) => ({
 });
 
 const Hero = () => {
-    const controls = useAnimation();
+    const controls = useAnimation(); // Controls for animation
     const [position, setPosition] = useState({ x: 0, y: 0 });
-    const titleRef = useRef(null);
+    const titleRef = useRef(null); // Reference to the title element
 
+    // Handle mouse movement to animate title
     const handleMouseMove = (e) => {
         if (titleRef.current) {
             const titleRect = titleRef.current.getBoundingClientRect();
@@ -26,17 +28,17 @@ const Hero = () => {
             const x = e.clientX - titleCenterX;
             const y = e.clientY - titleCenterY;
             const distance = Math.sqrt(x * x + y * y);
-            const maxDistance = 300; // Distance within which the title moves
+            const maxDistance = 300; // Movement threshold
 
             let moveX = 0;
             let moveY = 0;
 
             if (distance < maxDistance) {
-                // Calculate movement direction based on cursor position
+                // Move title away from cursor
                 moveX = -(x / distance) * (maxDistance - distance) * 0.4;
                 moveY = -(y / distance) * (maxDistance - distance) * 0.4;
 
-                // Ensure movement is within the screen bounds
+                // Keep movement within screen bounds
                 if (titleRect.left + moveX < 0 || titleRect.right + moveX > window.innerWidth) {
                     moveX = 0;
                 }
@@ -46,11 +48,12 @@ const Hero = () => {
 
                 setPosition({ x: moveX, y: moveY });
             } else {
-                setPosition({ x: 0, y: 0 });
+                setPosition({ x: 0, y: 0 }); // Reset position
             }
         }
     };
 
+    // Update position with animation
     useEffect(() => {
         controls.start({
             x: position.x,
@@ -65,12 +68,13 @@ const Hero = () => {
                 <div className="w-full lg:w-1/2">
                     <div className="relative flex flex-col item-center lg:items-start">
                         
-                        {/* Adjusting the thought bubble position based on screen size */}
+                        {/* Thought bubble with responsive positioning */}
                         <div className="absolute top-[-120px] left-[-30px] sm:top-[-120px] sm:left-[-40px] lg:top-[-70px] lg:left-[-50px] flex items-center">
                             <img src={thoughtBubble} alt="Thought Bubble" className="w-32 h-32" />
                             <span className="font-semibold my-2 max-w-xl py-6 absolute text-black text-xl ml-7 mt-[-20px]">Try To Tag Me!</span>
                         </div>
                         
+                        {/* Title with animation */}
                         <motion.h1
                             ref={titleRef}
                             initial={{ x: 0, y: 0 }}
@@ -80,6 +84,7 @@ const Hero = () => {
                             Matin Mobini
                         </motion.h1>
 
+                        {/* Interactive button */}
                         <motion.button
                             initial={{ opacity: 0.6 }}
                             whileHover={{
@@ -95,6 +100,7 @@ const Hero = () => {
                             Android Development
                         </motion.button>
 
+                        {/* Hero content */}
                         <motion.p
                             variants={container(1)}
                             initial="hidden"
@@ -105,6 +111,7 @@ const Hero = () => {
                         </motion.p>
                     </div>
                 </div>
+                {/* Profile picture with animation */}
                 <div className="w-full lg:w-1/2 lg:p-8">
                     <div className="flex justify-center">
                         <motion.img
