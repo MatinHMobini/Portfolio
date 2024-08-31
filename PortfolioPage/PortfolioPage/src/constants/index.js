@@ -39,10 +39,10 @@ export const EXPERIENCES = [
 
 export const PROJECTS = [
   {
-    title: "E-Commerce Website",
+    title: "Hotel Booking Service",
     image: project1,
     description:
-      "A fully functional e-commerce website with features like product listing, shopping cart, and user authentication.",
+      "https://matinhmobini.github.io/CSI_2132_Databases_1/#/",
     technologies: ["HTML", "CSS", "React", "Node.js", "MongoDB"],
   },
   {
