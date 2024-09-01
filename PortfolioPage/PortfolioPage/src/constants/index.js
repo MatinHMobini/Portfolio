@@ -42,15 +42,15 @@ export const PROJECTS = [
     title: "Hotel Booking Service",
     image: project1,
     description:
-      "https://matinhmobini.github.io/CSI_2132_Databases_1/#/",
-    technologies: ["HTML", "CSS", "React", "Node.js", "MongoDB"],
+      "Designed and implemented a comprehensive SQL database as the core component of a hotel booking system, with a supporting web application to provide users with efficient search, booking, and reservation management functionalities.",
+    technologies: ["TypeScript", "JavaScript", "PostgresSQL", "React", "Vite", "Node.js","Bootstrap", "HTML", "CSS"],
   },
   {
-    title: "Task Management App",
+    title: "Cycling Club Event Management App",
     image: project2,
     description:
-      "An application for managing tasks and projects, with features such as task creation, assignment, and progress tracking.",
-    technologies: ["HTML", "CSS", "Angular", "Firebase"],
+      "This project is a Cycling Club Event Management application built using Java and Android Studio. The app is designed to manage different types of cycling events, user accounts, and associated interactions within a cycling community.",
+    technologies: ["Java", "Android Studio", "Firebase", "UML"],
   },
   {
     title: "Portfolio Website",
@@ -60,11 +60,11 @@ export const PROJECTS = [
     technologies: ["JavaScript", "React", "HTML", "CSS", "Vite", "Framer Motion"],
   },
   {
-    title: "Blogging Platform",
+    title: "House prediction Model",
     image: project4,
     description:
-      "A platform for creating and publishing blog posts, with features like rich text editing, commenting, and user profiles.",
-    technologies: ["HTML", "CSS", "Vue.js", "Express", "mySQL"],
+      "",
+    technologies: ["check imports of notebook", "", "", "", ""],
   },
 ];
 
