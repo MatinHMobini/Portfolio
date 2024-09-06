@@ -15,7 +15,7 @@ This portfolio highlights:
 
 ## 🛠️ Technologies Used
 
-- **Frontend:** React.js, Tailwind CSS, JavaScript, HTML
+- **Frontend:** React.js, Tailwind CSS, JavaScript, Vite, HTML
 - **Animations:** Framer Motion
 - **Hosting:** GitHub Pages
 
