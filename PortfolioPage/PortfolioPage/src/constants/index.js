@@ -57,7 +57,7 @@ export const PROJECTS = [
     title: "House prediction Model",
     image: project4,
     description:
-      "",
+      "This project focuses on building a machine learning model to predict house prices using various features such as location, population, and other relevant variables. The project involves data preprocessing, feature engineering, model training, evaluation, and visualization of results.",
     technologies: ["check imports of notebook, Python", "pandas", "numpy", "matplotlib", "seaborn"],
   },
   {
@@ -74,6 +74,3 @@ export const CONTACT = {
   phoneNo: "613-716-9175 ",
   email: "hmobinimatin@gmail.com",
 };
-
-
-
