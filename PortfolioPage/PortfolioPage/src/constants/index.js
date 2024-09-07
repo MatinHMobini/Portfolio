@@ -44,6 +44,7 @@ export const PROJECTS = [
     description:
       "Designed and implemented a comprehensive SQL database as the core component of a hotel booking system, with a supporting web application to provide users with efficient search, booking, and reservation management functionalities.",
     technologies: ["TypeScript", "JavaScript", "PostgresSQL", "React", "Vite", "Node.js","Bootstrap", "HTML", "CSS"],
+    link: "https://matinhmobini.github.io/CSI_2132_Databases_1/#/",
   },
   {
     title: "Cycling Club Event Management App",
@@ -53,18 +54,18 @@ export const PROJECTS = [
     technologies: ["Java", "Android Studio", "Firebase", "UML"],
   },
   {
-    title: "Portfolio Website",
-    image: project3,
-    description:
-      "My personal portfolio website showcasing projects, skills, and contact information.",
-    technologies: ["JavaScript", "React", "HTML", "CSS", "Vite", "Framer Motion"],
-  },
-  {
     title: "House prediction Model",
     image: project4,
     description:
       "",
     technologies: ["check imports of notebook", "", "", "", ""],
+  },
+  {
+    title: "Portfolio Website",
+    image: project3,
+    description:
+      "My personal portfolio website showcasing projects, skills, and contact information.",
+    technologies: ["JavaScript", "React", "HTML", "CSS", "Vite", "Framer Motion"],
   },
 ];
 
