@@ -58,7 +58,7 @@ export const PROJECTS = [
     image: project4,
     description:
       "",
-    technologies: ["check imports of notebook", "", "", "", ""],
+    technologies: ["check imports of notebook, Python", "pandas", "numpy", "matplotlib", "seaborn"],
   },
   {
     title: "Portfolio Website",
@@ -74,3 +74,6 @@ export const CONTACT = {
   phoneNo: "613-716-9175 ",
   email: "hmobinimatin@gmail.com",
 };
+
+
+
