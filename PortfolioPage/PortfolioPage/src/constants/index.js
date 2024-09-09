@@ -42,9 +42,9 @@ export const PROJECTS = [
     title: "Hotel Booking Service",
     image: project1,
     description:
-      "Designed and implemented a comprehensive SQL database as the core component of a hotel booking system, with a supporting web application to provide users with efficient search, booking, and reservation management functionalities.",
+      "Designed and implemented a comprehensive SQL database as the core component of a hotel booking system, with a supporting web application to provide users with efficient search, booking, and reservation management functionalities. Please view my Github for instructions on how to run the project.",
     technologies: ["TypeScript", "JavaScript", "PostgresSQL", "React", "Vite", "Node.js","Bootstrap", "HTML", "CSS"],
-    link: "https://matinhmobini.github.io/CSI_2132_Databases_1/#/",
+    link: "https://github.com/MatinHMobini/CSI_2132_Databases_1",
   },
   {
     title: "Cycling Club Event Management App",
@@ -54,11 +54,11 @@ export const PROJECTS = [
     technologies: ["Java", "Android Studio", "Firebase", "UML"],
   },
   {
-    title: "House prediction Model",
+    title: "House Price Prediction Model",
     image: project4,
     description:
-      "This project focuses on building a machine learning model to predict house prices using various features such as location, population, and other relevant variables. The project involves data preprocessing, feature engineering, model training, evaluation, and visualization of results.",
-    technologies: ["check imports of notebook, Python", "pandas", "numpy", "matplotlib", "seaborn"],
+      "This project focuses on building a machine learning model to predict house prices using various features such as location, population, and other relevant variables. The project involves data preprocessing, feature engineering, model training, evaluation, and visualization of results with the use of Jupyter-Notebook.",
+    technologies: ["Python", "pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn"],
   },
   {
     title: "Portfolio Website",
