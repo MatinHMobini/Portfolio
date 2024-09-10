@@ -36,24 +36,25 @@ const Projects = () => {
               <h6 className="mb-2 font-semibold">{project.title}</h6>
               <p className="mb-4 text-neutral-400">{project.description}</p>
 
-              {project.link && (
-                <p className="mb-4">
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline"
-                  >
-                    View Project
-                  </a>
-                </p>
-              )}
-
               {project.technologies.map((tech, index) => (
                 <span key={index} className="mr-2 rounded bg-neutral-900 px-2 py-1 text-sm font-medium text-purple-700">
                   {tech}
                 </span>
               ))}
+
+              {project.link && (
+                <p className="mt-4">
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-500 no-underline hover:underline"
+                    style={{ textDecoration: 'none' }} 
+                  >
+                    View Project
+                  </a>
+                </p>
+              )}
             </motion.div>
           </div>
         ))}

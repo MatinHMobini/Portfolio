@@ -11,11 +11,6 @@ As a Website Developer at a upcoming startup called CrisperMe, I managed server 
 Proficient in Java, Python, JavaScript, HTML, SQL, GoLang, Prolog, and Scheme. I've successfully applied these skills in projects like CrisperMe and various personal/university projects available on my GitHub.
 My academic achievements include making the Dean's Honour List and receiving a Merit Scholarship, reflecting my commitment to excellence.
 `;
- 
-
-
-//My versatility extends to roles at Shoppers Drug Mart, where I've served as a Supervisor with a focus on communication and teamwork.
-
 
 export const EXPERIENCES = [
   {
@@ -52,6 +47,7 @@ export const PROJECTS = [
     description:
       "This project is a Cycling Club Event Management application built using Java and Android Studio. The app is designed to manage different types of cycling events, user accounts, and associated interactions within a cycling community.",
     technologies: ["Java", "Android Studio", "Firebase", "UML"],
+    link: "https://github.com/MatinHMobini/Cycling-Club-Event-Management-App", 
   },
   {
     title: "House Price Prediction Model",
@@ -59,6 +55,7 @@ export const PROJECTS = [
     description:
       "This project focuses on building a machine learning model to predict house prices using various features such as location, population, and other relevant variables. The project involves data preprocessing, feature engineering, model training, evaluation, and visualization of results with the use of Jupyter-Notebook.",
     technologies: ["Python", "pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn"],
+    link: "https://github.com/MatinHMobini/House-Price-Prediction", 
   },
   {
     title: "Portfolio Website",
@@ -66,6 +63,7 @@ export const PROJECTS = [
     description:
       "My personal portfolio website showcasing projects, skills, and contact information.",
     technologies: ["JavaScript", "React", "HTML", "CSS", "Vite", "Framer Motion"],
+    link: "https://github.com/MatinHMobini/Portfolio", 
   },
 ];
 
