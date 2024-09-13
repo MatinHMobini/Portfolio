@@ -1,5 +1,5 @@
 import { HERO_CONTENT } from "../constants";
-import profilePic from "../assets/MatinMobiniProfile.png";
+import profilePic from "../assets/MatinMobiniProfile.jpeg";
 import thoughtBubble from "../assets/thoughtbubble.png";
 import { motion, useAnimation } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
