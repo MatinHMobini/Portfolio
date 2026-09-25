@@ -155,8 +155,10 @@ distance (tiles) + 2·coins + 3·stomps − 15 if it died, +100 (+ a time bonus)
 champion is picked among the top 8 by performance on 18 held-out levels. Output: weights + metadata
 (generations, population, params, episodes, held-out results, date) + best/mean fitness history.
 
-Results are printed by the trainer; run `npm run evaluate` for a per-theme breakdown on unseen
-levels. The champion is good, not perfect: it sometimes dies, which the lives system turns into
+Results of the shipped champion (700 generations × 150 brains, ~16 min on a laptop): it finished
+12 of the 18 held-out levels during selection, and `npm run evaluate -- --levels 10` gives 36/60
+fresh unseen levels finished: night 9/10, sky 7/10, mine 6/10, factory 5/10, castle 6/10,
+circuit 3/10 (the enemy-heavy world). Run `npm run evaluate` for the per-theme breakdown. The champion is good, not perfect: it sometimes dies, which the lives system turns into
 part of the show.
 
 **Gameplay changes made to make learning work** (found by evaluating failures): flyers hover
