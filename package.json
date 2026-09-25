@@ -1,0 +1,22 @@
+{
+  "name": "pixel-quest-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Pixel Quest: a retro arcade portfolio with a neural-network-driven runner.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "train": "node --experimental-strip-types scripts/train.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}

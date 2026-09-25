@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>%NAME% · Pixel Quest</title>
+    <meta name="description" content="%FULLNAME%: %ROLE% A retro arcade portfolio where a neural network trained by neuroevolution plays every level." />
+    <meta name="theme-color" content="#100C26" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="%NAME% · Pixel Quest" />
+    <meta property="og:description" content="%ROLE% Press start to play the portfolio." />
+    <meta property="og:url" content="https://matinhmobini.github.io/Portfolio/" />
+    <meta property="og:image" content="https://matinhmobini.github.io/Portfolio/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" />
+
+    <script>
+      // Runs before first paint: mark JS as available and decide whether the intro will play,
+      // so the content does not flash before the intro covers it.
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          if (localStorage.getItem('pq.crt') === 'off') d.classList.add('no-crt');
+        } catch (e) {}
+        var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) d.classList.add('reduced');
+        else if (!/[?&]nointro/.test(location.search)) d.classList.add('intro-pending');
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="boot-cover" aria-hidden="true"></div>
+<!--APP-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
