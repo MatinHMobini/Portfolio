@@ -7,7 +7,7 @@ import { TILE } from './constants.ts';
 import type { ThemeId } from './level.ts';
 import { createRng } from './rng.ts';
 import {
-  sprite, recolor, MOON_GRID, TORCH_GRID, ORE_GRID, GEAR_GRID, CHIP_GRID, BUSH_GRID, BUBBLE_GRID, PAL,
+  sprite, recolor, MOON_GRID, TORCH_GRID, ORE_GRID, GEAR_GRID, CHIP_GRID, BUSH_GRID, PAL,
 } from './sprites.ts';
 
 export interface Theme {
@@ -198,8 +198,6 @@ function makeBackground(id: ThemeId): Theme['background'] {
       const far = mountainLayer(21, 110, 40, '#1E1848', 14);
       const near = mountainLayer(22, 70, 40, '#2A2266', 10);
       const moon = sprite('moon', MOON_GRID);
-      const bush = sprite('bush', BUSH_GRID);
-      void bush;
       return (ctx, w, h, camX, groundY, t) => {
         skyBands(ctx, ['#100C26', '#130F2E', '#171236', '#1A1540'], w, h);
         tileLayer(ctx, stars, w, 0, camX * 0.03);
@@ -350,7 +348,6 @@ function makeBackground(id: ThemeId): Theme['background'] {
         rect(wc, '#FFD447', x + 8, 78, 6, 14);
       }
       for (let x = 0; x < LAYER_W; x += 24) rect(wc, '#1A0B22', x, 0, 12, 10);
-      const bubble = sprite('bubble', BUBBLE_GRID);
       return (ctx, w, h, camX, groundY, t) => {
         skyBands(ctx, ['#0E0614', '#140818', '#1A0B22', '#24102A', '#3A1230'], w, h);
         tileLayer(ctx, wall, w, groundY - 250, camX * 0.35);
@@ -363,7 +360,6 @@ function makeBackground(id: ThemeId): Theme['background'] {
           rect(ctx, i % 3 ? PAL.O : PAL.Y, x | 0, y | 0, 2, 2);
         }
         ctx.globalAlpha = 1;
-        void bubble;
       };
     }
   }

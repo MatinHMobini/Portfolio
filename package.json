@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "train": "node --experimental-strip-types scripts/train.ts",
+    "evaluate": "node --experimental-strip-types scripts/evaluate.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

@@ -384,13 +384,17 @@ export function runIntro(opts: Options): Promise<void> {
       ctx.imageSmoothingEnabled = false;
       ctx.fillStyle = '#07051A';
       ctx.fillRect(0, 0, vw, vh);
-      const base = Math.min(vw / SW, vh / SH);
+      // Portrait phones: zoom in on the room and pan with the character.
+      const portrait = vw < vh;
+      const base = portrait ? vw / (SW * 0.6) : Math.min(vw / SW, vh / SH);
+      const half = vw / base / 2;
+      const camX = portrait ? Math.max(half, Math.min(SW - half, px + 20)) : SW / 2;
 
       const cz = Math.min(zoom, 1);
       const ez = cz < 0.5 ? 2 * cz * cz : 1 - Math.pow(-2 * cz + 2, 2) / 2;
       const target = (vw * 0.92) / SCREEN.w / base;
       const s = base * (1 + (target - 1) * ez) * (zoom > 1 ? zoom : 1);
-      const fx = SW / 2 + (SCREEN.x + SCREEN.w / 2 - SW / 2) * ez;
+      const fx = camX + (SCREEN.x + SCREEN.w / 2 - camX) * ez;
       const fy = SH / 2 + (SCREEN.y + SCREEN.h / 2 - SH / 2) * ez;
 
       ctx.setTransform(s, 0, 0, s, vw / 2 - fx * s, vh / 2 - fy * s);

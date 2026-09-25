@@ -47,7 +47,14 @@ export class BrainUI {
       this.views.push(entry);
       new IntersectionObserver(([e]) => {
         entry.visible = e.isIntersecting;
-        if (e.isIntersecting) view.resize();
+        if (e.isIntersecting) {
+          view.resize();
+          // No animation loop under reduced motion: draw a still frame.
+          if (game.reduced) {
+            view.setActivations(game.acts);
+            view.draw(performance.now(), 0);
+          }
+        }
       }).observe(secCanvas);
     }
     window.addEventListener('resize', () => this.views.forEach((v) => v.view.resize()));
@@ -168,6 +175,10 @@ export class BrainUI {
     this.renderSkillList();
     this.setHuman(this.human);
     this.drawCharts(this.panel);
+    if (this.game.reduced) {
+      this.panelView!.setActivations(this.game.acts);
+      this.panelView!.draw(performance.now(), 0);
+    }
   }
 
   /** Called every game frame. */

@@ -1310,3 +1310,7 @@ html:not(.js) .brain-widget {
 .credits__or {
   font-size: 20px;
 }
+html:not(.js) .hud__toggles,
+html:not(.js) .dialog__next {
+  display: none;
+}

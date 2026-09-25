@@ -1,8 +1,8 @@
 /**
  * Offline neuroevolution trainer.
  *
- *   npm run train                 (default: 220 generations)
- *   npm run train -- --gens 400 --pop 120 --seed 7
+ *   npm run train                 (default: 700 generations x 150 brains, ~15 min)
+ *   npm run train -- --gens 100 --pop 80 --seed 7   (quick run)
  *
  * Uses the exact same level generator, physics and network as the
  * browser, trains a population with a genetic algorithm across seeded
@@ -24,8 +24,8 @@ function arg(name: string, fallback: number): number {
   return i >= 0 ? Number(process.argv[i + 1]) : fallback;
 }
 
-const GENS = arg('gens', 220);
-const POP = arg('pop', 100);
+const GENS = arg('gens', 700);
+const POP = arg('pop', 150);
 const SEED = arg('seed', 2026);
 const COLS = 200;
 const layers = [...DEFAULT_LAYERS];

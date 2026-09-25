@@ -121,8 +121,9 @@ initCredits();
 initActiveSection(sectionEls, (i) => game.goTo(i));
 
 if (reduced) {
-  // Static scenes, no animation loop.
+  // Static scenes, no animation loop: draw the game and brain views once.
   game.renderNow();
+  brainUI.frame(performance.now(), 0);
   initDialog();
 } else if (root.classList.contains('intro-pending')) {
   // Draw one frame under the intro so the page is ready when it ends.
