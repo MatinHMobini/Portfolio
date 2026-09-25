@@ -3,6 +3,7 @@
  * the page; this boots the intro, the game layer, the AI brain and all
  * the interactive bits on top of it.
  */
+import './dev/raf-shim.ts';
 import './styles/base.css';
 import './styles/sections.css';
 import './styles/overlays.css';
@@ -67,7 +68,32 @@ const game = new Game(canvas, sectionInfo, net, {
 brain.learn('run', 0);
 
 brainUI = new BrainUI(game, brain, net, champion.meta, champion.history);
-game.onFrame = (now, dt) => brainUI!.frame(now, dt);
+// The hero dialog box floats above the runner's head (wide screens only).
+const dialog = document.getElementById('dialog');
+const hero = document.getElementById('top');
+let dialogY = -1;
+const trackDialog = () => {
+  if (!dialog || !hero || window.innerWidth <= 980 || game.index !== 0 || game.inTransition) return;
+  const hr = hero.getBoundingClientRect();
+  if (hr.bottom < 0) return;
+  const p = game.runnerCss();
+  const dw = dialog.offsetWidth;
+  const dh = dialog.offsetHeight;
+  const target = p.y - dh - 34;
+  dialogY = dialogY < 0 ? target : dialogY + (target - dialogY) * 0.08;
+  const box = (dialog.offsetParent as HTMLElement | null)?.getBoundingClientRect() ?? hr;
+  const left = Math.max(0, Math.min(window.innerWidth - dw - 24, p.x - dw / 2)) - box.left;
+  dialog.style.left = `${Math.round(left)}px`;
+  // Keep it inside the hero section.
+  const y = Math.min(Math.max(hr.top + 90, dialogY), hr.bottom - dh - 40);
+  dialog.style.top = `${Math.round(y - box.top)}px`;
+  dialog.style.right = 'auto';
+  dialog.style.bottom = 'auto';
+};
+game.onFrame = (now, dt) => {
+  brainUI!.frame(now, dt);
+  trackDialog();
+};
 
 // ── Training Lab (created on first open) ──
 let lab: TrainingLab | null = null;
@@ -101,7 +127,7 @@ if (reduced) {
 } else if (root.classList.contains('intro-pending')) {
   // Draw one frame under the intro so the page is ready when it ends.
   game.renderNow();
-  void runIntro({ firstName: content.firstName, touch }).then(() => {
+  void runIntro({ firstName: content.firstName, touch, generations: champion.meta.generations }).then(() => {
     game.start();
     initDialog();
   });

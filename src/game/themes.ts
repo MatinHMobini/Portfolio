@@ -7,7 +7,7 @@ import { TILE } from './constants.ts';
 import type { ThemeId } from './level.ts';
 import { createRng } from './rng.ts';
 import {
-  sprite, MOON_GRID, TORCH_GRID, ORE_GRID, GEAR_GRID, CHIP_GRID, BUSH_GRID, BUBBLE_GRID, PAL,
+  sprite, recolor, MOON_GRID, TORCH_GRID, ORE_GRID, GEAR_GRID, CHIP_GRID, BUSH_GRID, BUBBLE_GRID, PAL,
 } from './sprites.ts';
 
 export interface Theme {
@@ -214,7 +214,7 @@ function makeBackground(id: ThemeId): Theme['background'] {
           rect(ctx, PAL.W, x - 1, y + 1, 3, 1);
         }
         ctx.globalAlpha = 1;
-        ctx.drawImage(moon, Math.round(w * 0.78), Math.max(8, Math.round(groundY - 250)), 32, 32);
+        ctx.drawImage(moon, Math.round(w * 0.6), Math.max(30, Math.round(groundY - 200)), 32, 32);
         tileLayer(ctx, far, w, groundY - 110 + 20, camX * 0.12);
         tileLayer(ctx, near, w, groundY - 70 + 20, camX * 0.25);
       };
@@ -222,10 +222,10 @@ function makeBackground(id: ThemeId): Theme['background'] {
     case 'sky': {
       const farClouds = cloudsLayer(31, 140, 7, '#8B82E0', '#766CD0', 30, 60);
       const nearClouds = cloudsLayer(32, 120, 5, '#E4E0FA', '#B3ADD6', 50, 90);
+      const sun = sprite('sun', recolor(MOON_GRID, { Y: 'W', y: 'L' }), { ...PAL, W: '#FFF3B8', L: '#FFD447' });
       return (ctx, w, h, camX, groundY) => {
         skyBands(ctx, ['#2A2266', '#3B3380', '#4A42A0', '#5B4FC4', '#6F63D6', '#8A7FE0'], w, h);
-        rect(ctx, '#FFD447', Math.round(w * 0.12), Math.max(10, groundY - 230), 18, 18);
-        rect(ctx, '#FFE89A', Math.round(w * 0.12) + 3, Math.max(10, groundY - 230) + 3, 6, 6);
+        ctx.drawImage(sun, Math.round(w * 0.12), Math.max(10, groundY - 230), 24, 24);
         tileLayer(ctx, farClouds, w, groundY - 230, camX * 0.1);
         tileLayer(ctx, nearClouds, w, groundY - 140, camX * 0.3);
       };

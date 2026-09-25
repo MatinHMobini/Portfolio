@@ -137,7 +137,7 @@ main {
   border-top: 0;
   display: flex;
   align-items: flex-start;
-  padding-top: calc(var(--hud-h) + clamp(40px, 9vh, 110px));
+  padding-top: calc(var(--hud-h) + clamp(24px, 6vh, 80px));
 }
 .hero {
   width: 100%;
@@ -1205,16 +1205,15 @@ html:not(.js) .brain-widget {
 /* ─── Toasts & world card ────────────────────────────────────── */
 .toasts {
   position: fixed;
-  top: calc(var(--hud-h) + 16px);
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(var(--hud-h) + 20px);
+  right: var(--gutter);
   z-index: 110;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
   pointer-events: none;
-  width: min(92vw, 560px);
+  width: min(92vw, 460px);
 }
 .toast {
   padding: 14px 20px;
@@ -1295,4 +1294,19 @@ html:not(.js) .brain-widget {
   100% {
     opacity: 0;
   }
+}
+
+/* Keep the floating brain widget clear of the footer bar text. */
+@media (min-width: 701px) {
+  .credits__bar {
+    padding-right: calc(var(--gutter) + 170px);
+  }
+}
+.credits__secret {
+  font-family: var(--font-body);
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+.credits__or {
+  font-size: 20px;
 }

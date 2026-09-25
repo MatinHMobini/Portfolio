@@ -90,3 +90,7 @@ export function sense(r: Runner, level: Level, out: Float32Array = new Float32Ar
   out[7] = clamp(r.vy / 600, -1, 1);
   return out;
 }
+
+/** Compact labels for small screens. */
+export const SENSE_SHORT = ['GAP', 'GAP W', 'ENEMY', 'EN. Y', 'COIN', 'WALL', 'GROUND', 'VEL Y'] as const;
+export const ACTION_SHORT = ['RUN', 'JUMP', '2JUMP', 'DIVE', 'DASH'] as const;

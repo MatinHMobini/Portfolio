@@ -513,3 +513,19 @@
     display: none;
   }
 }
+
+/* Scanlines over the intro so the terminal feels like a CRT. */
+.intro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 2px, transparent 2px 4px);
+}
+@media (min-width: 701px) {
+  .you-play-banner {
+    top: auto;
+    bottom: 28px;
+  }
+}

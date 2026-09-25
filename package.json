@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Pixel Quest: a retro arcade portfolio with a neural-network-driven runner.",
+  "engines": {
+    "node": ">=22.6"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

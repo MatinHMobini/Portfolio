@@ -36,6 +36,7 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--hud-h) + 8px);
@@ -53,6 +54,7 @@ body {
   font-size: 26px;
   line-height: 1.15;
   overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: none;
   text-rendering: optimizeSpeed;
 }
@@ -272,18 +274,27 @@ code {
 }
 
 /* ─── Game canvas + CRT ──────────────────────────────────────── */
-.game {
+/* The wrapper clips the canvas: its integer-scaled size may be a few
+   pixels larger than the viewport, which must never widen the page. */
+.game-wrap {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  overflow: hidden;
+  pointer-events: none;
   display: none;
 }
-.js .game {
+.js .game-wrap {
   display: block;
+}
+.game {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .crt {

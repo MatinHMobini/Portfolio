@@ -7,7 +7,7 @@
  */
 import { weightAt, type Network } from './network.ts';
 import { nodeKey, type BrainState } from './brain-state.ts';
-import { SENSE_NAMES, ACTION_NAMES } from '../game/senses.ts';
+import { SENSE_NAMES, ACTION_NAMES, SENSE_SHORT, ACTION_SHORT } from '../game/senses.ts';
 
 const YELLOW = '#FFD447';
 const PINK = '#FF5C8A';
@@ -73,7 +73,25 @@ export class BrainView {
     this.h = Math.max(10, r.height);
     this.canvas.width = Math.round(this.w * this.dpr);
     this.canvas.height = Math.round(this.h * this.dpr);
+    this.measureLabels();
   }
+
+  /** Widest sense / action label, so labels are never clipped. */
+  private labelW: [number, number] = [100, 100];
+  private measureLabels(): void {
+    const fs = this.opts.fontSize ?? 10;
+    this.ctx.font = `${fs}px "Press Start 2P", monospace`;
+    const widest = (names: readonly string[]) => Math.max(...names.map((n) => this.ctx.measureText(n).width));
+    this.short = this.w < 560;
+    this.labelW = this.short ? [widest(SENSE_SHORT), widest(ACTION_SHORT)] : [widest(SENSE_NAMES), widest(ACTION_NAMES)];
+    // Web fonts may load after the first measure: measure again once ready.
+    if (!this.fontsChecked && document.fonts?.status !== 'loaded') {
+      this.fontsChecked = true;
+      void document.fonts.ready.then(() => this.measureLabels());
+    }
+  }
+  private fontsChecked = false;
+  private short = false;
 
   private visible(l: number, i: number): boolean {
     if (this.opts.showAll || !this.state) return true;
@@ -83,9 +101,9 @@ export class BrainView {
   private pos(l: number, i: number): [number, number] {
     const layers = this.net.layers;
     const labels = this.opts.labels !== false;
+    const padL = labels ? this.labelW[0] + 26 : 14;
+    const padR = labels ? this.labelW[1] + 26 : 14;
     const fs = this.opts.fontSize ?? 10;
-    const padL = labels ? fs * 10.5 : 14;
-    const padR = labels ? fs * 10.5 : 14;
     const padY = Math.max(12, fs * 1.4);
     const x = padL + ((this.w - padL - padR) * l) / (layers.length - 1);
     const n = layers[l];
@@ -190,7 +208,7 @@ export class BrainView {
           ctx.globalAlpha = 1;
         }
         if (this.opts.labels !== false && (l === 0 || l === last)) {
-          const name = l === 0 ? SENSE_NAMES[i] : ACTION_NAMES[i];
+          const name = this.short ? (l === 0 ? SENSE_SHORT[i] : ACTION_SHORT[i]) : l === 0 ? SENSE_NAMES[i] : ACTION_NAMES[i];
           ctx.fillStyle = l === 0 ? MUTED : on ? YELLOW : WHITE;
           ctx.textAlign = l === 0 ? 'right' : 'left';
           ctx.fillText(name, l === 0 ? x - s - 8 : x + s + 8, y + 1);

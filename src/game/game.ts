@@ -134,6 +134,10 @@ export class Game {
     return this.transition ? this.transition.to.index : this.cur.index;
   }
 
+  get inTransition(): boolean {
+    return this.transition !== null;
+  }
+
   get runner(): Runner {
     return this.cur.runner;
   }
@@ -157,8 +161,8 @@ export class Game {
   }
 
   resize(): void {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const vw = document.documentElement.clientWidth || window.innerWidth;
+    const vh = document.documentElement.clientHeight || window.innerHeight;
     const s = this.mobile || vw < 700 ? 2 : Math.max(2, Math.min(4, Math.round(vh / 300)));
     this.scale = s;
     const w = Math.ceil(vw / s);
@@ -170,7 +174,8 @@ export class Game {
     this.canvas.style.height = `${h * s}px`;
     this.ctx.imageSmoothingEnabled = false;
     document.documentElement.style.setProperty('--ground-px', `${2 * TILE * s}px`);
-    if (!this.running) this.render(performance.now(), 0);
+    // (cur is unset during the first resize, called from the constructor.)
+    if (!this.running && this.cur) this.render(performance.now(), 0);
   }
 
   start(): void {
@@ -571,6 +576,13 @@ export class Game {
     }
     const frame = p < 0.86 ? 'jump' : 'idle';
     drawRunnerSprite(ctx, x, y, frame, 1, { rot, squash: p >= 0.86 && this.squashT > 0 ? 0.75 : 1 });
+  }
+
+  /** Runner position (top-centre of the sprite) in viewport CSS pixels. */
+  runnerCss(): { x: number; y: number } {
+    const w = this.transition ? this.transition.to : this.cur;
+    const r = w.runner;
+    return { x: (r.x + RUNNER_W / 2 - w.camX) * this.scale, y: (worldTop(this.view) + r.y) * this.scale };
   }
 
   /** Static screenshot of the current scene (used under reduced motion). */

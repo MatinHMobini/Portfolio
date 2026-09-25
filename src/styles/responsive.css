@@ -330,6 +330,7 @@
     font-size: 24px;
   }
   .contact__links {
+    min-width: 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
@@ -394,7 +395,12 @@
     display: none;
   }
   .toasts {
-    top: calc(var(--hud-h) + 8px);
+    top: auto;
+    bottom: calc(var(--bar-h) + 76px);
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
   }
   .toast {
     font-size: 9px;
@@ -438,5 +444,41 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .about,
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .contact__links .btn {
+    min-width: 0;
+  }
+}
+@media (max-width: 700px) {
+  .contact__links .btn {
+    padding: 0 4px;
+    font-size: 8px;
+  }
+}
+@media (max-width: 700px) {
+  /* Without paint containment Chrome lets the clipped, transformed
+     cartridges widen the page and zooms the phone out. */
+  .carts,
+  .filters {
+    contain: paint;
+  }
+}
+@media (max-width: 700px) {
+  .world-card {
+    padding: 14px 20px;
+    white-space: nowrap;
+  }
+  .world-card__w {
+    font-size: 16px;
+  }
+  .world-card__n {
+    font-size: 9px;
   }
 }

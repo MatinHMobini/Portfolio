@@ -315,7 +315,7 @@ export function renderLevelBar(): string {
 export function renderApp(c: Content): string {
   return [
     '<a class="skip-link" href="#main">SKIP TO CONTENT</a>',
-    '<canvas id="game" class="game" aria-hidden="true"></canvas>',
+    '<div class="game-wrap" aria-hidden="true"><canvas id="game" class="game"></canvas></div>',
     renderHud(c),
     '<main id="main">',
     renderHero(c),

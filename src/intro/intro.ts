@@ -24,19 +24,21 @@ const SEEN_KEY = 'pq.introSeen';
 interface Options {
   firstName: string;
   touch: boolean;
+  /** Champion generation count, shown in the boot log. */
+  generations: number;
 }
 
-const BOOT_LINES = [
+const bootLines = (gens: number) => [
   'LOADING SPRITES........ OK',
   'COMPILING SHADERS...... OK',
   'MOUNTING /PROJECTS..... OK',
   'SPAWNING ENEMIES....... OK',
-  'TRAINING NEURAL NET.... GEN 450 OK',
+  `TRAINING NEURAL NET.... GEN ${gens} OK`,
   'INSERTING COIN......... OK',
   'STARTING WORLD 1-1',
 ];
 
-function drawRoom(ctx: CanvasRenderingContext2D, t: number, monitorOn: number) {
+function drawRoom(ctx: CanvasRenderingContext2D, t: number, monitorOn: number, showCode = true) {
   const r = (c: string, x: number, y: number, w: number, h: number) => {
     ctx.fillStyle = c;
     ctx.fillRect(x, y, w, h);
@@ -105,8 +107,8 @@ function drawRoom(ctx: CanvasRenderingContext2D, t: number, monitorOn: number) {
   if (glow > 0) {
     ctx.globalAlpha = glow;
     r('#12382C', SCREEN.x, SCREEN.y, SCREEN.w, SCREEN.h);
-    for (let i = 0; i < 4; i++) r('#7CFF6B', SCREEN.x + 2, SCREEN.y + 3 + i * 4, 6 + ((i * 7 + Math.floor(t * 6)) % 18), 1);
-    if (Math.floor(t * 2) % 2) r('#7CFF6B', SCREEN.x + 2, SCREEN.y + 18, 3, 2);
+    if (showCode) for (let i = 0; i < 4; i++) r('#7CFF6B', SCREEN.x + 2, SCREEN.y + 3 + i * 4, 6 + ((i * 7 + Math.floor(t * 6)) % 18), 1);
+    if (showCode && Math.floor(t * 2) % 2) r('#7CFF6B', SCREEN.x + 2, SCREEN.y + 18, 3, 2);
     // Light spill on the wall and desk.
     ctx.globalAlpha = 0.12 * glow;
     r('#7CFF6B', 206, 60, 80, 56);
@@ -177,7 +179,7 @@ export function runIntro(opts: Options): Promise<void> {
     window.addEventListener('resize', resize);
 
     type Phase = 'wait' | 'spawn' | 'walk' | 'sit' | 'type' | 'zoom' | 'boot' | 'glitch' | 'done';
-    let phase: Phase = short ? 'boot' : 'wait';
+    let phase: Phase = 'wait';
     let phaseT = 0;
     let last = performance.now();
     let raf = 0;
@@ -186,6 +188,7 @@ export function runIntro(opts: Options): Promise<void> {
     const cmd = `> ./${opts.firstName.toLowerCase()}_portfolio.exe`;
     let typed = 0;
     let bootIdx = 0;
+    const BOOT_LINES = bootLines(opts.generations);
     let zoom = short ? 1 : 0;
 
     const finish = () => {
@@ -248,6 +251,11 @@ export function runIntro(opts: Options): Promise<void> {
       spawn();
     });
     skipBtn.addEventListener('click', finish);
+
+    if (short) {
+      prompt.remove();
+      setPhase('boot');
+    }
 
     const walkDur = 1.3;
     const frame = (now: number) => {
@@ -341,7 +349,7 @@ export function runIntro(opts: Options): Promise<void> {
       }
 
       sctx.imageSmoothingEnabled = false;
-      drawRoom(sctx, t, monitor);
+      drawRoom(sctx, t, monitor, zoom < 0.3);
       if (phase === 'spawn') {
         // Beam of light.
         const q = phaseT / 0.9;
@@ -377,14 +385,14 @@ export function runIntro(opts: Options): Promise<void> {
       ctx.fillStyle = '#07051A';
       ctx.fillRect(0, 0, vw, vh);
       const base = Math.min(vw / SW, vh / SH);
-      const e = zoom < 0.5 ? 2 * zoom * zoom : 1 - Math.pow(-2 * zoom + 2, 2) / 2;
+
       const cz = Math.min(zoom, 1);
       const ez = cz < 0.5 ? 2 * cz * cz : 1 - Math.pow(-2 * cz + 2, 2) / 2;
       const target = (vw * 0.92) / SCREEN.w / base;
       const s = base * (1 + (target - 1) * ez) * (zoom > 1 ? zoom : 1);
       const fx = SW / 2 + (SCREEN.x + SCREEN.w / 2 - SW / 2) * ez;
       const fy = SH / 2 + (SCREEN.y + SCREEN.h / 2 - SH / 2) * ez;
-      void e;
+
       ctx.setTransform(s, 0, 0, s, vw / 2 - fx * s, vh / 2 - fy * s);
       ctx.drawImage(scene, 0, 0);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
