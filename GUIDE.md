@@ -83,23 +83,43 @@ git --version
 ```
 You should see `git version 2.x.x`.
 
-### A4. Tell Git who you are (once per computer)
+### A4. This project uses your personal GitHub only
 
-Git stamps every save ("commit") with a name and email. This computer already has a work identity
-set up (your work account). For your **personal** portfolio you probably want
-your personal GitHub identity. Set it **only for this project** (so work repos are untouched):
+This project is tied to your **personal** GitHub account, **MatinHMobini**, and never your work
+account. It's already set up **inside this project folder only** (your other repos are untouched):
+
+| Setting | Value | Why |
+| --- | --- | --- |
+| `user.name` | `MatinHMobini` | name on every commit |
+| `user.email` | `hmobinimatin@gmail.com` | email on every commit |
+| `user.useConfigOnly` | `true` | Git refuses to commit if this project's identity is missing, instead of silently falling back to another one |
+| `credential.https://github.com.username` | `MatinHMobini` | when pushing, Git asks for / uses the MatinHMobini login, not another saved GitHub login |
+
+All existing commits are authored by `MatinHMobini <hmobinimatin@gmail.com>`.
+
+Check it any time from the project folder:
 
 ```
 cd C:\Users\mobin\Projects\Portfolio
-git config user.name "Matin Mobini"
-git config user.email "your-github-email@example.com"
+git config --local --list
+git log --format="%an <%ae>"
 ```
 
-Use the email your GitHub account uses (GitHub → Settings → Emails). If you prefer to keep that
-private, GitHub gives you a `…@users.noreply.github.com` address on that same page.
+You should only ever see `MatinHMobini` / `hmobinimatin@gmail.com`.
 
-> The commits already in this project were made with the computer's configured identity
-> (a work account). That's fine; new commits will use what you set above.
+> **Keep your email private (optional):** GitHub → Settings → Emails gives you a
+> `…@users.noreply.github.com` address. To use it here:
+> `git config user.email "12345+MatinHMobini@users.noreply.github.com"` (your real number is on
+> that page). New commits will use it.
+
+> **If you clone this project somewhere else,** these settings don't travel with it. Run the same
+> commands in the new folder:
+> ```
+> git config user.name "MatinHMobini"
+> git config user.email "hmobinimatin@gmail.com"
+> git config user.useConfigOnly true
+> git config credential.https://github.com.username MatinHMobini
+> ```
 
 ---
 
@@ -425,10 +445,15 @@ In a PowerShell or VS Code terminal:
 
 ```
 cd C:\Users\mobin\Projects
-git clone https://github.com/MatinHMobini/Portfolio.git Portfolio-old
+git clone https://MatinHMobini@github.com/MatinHMobini/Portfolio.git Portfolio-old
 cd Portfolio-old
+git config user.name "MatinHMobini"
+git config user.email "hmobinimatin@gmail.com"
 git branch -a
 ```
+
+The `MatinHMobini@` in the address tells Git which GitHub account to log in as, so it can't pick
+up any other GitHub login saved on this computer.
 
 `git branch -a` lists the branches. Note which one has a `*` (usually `main`) and whether there is a
 `remotes/origin/gh-pages` (that would be the built old site). Now save the old source as a branch
@@ -439,8 +464,15 @@ git checkout -b old-site
 git push -u origin old-site
 ```
 
-Git may open a browser window asking you to sign in to GitHub: sign in and authorise. Check on
-GitHub: your repo's branch dropdown now shows **old-site**. The old code is safe forever.
+Git may open a browser window asking you to sign in to GitHub. **Make sure it says MatinHMobini
+before you click Authorize.** If that browser is signed in to your work GitHub, sign out of it
+there first, or copy the sign-in link into a private/incognito window and sign in as MatinHMobini.
+Check on GitHub: your repo's branch dropdown now shows **old-site**. The old code is safe forever.
+
+> **If Git ever pushes as the wrong account** (you get "Permission denied to <another account>" or
+> similar), remove the saved GitHub login and try again: Start menu → **Credential Manager** →
+> **Windows Credentials** → find `git:https://github.com` (and any `git:https://…@github.com`) →
+> **Remove**. The next push will ask you to sign in; choose **MatinHMobini**.
 
 **Option 2 (extra): a ZIP.** On https://github.com/MatinHMobini/Portfolio click the green **Code**
 button → **Download ZIP**, and keep the file somewhere safe.
@@ -466,7 +498,7 @@ git commit -m "My edits"
 Now connect and combine:
 
 ```
-git remote add origin https://github.com/MatinHMobini/Portfolio.git
+git remote add origin https://MatinHMobini@github.com/MatinHMobini/Portfolio.git
 git fetch origin
 git merge origin/main --allow-unrelated-histories -s ours -m "Replace old portfolio with Pixel Quest"
 ```
@@ -534,7 +566,9 @@ ever rename the repository, change `base` to `'/NewName/'` (or `'/'` for a repo 
 4. GitHub Actions rebuilds and redeploys automatically (Actions tab). Live in ~2 minutes.
 
 You can also use VS Code's **Source Control** panel (the branch icon on the left): type a message,
-click **✓ Commit**, then **Sync Changes**.
+click **✓ Commit**, then **Sync Changes**. If VS Code asks to sign in to GitHub, or if the
+**Accounts** icon (bottom-left person icon) shows your work account, sign out of it there and sign
+in as **MatinHMobini**, or just use the terminal commands above.
 
 ### H2. Troubleshooting
 
