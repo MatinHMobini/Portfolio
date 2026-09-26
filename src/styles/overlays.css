@@ -274,11 +274,21 @@
   border: 2px solid var(--dark);
   background: var(--bg-deep);
 }
+.bp {
+  align-items: start;
+}
+/* The explanation sits under the diagram, beside the buttons. */
 .bp__how {
-  margin: 20px 0 0;
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  border: 2px solid var(--dark);
+  background: var(--bg-deep);
   font-size: 23px;
   line-height: 1.2;
   color: var(--body);
+}
+.bp + .skills-box--wide {
+  margin-top: 18px;
 }
 
 /* ─── Training Lab ───────────────────────────────────────────── */

@@ -19,6 +19,8 @@ export interface Job {
   tech: string[];
   /** School rather than a job: not counted in the hero's JOBS stat. */
   education?: boolean;
+  /** Small tag under the company name, e.g. "CO-OP". */
+  type?: string;
 }
 
 export type ProjectCategory = 'WEB' | 'MOBILE' | 'AI/ML' | 'GAMES & ALGOS';
@@ -55,8 +57,9 @@ export interface Quest {
 export const content = {
   name: 'MATIN MOBINI',
   firstName: 'matin',
-  fullName: 'Matin Hassanzadeh Mobini',
-  gamertag: 'MATINHM',
+  /** Name used in page metadata and image descriptions. */
+  fullName: 'Matin Mobini',
+  gamertag: 'MATINM',
   role: 'CS STUDENT @ UOTTAWA',
   builds: 'AI/ML, WEB & ANDROID APPS',
   /**
@@ -66,7 +69,6 @@ export const content = {
   dialog: [
     "HI! I'M MATIN. I BUILD AI/ML, WEB & ANDROID APPS.",
     'I STUDY COMPUTER SCIENCE AT UOTTAWA, CONCENTRATING IN AI & ML.',
-    'BY DAY I BUILD DATA SCIENCE TOOLS AT HEALTH CANADA.',
     "FUN FACT: I'M NOT PRESSING ANY BUTTONS. A NEURAL NET IS PLAYING ME.",
     "IF I FALL IN A PIT, THAT'S NOT A BUG. IT'S A LEARNING OPPORTUNITY.",
     'I TRAINED FOR HUNDREDS OF GENERATIONS AND STILL FORGET TO JUMP SOMETIMES.',
@@ -81,9 +83,9 @@ export const content = {
   likes: 'GAMING, BASKETBALL, GYM',
   bio:
     'A passionate developer with a knack for problem solving and teamwork. ' +
-    'Honours Computer Science at the University of Ottawa with a concentration in AI & Machine ' +
-    "Learning (GPA 3.9/4.0, four-time Dean's Honour List). I build software for data science and " +
-    'analytics at Health Canada, and level up in AI/ML, web and Android development.',
+    'Honours Computer Science at the University of Ottawa (GPA 3.9/4.0), ' +
+    "nine-time Dean's Honour List and a Merit Scholarship. Levels up in Artificial " +
+    'Intelligence & Machine Learning, Web Development and Android Development.',
   stats: [
     { label: 'GPA', value: '3.9/4' },
     { label: 'PROJECTS', value: '' /* filled in automatically */ },
@@ -132,26 +134,41 @@ export const content = {
     { name: 'CROPPILOT', text: 'An autonomous robot for crop detection, precision harvesting and storage organization.' },
   ] as Quest[],
 
+  /** Newest first. Leave achievements/tech empty and the row shows no details. */
   experience: [
     {
-      team: 'HEALTH CANADA',
-      role: 'SOFTWARE DEVELOPER, DATA SCIENCE & ANALYTICS',
-      years: 'MAY 2025-NOW',
-      achievements: [
-        'Engineered a scalable, automated Case Management Tool used across multiple government branches, replacing legacy systems and unifying workflows and information storage organization-wide',
-        'Integrating an intelligent local decision assistant into the tool: it analyzes complex JSON datasets, recommends optimal solutions in real time and answers questions about protected or online data',
-      ],
-      tech: ['Software Development', 'AI / ML', 'Data Science', 'Automation'],
+      team: 'ADAPTRON INC.',
+      type: 'CO-OP',
+      role: 'AI RESEARCH & ROBOTICS ENGINEER',
+      years: 'MAY 2026-NOW',
+      // [PLACEHOLDER] Add what you work on at Adaptron (bullets) and the tools you use.
+      achievements: [],
+      tech: [],
     },
     {
       team: 'HEALTH CANADA',
+      type: 'CO-OP',
+      role: 'SOFTWARE DEVELOPER, DATA SCIENCE & ANALYTICS',
+      years: 'MAY 2025-JAN 2026',
+      achievements: [
+        'Engineered a scalable, multi-government-branch automated Case Management Tool, expanding across branches with the vision to supersede legacy systems and unify workflows and information storage organization-wide',
+        'Integrated an intelligent local decision assistant into the tool that analyzes proprietary, complex JSON datasets and recommends optimal solutions in real time, while answering inquiries about protected or online data',
+        'Worked independently on multiple concurrent projects with Python, SQL and data processing libraries in a hybrid government environment',
+      ],
+      tech: ['Python', 'SQL', 'Machine Learning', 'Lead Developer', 'Data Processing'],
+    },
+    {
+      team: 'HEALTH CANADA',
+      type: 'CO-OP',
       role: 'JUNIOR ANALYST, DATA SCIENCE & ANALYTICS',
       years: 'JAN-APR 2025',
       achievements: [
-        'Engineered a chemistry identification tool that runs 881 substructure tests on molecules to generate binary fingerprints, helping chemists identify and understand undocumented compounds',
-        'Built ChemPath, an app that visualizes and analyzes chemical synthesis pathways, used to inform officers about potentially hazardous molecules such as fentanyl and methamphetamine',
+        'Engineered a chemistry identification tool that runs 881 substructure tests on molecular data to generate binary fingerprints, helping chemists identify and understand undocumented compounds',
+        'Developed ChemPath, an app for visualizing and analyzing chemical synthesis pathways, used to inform officers about potentially hazardous molecules such as fentanyl and methamphetamine',
+        'Worked independently on multiple concurrent projects with Python, SQL and data processing libraries',
+        'Collaborated with chemists and data analysts so the tools met scientific and operational requirements',
       ],
-      tech: ['Data Science', 'Cheminformatics', 'Data Visualization'],
+      tech: ['Python', 'SQL', 'Data Science', 'Cheminformatics'],
     },
     {
       team: 'CRISPERME (STARTUP)',
@@ -170,7 +187,7 @@ export const content = {
       education: true,
       achievements: [
         'Concentration in Artificial Intelligence & Machine Learning',
-        "GPA 3.9 / 4.0, four-time Dean's Honour List, Merit Scholarship",
+        "GPA 3.9 / 4.0, nine-time Dean's Honour List, Merit Scholarship",
         'Vice President of HKFC, a uOttawa student club',
         'Coursework: data structures & algorithms, OOP, computer architecture, programming paradigms, probability & statistics, databases',
       ],

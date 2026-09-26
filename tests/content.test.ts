@@ -32,12 +32,11 @@ describe('content.ts data shape', () => {
     }
   });
 
-  it('has experience entries with achievements', () => {
+  it('has experience entries (details may be left empty for later)', () => {
     expect(content.experience.length).toBeGreaterThan(0);
-    for (const j of content.experience) {
-      expect(j.team && j.role && j.years).toBeTruthy();
-      expect(j.achievements.length).toBeGreaterThan(0);
-    }
+    for (const j of content.experience) expect(j.team && j.role && j.years).toBeTruthy();
+    // Past roles all have details; only the current role may still be empty.
+    for (const j of content.experience.slice(1)) expect(j.achievements.length).toBeGreaterThan(0);
   });
 
   it('has projects with unique ids, valid links and existing screenshots', () => {
@@ -142,5 +141,30 @@ describe('resume-based content', () => {
     const hud = html.slice(html.indexOf('<header class="hud"'), html.indexOf('</header>'));
     expect(hud).toContain(content.links.linkedin);
     expect(hud).toContain(content.links.github);
+  });
+});
+
+describe('latest profile details', () => {
+  const html = renderApp(content);
+
+  it('lists Adaptron first as the current role, with an empty details slot', () => {
+    expect(content.experience[0].team).toMatch(/ADAPTRON/);
+    expect(content.experience[0].years).toMatch(/NOW/);
+    expect(content.experience[0].achievements).toHaveLength(0);
+    // Plain row (no expand button) while it has no details.
+    expect(html).toContain('<div class="score__row"><span class="score__rank">1ST</span>');
+  });
+
+  it('shows Health Canada as a past role', () => {
+    const hc = content.experience.filter((j) => j.team === 'HEALTH CANADA');
+    expect(hc).toHaveLength(2);
+    expect(hc.every((j) => !/NOW/.test(j.years))).toBe(true);
+  });
+
+  it('uses Matin Mobini and the MATINM player name', () => {
+    expect(content.gamertag).toBe('MATINM');
+    expect(content.fullName).toBe('Matin Mobini');
+    expect(html).not.toContain('Hassanzadeh');
+    expect(content.dialog.some((l) => /HEALTH CANADA/.test(l))).toBe(false);
   });
 });

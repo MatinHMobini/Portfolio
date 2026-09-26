@@ -1496,3 +1496,11 @@ html:not(.js) .dialog__next {
   font-size: 26px;
   line-height: 1.1;
 }
+
+.score__type {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--pink);
+}

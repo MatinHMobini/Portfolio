@@ -151,11 +151,12 @@ export function renderExperience(c: Content): string {
       const ach = j.achievements.map((a) => `<li>+ ${esc(a)}</li>`).join('');
       const tech = j.tech.map((t) => `<li>${esc(t)}</li>`).join('');
       const now = /NOW/.test(j.years);
+      const cells = `<span class="score__rank">${ordinal(i + 1)}</span><span class="score__team">${esc(j.team)}${j.type ? `<small class="score__type">${esc(j.type)}</small>` : ''}</span><span class="score__role">${esc(j.role)}</span><span class="score__years">${esc(j.years)}${now ? '<span class="blink" aria-hidden="true">_</span>' : ''}</span>`;
+      // A job with no details yet is a plain row (nothing to expand).
+      if (!ach && !tech) return `<li class="score${i === 0 ? ' is-top' : ''}"><div class="score__row">${cells}</div></li>`;
       return `<li class="score${i === 0 ? ' is-top' : ''}">
-        <button class="score__row" type="button" aria-expanded="true" aria-controls="${id}">
-          <span class="score__rank">${ordinal(i + 1)}</span><span class="score__team">${esc(j.team)}</span><span class="score__role">${esc(j.role)}</span><span class="score__years">${esc(j.years)}${now ? '<span class="blink" aria-hidden="true">_</span>' : ''}</span>
-        </button>
-        <div class="score__more" id="${id}"><ul class="score__ach">${ach}</ul><ul class="chips chips--sm">${tech}</ul></div>
+        <button class="score__row" type="button" aria-expanded="true" aria-controls="${id}">${cells}</button>
+        <div class="score__more" id="${id}">${ach ? `<ul class="score__ach">${ach}</ul>` : ''}${tech ? `<ul class="chips chips--sm">${tech}</ul>` : ''}</div>
       </li>`;
     })
     .join('');

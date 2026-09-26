@@ -96,7 +96,11 @@ export function initNavigation(game: Game, sections: HTMLElement[]): void {
     game.hop();
     a.closest('.wm')?.querySelectorAll('.wm__node').forEach((n) => n.classList.toggle('is-here', n === a));
     window.setTimeout(() => {
-      target.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+      // Land with the page's title block just under the HUD (not the section's padded edge).
+      const head = idx === 0 ? null : target.querySelector<HTMLElement>('.level__head, .contact__left');
+      const hudH = document.getElementById('hud')?.offsetHeight ?? 0;
+      const top = head ? head.getBoundingClientRect().top + window.scrollY - hudH - 24 : 0;
+      window.scrollTo({ top: Math.max(0, top), behavior: reduced() ? 'auto' : 'smooth' });
       history.replaceState(null, '', `#${target.id}`);
     }, reduced() ? 0 : 320);
   });

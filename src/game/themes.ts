@@ -225,7 +225,9 @@ function makeBackground(id: ThemeId): Theme['background'] {
       const sun = sprite('sun', recolor(MOON_GRID, { Y: 'W', y: 'L' }), { ...PAL, W: '#FFF3B8', L: '#FFD447' });
       return (ctx, w, h, camX, groundY) => {
         skyBands(ctx, ['#2A2266', '#3B3380', '#4A42A0', '#5B4FC4', '#6F63D6', '#8A7FE0'], w, h);
-        ctx.drawImage(sun, Math.round(w * 0.12), Math.max(10, groundY - 230), 24, 24);
+        // Top-right open sky, clear of the page title.
+        if (w < 350) ctx.drawImage(sun, w - 36, 36, 24, 24);
+        else ctx.drawImage(sun, Math.round(w * 0.56), Math.max(12, groundY - 250), 24, 24);
         tileLayer(ctx, farClouds, w, groundY - 230, camX * 0.1);
         tileLayer(ctx, nearClouds, w, groundY - 140, camX * 0.3);
       };

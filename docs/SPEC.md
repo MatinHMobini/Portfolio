@@ -272,7 +272,7 @@ and `npm run preview` under `/Portfolio/`.
 | `content.ts` → `formspreeId` | empty → mailto fallback until you create a Formspree form |
 | `public/cv.pdf` | a one-page placeholder PDF; replace with your real CV |
 | Project screenshots | Pixel Quest, Gambling Buddy, Segmentation Lab, HKFC, Parking Lot, Path Finder have none (pixel initials shown) |
-| Gamertag | `MATINHM` (from the GitHub handle) |
+| Gamertag | `MATINM` (Matin Mobini) |
 
 Real content came from the old site (name, bio, GPA, Dean's Honour List, Merit Scholarship,
 CrisperMe and Shoppers Drug Mart experience, the four projects and their screenshots, photo,
@@ -321,3 +321,18 @@ READMEs). The phone number on the old site was intentionally not copied.
 - The skills counter uses the body font (the pixel font made 8 look like 0).
 - LinkedIn and GitHub icon links in the HUD, right of SND and CRT (the WORLD cell is hidden on
   phones to make room; the bottom bar shows the current page).
+
+## 17. Owner updates (2026-09-26, round 2)
+
+- Experience from the owner's LinkedIn text: Adaptron Inc., AI Research & Robotics Engineer (co-op,
+  May 2026 to now) is the current role, with details left empty for the owner to fill in (a job with
+  no achievements/tech renders as a plain row with nothing to expand). Health Canada is now past
+  (May 2025 to Jan 2026 and Jan to Apr 2025) with the LinkedIn bullets. A \`type\` field shows a small
+  CO-OP tag under the company.
+- Bio restored to the earlier wording, with nine-time Dean's Honour List and AI & Machine Learning.
+- Player name MATINM; \`fullName\` is "Matin Mobini" (used in page metadata and the photo's alt text).
+- Removed the "by day I build data science tools at Health Canada" dialog line.
+- Brain popup: the explanation text sits under the network diagram, beside the buttons; the skills
+  box moved up.
+- World map / PRESS START / level bar scroll so the page's title block lands just under the HUD.
+- The sky world's sun moved away from the page title (top-right corner on phones).

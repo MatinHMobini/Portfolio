@@ -163,7 +163,10 @@ export class BrainUI {
         <div class="modal__head"><h2 class="modal__title" id="bp-title">BRAIN · <span data-brain="mode">AI DRIVING</span></h2><button class="modal__close" type="button" aria-label="Close brain panel">✕</button></div>
         <div class="modal__body">
           <div class="bp">
-            <canvas class="bp__canvas" role="img" aria-label="Live neural network diagram"></canvas>
+            <div class="bp__main">
+              <canvas class="bp__canvas" role="img" aria-label="Live neural network diagram"></canvas>
+              <p class="bp__how">This is the real network steering the runner right now: ${this.meta.params} weights, evolved for ${this.meta.generations} generations. It finished ${this.meta.holdout.finished} of ${this.meta.holdout.levels} levels it had never seen during training. New pathways appear the first time you see the runner use a skill.</p>
+            </div>
             <div class="bp__side">
               <div class="readouts"><dl>
                 <dt>GENERATION</dt><dd data-brain="gen"></dd>
@@ -184,7 +187,6 @@ export class BrainUI {
             <p class="skills-box__hint">Each one unlocks the first time you see the runner do it.</p>
             <ul class="skill-list" data-brain="skill-list"></ul>
           </div>
-          <p class="bp__how">This is the real network steering the runner right now: ${this.meta.params} weights, evolved for ${this.meta.generations} generations. It finished ${this.meta.holdout.finished} of ${this.meta.holdout.levels} levels it had never seen during training. New pathways appear the first time you see the runner use a skill.</p>
         </div>`;
       document.body.appendChild(d);
       d.querySelector('.modal__close')!.addEventListener('click', () => d.close());
