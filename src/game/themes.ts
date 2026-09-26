@@ -212,7 +212,9 @@ function makeBackground(id: ThemeId): Theme['background'] {
           rect(ctx, PAL.W, x - 1, y + 1, 3, 1);
         }
         ctx.globalAlpha = 1;
-        ctx.drawImage(moon, Math.round(w * 0.6), Math.max(30, Math.round(groundY - 200)), 32, 32);
+        // Narrow (phone) screens: tuck the moon in the top-right corner, clear of the text.
+        if (w < 350) ctx.drawImage(moon, w - 44, 36, 32, 32);
+        else ctx.drawImage(moon, Math.round(w * 0.6), Math.max(30, Math.round(groundY - 200)), 32, 32);
         tileLayer(ctx, far, w, groundY - 110 + 20, camX * 0.12);
         tileLayer(ctx, near, w, groundY - 70 + 20, camX * 0.25);
       };

@@ -90,9 +90,28 @@ const trackDialog = () => {
   dialog.style.right = 'auto';
   dialog.style.bottom = 'auto';
 };
+// Rare enemy jokes: a speech bubble that follows the talking enemy.
+const quipEl = document.getElementById('quip')!;
+let quipText = '';
+const trackQuip = () => {
+  const q = game.quipCss();
+  if (!q) {
+    quipEl.classList.remove('is-on');
+    return;
+  }
+  if (q.text !== quipText) {
+    quipText = q.text;
+    quipEl.textContent = q.text;
+  }
+  const w = quipEl.offsetWidth;
+  const x = Math.max(8, Math.min(window.innerWidth - w - 8, q.x - w / 2));
+  quipEl.style.transform = `translate(${Math.round(x)}px, ${Math.round(q.y - quipEl.offsetHeight - 14)}px)`;
+  quipEl.classList.add('is-on');
+};
 game.onFrame = (now, dt) => {
   brainUI!.frame(now, dt);
   trackDialog();
+  trackQuip();
 };
 
 // ── Training Lab (created on first open) ──
@@ -108,7 +127,23 @@ brainUI.onOpenLab = async () => {
 
 // ── YOU PLAY secret ──
 const youPlay = new YouPlay(game, hud.heartsButton);
-youPlay.onChange = (on) => brainUI!.setHuman(on);
+brainUI.onYouPlay = () => youPlay.enter();
+
+// On phones the ground sits above the bottom level bar (and above the
+// touch D-pad in YOU PLAY) so the runner is never hidden behind them.
+const hasTouchPad = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const updateInset = () => {
+  const phone = window.innerWidth <= 700;
+  const bar = phone ? 68 : 0;
+  const pad = youPlay.active && hasTouchPad ? 96 : 0;
+  game.setBottomInset(bar + pad);
+};
+youPlay.onChange = (on) => {
+  brainUI!.setHuman(on);
+  updateInset();
+};
+window.addEventListener('resize', updateInset);
+updateInset();
 
 // ── Sections ──
 initNavigation(game, sectionEls);
@@ -131,10 +166,12 @@ if (reduced) {
   void runIntro({ firstName: content.firstName, touch, generations: champion.meta.generations }).then(() => {
     game.start();
     initDialog();
+    brainUI!.startTips();
   });
 } else {
   game.start();
   initDialog();
+  brainUI.startTips();
 }
 
 // Friendly console easter egg for curious devs.
@@ -143,3 +180,6 @@ console.log(
   'font: 16px monospace; color: #FFD447; background: #100C26; padding: 4px 8px',
   'color: #B3ADD6',
 );
+
+// Dev-only handle for testing in the browser console (removed from production builds).
+if (import.meta.env.DEV) (window as unknown as { __pq: unknown }).__pq = { game, brainUI, youPlay };

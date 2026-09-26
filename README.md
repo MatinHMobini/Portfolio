@@ -7,12 +7,12 @@ Live: https://matinhmobini.github.io/Portfolio/
 
 ```
 World 0   Intro       pixel bedroom → spawn → terminal → ./matin_portfolio.exe → boot
-World 1-1 Hero        night overworld, HUD, world map, typewriter dialog
-World 1-2 Status      sky level: about, photo, skill bars that level up, quests
-World 1-3 High Scores underground mine: work experience as an arcade table
-World 1-4 Cartridges  tech factory with conveyor belts: projects as game cartridges
-World 1-5 Neural Net  circuit world: the live brain, ML readouts, Training Lab
-World 1-6 Continue?   boss castle with lava: countdown + contact form
+World 1   Home        night overworld, HUD, world map, typewriter dialog
+World 2   About       sky level: photo, bio, skill bars that level up, quests
+World 3   Experience  underground mine: work experience as an arcade table
+World 4   Projects    tech factory with conveyor belts: projects as game cartridges
+World 5   Neural Net  circuit world: the live brain, ML readouts, Training Lab
+World 6   Continue?   boss castle with lava: countdown + contact form
 ```
 
 ## Quick start

@@ -307,7 +307,7 @@ main {
   padding: 6px;
 }
 
-/* ─── 1-2 STATUS ─────────────────────────────────────────────── */
+/* ─── 2 ABOUT ──────────────────────────────────────────────── */
 .about {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -469,7 +469,7 @@ main {
   }
 }
 
-/* ─── 1-3 HIGH SCORES ────────────────────────────────────────── */
+/* ─── 3 EXPERIENCE ─────────────────────────────────────────── */
 .scores {
   max-width: 1040px !important;
 }
@@ -555,7 +555,7 @@ main {
   color: var(--yellow);
 }
 
-/* ─── 1-4 SELECT CARTRIDGE ───────────────────────────────────── */
+/* ─── 4 PROJECTS ────────────────────────────────────── */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -1165,25 +1165,50 @@ main {
   z-index: 70;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 56px;
-  padding: 8px 14px 8px 8px;
+  gap: 12px;
+  min-height: 76px;
+  padding: 10px 18px 10px 10px;
   background: var(--panel);
   border: 4px solid var(--text);
   box-shadow:
     0 0 0 4px var(--bg),
     0 0 0 8px var(--pink);
   font-family: var(--font-display);
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--pink);
+  text-align: left;
+  animation: widget-pulse 1.8s steps(6) infinite;
 }
 .brain-widget canvas {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   image-rendering: pixelated;
+}
+.brain-widget__label small {
+  display: block;
+  font-size: 8px;
+  color: var(--muted);
 }
 .brain-widget:hover {
   transform: translateY(-3px);
+  animation-play-state: paused;
+}
+/* Glowing ring that grows and fades, like a power-up. */
+@keyframes widget-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px var(--bg),
+      0 0 0 8px var(--pink),
+      0 0 0 8px rgba(255, 92, 138, 0);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px var(--bg),
+      0 0 0 8px var(--yellow),
+      0 0 0 18px rgba(255, 212, 71, 0.25);
+  }
 }
 .brain-widget.is-learning {
   animation: widget-ping 0.8s steps(4);
@@ -1200,6 +1225,49 @@ main {
 }
 html:not(.js) .brain-widget {
   display: none;
+}
+/* Speech bubble explaining the button. */
+.brain-tip {
+  position: absolute;
+  right: -4px;
+  bottom: calc(100% + 22px);
+  width: 250px;
+  padding: 12px 14px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 9px;
+  line-height: 1.7;
+  text-align: left;
+  box-shadow: 4px 4px 0 var(--pink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.25s steps(3),
+    transform 0.25s steps(3);
+}
+.brain-tip::after {
+  content: '';
+  position: absolute;
+  right: 34px;
+  bottom: -12px;
+  border: 6px solid transparent;
+  border-top-color: var(--text);
+  border-left-color: var(--text);
+}
+.brain-tip b {
+  color: var(--pink);
+  font-weight: 400;
+}
+.brain-widget.has-tip .brain-tip {
+  opacity: 1;
+  transform: none;
+  animation: bob 1.2s steps(2) 0.3s infinite;
+}
+.brain-widget:hover .brain-tip {
+  opacity: 1;
+  transform: none;
 }
 
 /* ─── Toasts & world card ────────────────────────────────────── */
@@ -1313,4 +1381,73 @@ html:not(.js) .brain-widget {
 html:not(.js) .hud__toggles,
 html:not(.js) .dialog__next {
   display: none;
+}
+
+/* ─── Skills box (neural net section + brain popup) ─────────── */
+.skills-box__title {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--bg);
+}
+.skills-box__title span {
+  color: var(--pink);
+  margin-left: 6px;
+}
+.skills-box__hint {
+  margin: 0 0 12px;
+  font-size: 21px;
+  line-height: 1.1;
+  color: var(--muted);
+  text-shadow: 2px 2px 0 var(--bg);
+}
+.skills-box--wide {
+  margin-top: 22px;
+}
+.skills-box--wide .skill-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.brain__ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn--pink {
+  background: var(--pink) !important;
+  box-shadow: 4px 4px 0 var(--yellow) !important;
+}
+
+/* ─── Enemy speech bubble (rare jokes) ──────────────────────── */
+.quip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  max-width: 240px;
+  padding: 8px 10px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 9px;
+  line-height: 1.6;
+  box-shadow: 3px 3px 0 var(--bg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s steps(2);
+  will-change: transform;
+}
+.quip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+}
+.quip.is-on {
+  opacity: 1;
 }

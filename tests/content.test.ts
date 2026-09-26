@@ -82,3 +82,32 @@ describe('build-time HTML renderer', () => {
     for (const id of ['f-name', 'f-email', 'f-msg']) expect(html).toContain(`for="${id}"`);
   });
 });
+
+describe('page wording and layout choices', () => {
+  const html = renderApp(content);
+
+  it('has no PLAY links on projects, only VIEW CODE', () => {
+    expect(html).not.toContain('▶ PLAY<');
+    expect(html).toContain('VIEW CODE');
+  });
+
+  it('starts every experience row open', () => {
+    expect(html).not.toMatch(/class="score__more"[^>]*hidden/);
+    expect(html).not.toContain('aria-expanded="false"');
+  });
+
+  it('numbers pages 1 to 6 (no "1-N")', () => {
+    expect(SECTIONS.map((s) => s.world)).toEqual(['1', '2', '3', '4', '5', '6']);
+    expect(html).not.toMatch(/WORLD 1-\d/);
+  });
+
+  it('uses plain page titles for about, experience and projects', () => {
+    for (const t of ['>ABOUT</h2>', '>EXPERIENCE</h2>', '>PROJECTS</h2>', '>NEURAL NET</h2>', '>CONTINUE?</h2>']) expect(html).toContain(t);
+  });
+
+  it('offers PLAY IT YOURSELF and labels the skill boxes', () => {
+    expect(html).toContain('data-you-play');
+    expect(html).toContain('SKILLS THE AI HAS SHOWN YOU');
+    expect(html).not.toContain('MORE AI / ML LOOT');
+  });
+});

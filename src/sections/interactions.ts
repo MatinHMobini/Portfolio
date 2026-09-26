@@ -119,7 +119,7 @@ export function initActiveSection(sections: HTMLElement[], onChange: (idx: numbe
   check();
 }
 
-// ─── 1-2 STATUS: skill bars + photo reveal ────────────────────────
+// ─── 2 ABOUT: skill bars + photo reveal ────────────────────────
 export function initStatus(): void {
   const list = document.querySelector('.skills');
   if (list) {
@@ -193,7 +193,7 @@ export function initStatus(): void {
   }
 }
 
-// ─── 1-3 HIGH SCORES ──────────────────────────────────────────────
+// ─── 3 EXPERIENCE ──────────────────────────────────────────────
 export function initScores(): void {
   document.querySelectorAll<HTMLButtonElement>('.scores button.score__row').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -206,7 +206,7 @@ export function initScores(): void {
   });
 }
 
-// ─── 1-4 SELECT CARTRIDGE ─────────────────────────────────────────
+// ─── 4 PROJECTS ─────────────────────────────────────────
 export function initCartridges(content: Content): void {
   const wrap = document.getElementById('carts');
   if (!wrap) return;
@@ -319,8 +319,7 @@ export function openProject(p: Project, returnFocus?: HTMLElement): void {
           <p class="k-label">TECH</p>
           <ul class="chips">${p.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
           <div class="pm__btns">
-            ${p.playUrl ? `<a class="btn btn--primary btn--sm" href="${esc(p.playUrl)}" target="_blank" rel="noopener">▶ PLAY${ext}</a>` : ''}
-            ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">CODE${ext}</a>` : ''}
+            ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${ext}</a>` : ''}
           </div>
         </div>
       </div>

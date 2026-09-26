@@ -31,7 +31,7 @@ export interface Project {
   tech: string[];
   /** Screenshot paths inside /public. Leave empty for a pixel-art placeholder. */
   screenshots: string[];
-  /** Live demo link (▶ PLAY). Leave empty to hide the button. */
+  /** Live demo link. Not shown on the site at the moment (only VIEW CODE is). */
   playUrl?: string;
   /** Source code link (CODE). */
   codeUrl?: string;
@@ -61,20 +61,21 @@ export const content = {
   ],
   location: 'OTTAWA, CANADA',
   className: 'HONOURS CS STUDENT',
-  likes: '[PLACEHOLDER: GAMES, HOBBIES]',
+  likes: 'GAMING, BASKETBALL, GYM',
   bio:
     'A passionate developer with a knack for problem solving and teamwork. ' +
     'Honours Computer Science at the University of Ottawa (GPA 3.9/4.0), ' +
     "Dean's Honour List and a Merit Scholarship. Levels up in Artificial " +
     'Intelligence, Web Development and Android Development.',
   stats: [
-    { label: 'GPA', value: '3.9' },
+    { label: 'GPA', value: '3.9/4' },
     { label: 'PROJECTS', value: '' /* filled in automatically */ },
     { label: 'JOBS', value: '' /* filled in automatically */ },
   ],
 
   photo: 'photo.jpg',
   cv: 'cv.pdf',
+  cvLabel: "LOAD MATIN'S RESUME",
 
   openTo: 'INTERNSHIPS / FULL-TIME / FREELANCE',
   wantedRole: 'SOFTWARE / AI DEV',

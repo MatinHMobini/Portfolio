@@ -215,10 +215,10 @@ Portfolio/
 ├─ .github/workflows/
 │  └─ deploy.yml           GitHub Actions: tests, builds and publishes the site on every push to main.
 ├─ public/                 Files copied as-is to the site.
-│  ├─ photo.jpg            Your photo (STATUS section).
-│  ├─ cv.pdf               Your CV (SAVE CV.PDF button). Currently a placeholder!
+│  ├─ photo.jpg            Your photo (ABOUT page).
+│  ├─ cv.pdf               Your CV (LOAD MATIN'S RESUME button). Currently a placeholder!
 │  ├─ projects/*.jpg       Project screenshots.
-│  ├─ favicon.svg          Browser tab icon (pixel heart).
+│  ├─ favicon.png          Browser tab icon (your MM logo).
 │  ├─ icon-192.png         Phone home-screen icon.
 │  └─ og.png               Preview image when the link is shared (LinkedIn, Discord…).
 ├─ scripts/
@@ -275,12 +275,12 @@ are and only change the text between quotes.
 | `gamertag` | HUD "PLAYER 1" |
 | `role`, `builds` | hero subtitle "ROLE // BUILDS …" |
 | `dialog` | the lines the RPG dialog box types out |
-| `location`, `className`, `likes`, `bio` | STATUS window |
+| `location`, `className`, `likes`, `bio` | ABOUT page |
 | `stats` | the GPA / PROJECTS / JOBS strip (projects and jobs are counted automatically) |
 | `skills` | skill bars; `level` is 1–10 blocks |
 | `alsoSpeaks` | the small chips under your bio |
 | `quests` | ACTIVE QUESTS list |
-| `experience` | HIGH SCORES rows (first = 1ST); `achievements` show when a row is clicked |
+| `experience` | EXPERIENCE rows (first = 1ST); `achievements` show under each row (all open by default; clicking a row folds it) |
 | `wantedRole`, `openTo` | the "INSERT COIN" row and the contact text |
 | `projects` | the cartridges (see E4) |
 | `links` | LinkedIn / GitHub / email buttons |
@@ -300,7 +300,7 @@ Replace `public/photo.jpg` with your own picture (keep the name `photo.jpg`, or 
 ### E3. Your CV
 
 Export your CV as PDF, name it `cv.pdf`, and copy it over `public/cv.pdf` (replace the file). The
-**SAVE CV.PDF** button downloads it.
+**LOAD MATIN'S RESUME** button downloads it (the label is `cvLabel` in `content.ts`).
 
 ### E4. Add, remove or edit projects
 
@@ -316,7 +316,7 @@ Each project in `content.ts` looks like this:
   description: 'The longer text in the pop-up.',
   tech: ['Python', 'pandas'],
   screenshots: ['projects/house-price.jpg'],   // files in public/projects, or [] for pixel initials
-  playUrl: 'https://…',              // optional: shows ▶ PLAY
+  playUrl: 'https://…',              // optional: kept for later, not shown on the site
   codeUrl: 'https://github.com/…',   // optional: shows CODE
   color: 'cyan',                     // 'yellow' | 'pink' | 'cyan' label border
 },

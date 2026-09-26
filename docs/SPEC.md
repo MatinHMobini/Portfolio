@@ -92,17 +92,18 @@ Node scripts and tests). No `tsx`: Node's built-in type stripping runs the train
 | World | Section | Level theme | Highlights |
 | --- | --- | --- | --- |
 | 0 | Intro | pixel bedroom | spawn beam, walk, sit, type, camera push-in, terminal, boot log, glitch |
-| 1-1 | Hero | night overworld | stars, moon, stepped mountains, brick ground; HUD; world map; dialog |
-| 1-2 | STATUS | sky / clouds | photo de-pixelates, NAME/CLASS/HOME/LIKES, bio, 10-block skill bars + LEVEL UP!, quests, SAVE CV.PDF |
-| 1-3 | HIGH SCORES | underground mine | torches, ore, beams; expandable rows; dashed INSERT COIN row → contact |
-| 1-4 | SELECT CARTRIDGE | tech factory | conveyor belts (real physics), gears; cartridge cards, ▼ P1 marker, hover lift, insert-into-console animation, detail modal, category filter, phone carousel |
-| 1-5 | NEURAL NET | circuit board | live brain, readouts, fitness chart, skills list, HOW IT WORKS, TRAIN IT YOURSELF |
-| 1-6 | CONTINUE? | boss castle, lava pits | real 9→0 countdown → "GAME OVER… JUST KIDDING", links, form with INSERT COIN ▶ SEND + 1UP |
+| 1 | Home | night overworld | stars, moon, stepped mountains, brick ground; HUD; world map; dialog |
+| 2 | ABOUT | sky / clouds | photo de-pixelates, NAME/CLASS/HOME/LIKES, bio, 10-block skill bars + LEVEL UP!, quests, LOAD MATIN'S RESUME |
+| 3 | EXPERIENCE | underground mine | torches, ore, beams; arcade-table rows, all open by default (click folds); dashed INSERT COIN row → contact |
+| 4 | PROJECTS | tech factory | conveyor belts (real physics), gears; cartridge cards, ▼ P1 marker, hover lift, insert-into-console animation, detail modal, category filter, phone carousel; VIEW CODE only (no PLAY links) |
+| 5 | NEURAL NET | circuit board | live brain, readouts, fitness chart, labelled skills box, HOW IT WORKS, TRAIN IT YOURSELF, PLAY IT YOURSELF |
+| 6 | CONTINUE? | boss castle, lava pits | real 9→0 countdown → "GAME OVER… JUST KIDDING", links, form with INSERT COIN ▶ SEND + 1UP |
 | - | Footer | - | credits roll, waving victory flag, secret hint |
 
-**Decision: world numbering.** The mockup's world map labelled About as 1-1; the brief made the
-hero 1-1. Everything uses the brief's numbering (hero 1-1 … contact 1-6), and the world map shows
-the section names under each node, with the castle node for contact.
+**Decision: page numbering and titles (owner, 2026-09-25).** Pages are numbered 1–6 (not 1-1 … 1-6)
+everywhere: HUD, world map, section labels, WORLD cards, phone bar. Pages 2–4 use plain titles
+that match the world map (ABOUT, EXPERIENCE, PROJECTS) so every visitor understands them; HOME,
+NEURAL NET and CONTINUE? keep their game-style titles.
 
 **Decision: HUD score.** The mockup's HUD said "SCORE [N] PROJECTS". The persistent HUD instead
 shows a live game score (coins, stomps, level clears) plus a coin counter, and the hero shows a
@@ -124,7 +125,7 @@ passive visitors get auto-advance.
   hidden and while the Training Lab is open.
 - Section change (scroll position crosses 55% of the viewport):
   - **down**: the floor under the runner opens, the runner falls spinning with motion lines while
-    the old world scrolls up and the new world rises in, lands with a dust puff; a WORLD 1-X card
+    the old world scrolls up and the new world rises in, lands with a dust puff; a WORLD N card
     flashes.
   - **up**: a spring appears, the runner is launched up into the previous world.
   - Rapid scrolling queues the next transition.
@@ -215,7 +216,10 @@ by default; SND toggle remembered in `localStorage`; per-sound throttling.
 ↑ ↑ ↓ ↓ ← → ← → B A (detector in `src/ui/konami.ts`), or tap the HUD hearts 5 times within 2 s
 (so phones can reach it). The visitor controls the runner: arrows/WASD, Space/W/↑ jump (again in the
 air = double jump), ↓/S dive, Shift/X dash, Esc exits. Touch: on-screen D-pad + A (jump) / B (dash).
-Page content dims so the game is visible; the brain shows HUMAN PLAYER. The network keeps
+All page content turns fully transparent (and click-through) so the whole game is visible, the
+YOU PLAY bar sits at the top under the HUD, and on touch screens the ground is lifted above the
+D-pad. Besides the secret, a **PLAY IT YOURSELF** button in the brain popup and the NEURAL NET page
+starts it; the brain shows HUMAN PLAYER. The network keeps
 computing so the diagram stays live.
 
 ## 10. Contact form
@@ -227,7 +231,7 @@ and linked with `aria-describedby`. Success plays the coin sound and a 1UP pop.
 
 ## 11. Phone
 
-Stacked sections, sticky bottom level bar (1-2 ABOUT, 1-3 XP, 1-4 GAMES, 1-5 AI, 1-6 CONTACT),
+Stacked sections, sticky bottom level bar (2 ABOUT, 3 EXP, 4 PROJECTS, 5 AI, 6 CONTACT),
 full-width buttons, swipeable cartridge carousel (scroll-snap), compact HUD, touch targets ≥ 44px,
 lighter game layer, TAP wording, toasts docked above the bar one at a time.
 Fixed during testing: the integer-scaled canvas and the carousel could widen the layout and make
@@ -240,7 +244,7 @@ native `<dialog>` for modals (focus trap + Esc); `aria-expanded` rows; `aria-pre
 `aria-live` for dialog text, toasts and form status; decorative canvases `aria-hidden`, the brain
 canvases labelled `role="img"`; text contrast ≥ 4.5:1 on the dark background; reduced-motion
 support; animations only run when visible; no console errors; meta description, Open Graph and
-Twitter tags, SVG favicon, touch icon.
+Twitter tags, favicon and touch icon from the owner's MM logo.
 
 ## 13. Testing
 
@@ -260,7 +264,6 @@ and `npm run preview` under `/Portfolio/`.
 
 | Where | What |
 | --- | --- |
-| `content.ts` → `likes` | `[PLACEHOLDER: GAMES, HOBBIES]` |
 | `content.ts` → `quests[2]` | `[PLACEHOLDER: A SIDE PROJECT IDEA]` (the first two are reasonable guesses: this site's neuroevolution and the SEG4180 applied-ML lab) |
 | `content.ts` → University row `years` | `[PLACEHOLDER: YEAR]-NOW` (start year unknown) |
 | `content.ts` → Segmentation Lab description | ends with `[PLACEHOLDER: add a line about the dataset and results.]` |
@@ -275,3 +278,23 @@ Real content came from the old site (name, bio, GPA, Dean's Honour List, Merit S
 CrisperMe and Shoppers Drug Mart experience, the four projects and their screenshots, photo,
 LinkedIn, GitHub, email) and the public GitHub profile and repositories (location, more projects,
 READMEs). The phone number on the old site was intentionally not copied.
+
+## 15. Owner updates (2026-09-25)
+
+- Full intro on every page load (see §7).
+- Projects show **VIEW CODE** only; the ▶ PLAY links were removed (`playUrl` stays in content.ts for later).
+- Home runner sits slightly further left (64% of the width, was 70%); on phone widths the runner is
+  always at 30%, checked live so resizing a desktop window also moves it.
+- On phones the ground is drawn above the bottom level bar (and above the D-pad in YOU PLAY).
+- GPA shown as 3.9/4; hobbies: gaming, basketball, gym; CV button reads "LOAD MATIN'S RESUME".
+- Pages numbered 1–6; pages 2–4 titled ABOUT / EXPERIENCE / PROJECTS (see §4).
+- Experience rows all start open.
+- Favicon and touch icon use the owner's MM logo.
+- The BRAIN button is bigger ("AI BRAIN · CLICK ME"), pulses with a glowing ring, and shows a speech
+  bubble ("An AI is playing this game! Click to see its brain think live.") 2.5 s after boot and
+  briefly every 45 s until it's clicked once.
+- A labelled skills box ("SKILLS THE AI HAS SHOWN YOU x/8") above the 8 skill tiles, in both the
+  NEURAL NET page and the brain popup; the "More AI/ML loot" links were removed.
+- **Enemy jokes** (`src/game/quips.ts`): rarely, an enemy just ahead of the runner says a one-liner in
+  a speech bubble for 3 s. First possible after 12 s, then at least 30 s apart plus ~20 s random, so
+  roughly one a minute.

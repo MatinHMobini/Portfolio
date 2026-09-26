@@ -48,7 +48,9 @@ export class YouPlay {
     this.game.setMode('human');
     document.documentElement.classList.add('you-play');
     sfx.oneUp();
-    toast('<b>SECRET UNLOCKED:</b> YOU PLAY!<br>ARROWS/WASD · SPACE JUMP · SHIFT DASH · ESC EXIT', 4200);
+    const touchPad = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const controls = touchPad ? '◀ ▶ MOVE · A JUMP · B DASH · ▼ DIVE' : 'ARROWS/WASD · SPACE JUMP · SHIFT DASH · ESC EXIT';
+    toast(`<b>YOU PLAY!</b> THE AI IS ON A BREAK.<br>${controls}`, 4200);
     this.banner = document.createElement('div');
     this.banner.className = 'you-play-banner';
     this.banner.innerHTML = '<span>YOU PLAY · THE AI IS ON A BREAK</span><button type="button">EXIT</button>';

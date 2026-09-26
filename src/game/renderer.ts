@@ -14,6 +14,8 @@ import type { Particles } from './particles.ts';
 export interface View {
   w: number;
   h: number;
+  /** Game pixels kept free at the bottom (phone level bar / touch pad); the ground sits above it. */
+  inset?: number;
 }
 
 export interface DrawOptions {
@@ -33,9 +35,9 @@ export interface DrawOptions {
   simpleBg?: boolean;
 }
 
-/** Screen Y where world y=0 is, so that the world's bottom sits at the bottom of the view. */
+/** Screen Y where world y=0 is, so that the world's bottom sits at the bottom of the view (minus any inset). */
 export function worldTop(view: View): number {
-  return view.h - WORLD_H;
+  return view.h - WORLD_H - (view.inset ?? 0);
 }
 
 export function runnerFrame(r: Pick<Runner, 'onGround' | 'vx' | 'vy' | 'diving'>, time: number): PlayerFrame {

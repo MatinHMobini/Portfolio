@@ -9,7 +9,8 @@
  * up = a spring launches it back up.
  */
 import { TILE, DT, WORLD_H, RUNNER_W, RUNNER_H } from './constants.ts';
-import { generateLevel, heightAt, type Level, type ThemeId } from './level.ts';
+import { generateLevel, heightAt, type Enemy, type Level, type ThemeId } from './level.ts';
+import { pickQuip, pickSpeaker, QUIP_COOLDOWN, QUIP_DURATION, QUIP_FIRST_DELAY, QUIP_MEAN_WAIT } from './quips.ts';
 import { createRunner, stepEnemies, stepRunner, EV, type Action, type Runner } from './physics.ts';
 import { sense, N_SENSES } from './senses.ts';
 import { mixSeed } from './rng.ts';
@@ -89,6 +90,9 @@ export class Game {
   private stuckT = 0;
   private stuckX = 0;
   private forceJump = 0;
+  /** The rare enemy joke currently on screen. */
+  private quip: { enemy: Enemy; level: Level; text: string; t: number } | null = null;
+  private quipCd = QUIP_FIRST_DELAY;
   private respawnPending = false;
   mode: 'ai' | 'human' = 'ai';
   human: HumanInput = { left: false, right: false, jump: false, jumpPressed: false, dive: false, dash: false };
@@ -147,9 +151,12 @@ export class Game {
     return this.net.acts;
   }
 
+  /** Where the runner sits across the screen (0 = left edge, 1 = right edge). */
   private anchor(index: number): number {
-    if (this.mobile) return 0.3;
-    return index === 0 ? 0.7 : 0.4;
+    // Checked live (not just at load) so resizing to phone width also moves the runner.
+    const narrow = this.mobile || this.view.w * this.scale < 700;
+    if (narrow) return 0.3;
+    return index === 0 ? 0.64 : 0.4;
   }
 
   private makeWorld(index: number): WorldState {
@@ -167,7 +174,7 @@ export class Game {
     this.scale = s;
     const w = Math.ceil(vw / s);
     const h = Math.ceil(vh / s);
-    this.view = { w, h };
+    this.view = { w, h, inset: Math.round(this.insetCss / s) };
     this.canvas.width = w;
     this.canvas.height = h;
     this.canvas.style.width = `${w * s}px`;
@@ -328,6 +335,7 @@ export class Game {
     }
     const ev = stepRunner(r, w.level, a, this.invuln > 0);
     this.handleEvents(ev, r);
+    this.updateQuip(w, r);
 
     // Stuck detection (AI only): warp forward instead of freezing.
     if (this.mode === 'ai') {
@@ -338,6 +346,33 @@ export class Game {
         this.warpForward();
       }
     }
+  }
+
+  private updateQuip(w: WorldState, r: Runner): void {
+    const q = this.quip;
+    if (q) {
+      q.t += DT;
+      if (q.t > QUIP_DURATION || q.level !== w.level || !q.enemy.alive) this.quip = null;
+      return;
+    }
+    this.quipCd -= DT;
+    if (this.quipCd > 0 || Math.random() > DT / QUIP_MEAN_WAIT) return;
+    const e = pickSpeaker(w.level.enemies, r.x, TILE);
+    if (!e) return;
+    this.quip = { enemy: e, level: w.level, text: pickQuip(w.level.theme), t: 0 };
+    this.quipCd = QUIP_COOLDOWN;
+  }
+
+  /** The current enemy joke and where to draw it (viewport CSS px), or null. */
+  quipCss(): { text: string; x: number; y: number } | null {
+    const q = this.quip;
+    if (!q || this.transition || q.level !== this.cur.level) return null;
+    const e = q.enemy;
+    return {
+      text: q.text,
+      x: (e.x + e.w / 2 - this.cur.camX) * this.scale,
+      y: (worldTop(this.view) + e.y) * this.scale,
+    };
   }
 
   private handleEvents(ev: number, r: Runner): void {
@@ -576,6 +611,19 @@ export class Game {
     }
     const frame = p < 0.86 ? 'jump' : 'idle';
     drawRunnerSprite(ctx, x, y, frame, 1, { rot, squash: p >= 0.86 && this.squashT > 0 ? 0.75 : 1 });
+  }
+
+  private insetCss = 0;
+
+  /**
+   * Keep `cssPx` free at the bottom of the screen (phone level bar, touch
+   * pad): the ground is drawn above it so the runner is never hidden.
+   */
+  setBottomInset(cssPx: number): void {
+    if (cssPx === this.insetCss) return;
+    this.insetCss = cssPx;
+    this.view.inset = Math.round(cssPx / this.scale);
+    if (!this.running) this.renderNow();
   }
 
   /** Runner position (top-centre of the sprite) in viewport CSS pixels. */

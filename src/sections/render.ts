@@ -23,12 +23,12 @@ export interface SectionMeta {
 
 /** Section order = level order. `theme` must be a ThemeId. */
 export const SECTIONS: SectionMeta[] = [
-  { id: 'top', world: '1-1', theme: 'night', nav: 'HOME', short: 'HOME' },
-  { id: 'about', world: '1-2', theme: 'sky', nav: 'ABOUT', short: 'ABOUT' },
-  { id: 'xp', world: '1-3', theme: 'mine', nav: 'EXPERIENCE', short: 'XP' },
-  { id: 'projects', world: '1-4', theme: 'factory', nav: 'PROJECTS', short: 'GAMES' },
-  { id: 'brain', world: '1-5', theme: 'circuit', nav: 'AI BRAIN', short: 'AI' },
-  { id: 'contact', world: '1-6', theme: 'castle', nav: 'CONTACT', short: 'CONTACT' },
+  { id: 'top', world: '1', theme: 'night', nav: 'HOME', short: 'HOME' },
+  { id: 'about', world: '2', theme: 'sky', nav: 'ABOUT', short: 'ABOUT' },
+  { id: 'xp', world: '3', theme: 'mine', nav: 'EXPERIENCE', short: 'EXP' },
+  { id: 'projects', world: '4', theme: 'factory', nav: 'PROJECTS', short: 'PROJECTS' },
+  { id: 'brain', world: '5', theme: 'circuit', nav: 'AI BRAIN', short: 'AI' },
+  { id: 'contact', world: '6', theme: 'castle', nav: 'CONTACT', short: 'CONTACT' },
 ];
 
 const HEART = '<svg class="px" viewBox="0 0 7 6" aria-hidden="true"><path d="M1 0h2v1h1v-1h2v1h1v2h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-2h1z"/></svg>';
@@ -44,7 +44,7 @@ export function renderHud(c: Content): string {
   <div class="hud__cell"><span class="hud__k">PLAYER 1</span><span class="hud__v">${esc(c.gamertag)}</span></div>
   <div class="hud__cell"><span class="hud__k">SCORE</span><span class="hud__v" data-hud="score">000000</span></div>
   <div class="hud__cell hud__coins"><span class="hud__k">COINS</span><span class="hud__v"><span class="coin-ico" aria-hidden="true"></span>&times;<span data-hud="coins">00</span></span></div>
-  <div class="hud__cell"><span class="hud__k">WORLD</span><span class="hud__v" data-hud="world">1-1</span></div>
+  <div class="hud__cell"><span class="hud__k">WORLD</span><span class="hud__v" data-hud="world">1</span></div>
   <div class="hud__cell hud__lives"><span class="hud__k">LIVES</span>
     <button class="hud__hearts" type="button" data-hud="lives" aria-label="Lives: 3">${HEART}${HEART}${HEART}</button>
   </div>
@@ -73,7 +73,7 @@ export function renderHero(c: Content): string {
     })
     .join('');
   return `
-<section class="level level--hero" id="top" data-world="1-1" data-theme="night" aria-labelledby="hero-title">
+<section class="level level--hero" id="top" data-world="1" data-theme="night" aria-labelledby="hero-title">
   <div class="hero">
     <div class="hero__main">
       <p class="k-label hero__kicker">PLAYER 1 · READY</p>
@@ -106,10 +106,10 @@ export function renderAbout(c: Content): string {
   const quests = c.quests.map((q) => `<li><span class="quest__mark" aria-hidden="true">!</span>${esc(q)}</li>`).join('');
   const also = c.alsoSpeaks.map((a) => `<li>${esc(a)}</li>`).join('');
   return `
-<section class="level" id="about" data-world="1-2" data-theme="sky" aria-labelledby="about-title">
+<section class="level" id="about" data-world="2" data-theme="sky" aria-labelledby="about-title">
   <div class="level__head">
-    <div><p class="k-label">WORLD 1-2</p><h2 class="h2" id="about-title">STATUS</h2></div>
-    <a class="btn btn--ghost btn--sm" href="${esc(c.cv)}" download>${DOWNLOAD}SAVE CV.PDF</a>
+    <div><p class="k-label">WORLD 2</p><h2 class="h2" id="about-title">ABOUT</h2><p class="level__sub">WHO I AM, WHAT I'M GOOD AT AND WHAT I'M LEARNING.</p></div>
+    <a class="btn btn--ghost btn--sm" href="${esc(c.cv)}" download>${DOWNLOAD}${esc(c.cvLabel)}</a>
   </div>
   <div class="about">
     <div class="rpg about__card">
@@ -144,18 +144,18 @@ export function renderExperience(c: Content): string {
       const tech = j.tech.map((t) => `<li>${esc(t)}</li>`).join('');
       const now = /NOW/.test(j.years);
       return `<li class="score${i === 0 ? ' is-top' : ''}">
-        <button class="score__row" type="button" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="${id}">
+        <button class="score__row" type="button" aria-expanded="true" aria-controls="${id}">
           <span class="score__rank">${ordinal(i + 1)}</span><span class="score__team">${esc(j.team)}</span><span class="score__role">${esc(j.role)}</span><span class="score__years">${esc(j.years)}${now ? '<span class="blink" aria-hidden="true">_</span>' : ''}</span>
         </button>
-        <div class="score__more" id="${id}"${i === 0 ? '' : ' hidden'}><ul class="score__ach">${ach}</ul><ul class="chips chips--sm">${tech}</ul></div>
+        <div class="score__more" id="${id}"><ul class="score__ach">${ach}</ul><ul class="chips chips--sm">${tech}</ul></div>
       </li>`;
     })
     .join('');
   const n = c.experience.length + 1;
   return `
-<section class="level" id="xp" data-world="1-3" data-theme="mine" aria-labelledby="xp-title">
+<section class="level" id="xp" data-world="3" data-theme="mine" aria-labelledby="xp-title">
   <div class="level__head level__head--center">
-    <div><p class="k-label">WORLD 1-3</p><h2 class="h2" id="xp-title">HIGH SCORES</h2><p class="level__sub">WORK EXPERIENCE · CLICK A ROW FOR ACHIEVEMENTS</p></div>
+    <div><p class="k-label">WORLD 3</p><h2 class="h2" id="xp-title">EXPERIENCE</h2><p class="level__sub">WHERE I'VE WORKED AND STUDIED.</p></div>
   </div>
   <div class="scores">
     <div class="scores__head" aria-hidden="true"><span>RANK</span><span>TEAM</span><span>ROLE</span><span>YEARS</span></div>
@@ -188,8 +188,7 @@ function cartridge(p: Project, i: number): string {
   </button>
   <p class="cart-slot__line">${esc(p.tagline)}</p>
   <div class="cart-slot__btns">
-    ${p.playUrl ? `<a class="btn btn--primary btn--sm" href="${esc(p.playUrl)}" target="_blank" rel="noopener">▶ PLAY${EXT}</a>` : ''}
-    ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">CODE${EXT}</a>` : ''}
+    ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${EXT}</a>` : ''}
   </div>
 </article>`;
 }
@@ -200,9 +199,9 @@ export function renderProjects(c: Content): string {
     .map((cat, i) => `<button class="filter${i === 0 ? ' is-on' : ''}" type="button" data-filter="${esc(cat)}" aria-pressed="${i === 0}">${esc(cat)}</button>`)
     .join('');
   return `
-<section class="level" id="projects" data-world="1-4" data-theme="factory" aria-labelledby="projects-title">
+<section class="level" id="projects" data-world="4" data-theme="factory" aria-labelledby="projects-title">
   <div class="level__head">
-    <div><p class="k-label">WORLD 1-4</p><h2 class="h2" id="projects-title">SELECT CARTRIDGE</h2><p class="level__sub">CODING PROJECTS. PICK ONE TO PLAY.</p></div>
+    <div><p class="k-label">WORLD 4</p><h2 class="h2" id="projects-title">PROJECTS</h2><p class="level__sub">MY CODING PROJECTS. CLICK A CARTRIDGE FOR DETAILS.</p></div>
   </div>
   <div class="filters" role="group" aria-label="Filter projects by category">${filters}</div>
   <div class="carts" id="carts">${c.projects.map(cartridge).join('')}</div>
@@ -210,16 +209,15 @@ export function renderProjects(c: Content): string {
 </section>`;
 }
 
-export function renderBrain(c: Content): string {
-  const ai = c.projects.filter((p) => p.category === 'AI/ML');
-  const aiLinks = ai
-    .map((p) => `<li><a href="${esc(p.codeUrl || p.playUrl || '#projects')}" target="_blank" rel="noopener">${esc(p.name)}${EXT}</a></li>`)
-    .join('');
+export function renderBrain(): string {
   return `
-<section class="level" id="brain" data-world="1-5" data-theme="circuit" aria-labelledby="brain-title">
+<section class="level" id="brain" data-world="5" data-theme="circuit" aria-labelledby="brain-title">
   <div class="level__head">
-    <div><p class="k-label">WORLD 1-5</p><h2 class="h2" id="brain-title">NEURAL NET</h2><p class="level__sub">THE AI THAT PLAYS THIS SITE. IT'S A REAL NETWORK, TRAINED BY EVOLUTION.</p></div>
-    <button class="btn btn--primary btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
+    <div><p class="k-label">WORLD 5</p><h2 class="h2" id="brain-title">NEURAL NET</h2><p class="level__sub">THE AI THAT PLAYS THIS SITE. IT'S A REAL NETWORK, TRAINED BY EVOLUTION.</p></div>
+    <div class="brain__ctas">
+      <button class="btn btn--primary btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
+      <button class="btn btn--ghost btn--sm" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
+    </div>
   </div>
   <div class="brain">
     <div class="rpg brain__net">
@@ -240,7 +238,11 @@ export function renderBrain(c: Content): string {
         <canvas class="chart" data-brain-chart role="img" aria-label="Chart of best and average fitness per generation during training"></canvas>
         <p class="chart__key"><span class="key key--y"></span>BEST <span class="key key--p"></span>AVERAGE</p>
       </div>
-      <ul class="skill-list" data-brain="skill-list" aria-label="Skills learned"></ul>
+      <div class="skills-box">
+        <h3 class="skills-box__title">SKILLS THE AI HAS SHOWN YOU <span data-brain="skills">0/8</span></h3>
+        <p class="skills-box__hint">Each one unlocks the first time you see the runner do it.</p>
+        <ul class="skill-list" data-brain="skill-list" aria-label="Skills learned"></ul>
+      </div>
     </div>
   </div>
   <details class="rpg how">
@@ -250,7 +252,7 @@ export function renderBrain(c: Content): string {
       <p><b>How it learned.</b> Nobody hand-coded the moves. The weights were found offline with neuroevolution: a genetic algorithm ran a population of networks on seeded levels of all six themes, scored each one (distance, coins and stomps, minus a penalty for dying), kept the best, and bred the next generation with crossover and random mutation. The script is <code>npm run train</code>; the chart shows its best and average fitness per generation. The same physics code runs here and in training, so the site plays exactly the brain that was trained.</p>
       <p><b>The growing map.</b> The full network drives the runner the whole time. The map starts mostly hidden and reveals a pathway (the strongest weighted connections from the relevant senses to an action) the first time you see the runner use that behaviour. Yellow edges are positive weights, pink are negative, thicker means stronger; squares glow with live activation.</p>
       <p><b>Watch it learn.</b> Press <b>TRAIN IT YOURSELF</b> to open the Training Lab: a fresh population of ghost runners starts from random weights and learns a level live, generation after generation, in your browser.</p>
-      ${aiLinks ? `<p class="k-label">MORE AI / ML LOOT</p><ul class="ai-links">${aiLinks}</ul>` : ''}
+      <p><b>Your turn.</b> Press <b>PLAY IT YOURSELF</b> to give the AI a break and take the controls.</p>
     </div>
   </details>
 </section>`;
@@ -258,10 +260,10 @@ export function renderBrain(c: Content): string {
 
 export function renderContact(c: Content): string {
   return `
-<section class="level" id="contact" data-world="1-6" data-theme="castle" aria-labelledby="contact-title">
+<section class="level" id="contact" data-world="6" data-theme="castle" aria-labelledby="contact-title">
   <div class="contact">
     <div class="contact__left">
-      <p class="k-label">WORLD 1-6 · BOSS CASTLE</p>
+      <p class="k-label">WORLD 6 · BOSS CASTLE</p>
       <h2 class="h2 h2--pink" id="contact-title">CONTINUE?</h2>
       <p class="countdown" aria-hidden="true"><span data-countdown>9</span></p>
       <p class="contact__text">GET IN TOUCH BEFORE THE TIMER HITS ZERO. OPEN TO ${esc(c.openTo)}.</p>
@@ -322,12 +324,13 @@ export function renderApp(c: Content): string {
     renderAbout(c),
     renderExperience(c),
     renderProjects(c),
-    renderBrain(c),
+    renderBrain(),
     renderContact(c),
     '</main>',
     renderFooter(c),
     renderLevelBar(),
-    '<button class="brain-widget" type="button" id="brain-widget" aria-label="Open the AI brain panel" aria-haspopup="dialog"><canvas width="32" height="32" aria-hidden="true"></canvas><span class="brain-widget__label">BRAIN</span></button>',
+    '<button class="brain-widget" type="button" id="brain-widget" aria-label="Open the AI brain: see the neural network that plays this game" aria-haspopup="dialog"><canvas width="32" height="32" aria-hidden="true"></canvas><span class="brain-widget__label">AI BRAIN<small>CLICK ME</small></span><span class="brain-tip" aria-hidden="true">An <b>AI</b> is playing this game! Click to see its brain think live.</span></button>',
+    '<div class="quip" id="quip" aria-hidden="true"></div>',
     '<div class="toasts" id="toasts" role="status" aria-live="polite"></div>',
     '<div class="world-card" id="world-card" aria-hidden="true"><span class="world-card__w"></span><span class="world-card__n"></span></div>',
     '<div class="crt" aria-hidden="true"></div>',

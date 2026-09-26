@@ -26,6 +26,8 @@ export class BrainUI {
   private widget = document.getElementById('brain-widget') as HTMLButtonElement;
   private human = false;
   onOpenLab: (() => void) | null = null;
+  /** Starts YOU PLAY mode (the visitor takes the controls). */
+  onYouPlay: (() => void) | null = null;
 
   private game: Game;
   private state: BrainState;
@@ -76,7 +78,35 @@ export class BrainUI {
 
     this.widget.addEventListener('click', () => this.openPanel());
     document.querySelectorAll<HTMLElement>('[data-open-lab]').forEach((b) => b.addEventListener('click', () => this.onOpenLab?.()));
+    document.querySelectorAll<HTMLElement>('[data-you-play]').forEach((b) => b.addEventListener('click', () => this.onYouPlay?.()));
     new ResizeObserver(() => this.drawCharts(document)).observe(document.querySelector('[data-brain-chart]') ?? document.body);
+  }
+
+  /**
+   * The speech bubble next to the BRAIN button: shows 2.5 s after the site
+   * boots, then briefly every 45 s, until the visitor clicks the button once.
+   */
+  startTips(): void {
+    let clicked = false;
+    let timers: number[] = [];
+    const show = (ms: number) => {
+      if (clicked) return;
+      this.widget.classList.add('has-tip');
+      timers.push(window.setTimeout(() => this.widget.classList.remove('has-tip'), ms));
+    };
+    timers.push(window.setTimeout(() => show(9000), 2500));
+    const every = window.setInterval(() => show(6000), 45000);
+    this.widget.addEventListener(
+      'click',
+      () => {
+        clicked = true;
+        clearInterval(every);
+        timers.forEach(clearTimeout);
+        timers = [];
+        this.widget.classList.remove('has-tip');
+      },
+      { once: true },
+    );
   }
 
   setHuman(on: boolean): void {
@@ -145,10 +175,15 @@ export class BrainUI {
               <canvas class="chart" data-brain-chart role="img" aria-label="Training fitness chart"></canvas>
               <p class="chart__key"><span class="key key--y"></span>BEST <span class="key key--p"></span>AVERAGE</p></div>
               <button class="btn btn--primary btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
+              <button class="btn btn--primary btn--sm btn--pink" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
               <a class="btn btn--ghost btn--sm" href="#brain" data-close-go>HOW IT WORKS</a>
             </div>
           </div>
-          <ul class="skill-list" data-brain="skill-list" style="margin-top:20px;grid-template-columns:repeat(4,1fr)"></ul>
+          <div class="skills-box skills-box--wide">
+            <h3 class="skills-box__title">SKILLS THE AI HAS SHOWN YOU <span data-brain="skills"></span></h3>
+            <p class="skills-box__hint">Each one unlocks the first time you see the runner do it.</p>
+            <ul class="skill-list" data-brain="skill-list"></ul>
+          </div>
           <p class="bp__how">This is the real network steering the runner right now: ${this.meta.params} weights, evolved for ${this.meta.generations} generations. It finished ${this.meta.holdout.finished} of ${this.meta.holdout.levels} levels it had never seen during training. New pathways appear the first time you see the runner use a skill.</p>
         </div>`;
       document.body.appendChild(d);
@@ -156,6 +191,10 @@ export class BrainUI {
       d.querySelector('[data-open-lab]')!.addEventListener('click', () => {
         d.close();
         this.onOpenLab?.();
+      });
+      d.querySelector('[data-you-play]')!.addEventListener('click', () => {
+        d.close();
+        this.onYouPlay?.();
       });
       d.querySelector('[data-close-go]')!.addEventListener('click', () => {
         d.close();

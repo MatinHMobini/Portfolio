@@ -431,13 +431,21 @@
 }
 
 /* ─── YOU PLAY ───────────────────────────────────────────────── */
-.you-play main,
-.you-play .credits {
-  opacity: 0.18;
+/* The page content disappears so the whole game is visible. */
+main,
+.credits {
   transition: opacity 0.3s steps(3);
 }
-.you-play main:hover {
-  opacity: 0.5;
+.you-play main,
+.you-play .credits {
+  opacity: 0;
+  pointer-events: none;
+}
+.you-play .brain-widget {
+  display: none;
+}
+.you-play .toasts {
+  top: calc(var(--hud-h) + 96px);
 }
 .you-play-banner {
   position: fixed;
@@ -522,10 +530,4 @@
   z-index: 3;
   pointer-events: none;
   background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 2px, transparent 2px 4px);
-}
-@media (min-width: 701px) {
-  .you-play-banner {
-    top: auto;
-    bottom: 28px;
-  }
 }

@@ -36,7 +36,7 @@ const bootLines = (gens: number) => [
   'SPAWNING ENEMIES....... OK',
   `TRAINING NEURAL NET.... GEN ${gens} OK`,
   'INSERTING COIN......... OK',
-  'STARTING WORLD 1-1',
+  'STARTING WORLD 1',
 ];
 
 function drawRoom(ctx: CanvasRenderingContext2D, t: number, monitorOn: number, showCode = true) {
