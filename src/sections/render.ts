@@ -306,7 +306,6 @@ export function renderFooter(c: Content): string {
       <dt>AI PILOT</dt><dd>223-WEIGHT NEURAL NET</dd>
       <dt>TRAINED BY</dt><dd>NEUROEVOLUTION</dd>
       <dt>SOUND</dt><dd>WEB AUDIO SYNTH</dd>
-      <dt>TYPE</dt><dd>PRESS START 2P · VT323</dd>
     </dl>
     <p class="credits__note">${esc(c.footerNote)}</p>
     <p class="credits__secret">PSST… ↑ ↑ ↓ ↓ ← → ← → B A <span class="credits__or">(OR TAP THE HEARTS 5×)</span></p>
