@@ -536,3 +536,26 @@
     border-left-color: var(--text);
   }
 }
+@media (max-width: 700px) {
+  /* The bottom level bar already shows the current page, so the WORLD cell makes room for the links. */
+  .hud .hud__cell:nth-child(4) {
+    display: none;
+  }
+  .hud {
+    grid-template-columns: auto auto 1fr;
+  }
+  .hud__toggles {
+    justify-self: end;
+    gap: 5px;
+  }
+  .tgl {
+    min-width: 40px;
+  }
+  .tgl--icon {
+    width: 40px;
+  }
+  .tgl--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}

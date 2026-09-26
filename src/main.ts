@@ -68,24 +68,33 @@ const game = new Game(canvas, sectionInfo, net, {
 brain.learn('run', 0);
 
 brainUI = new BrainUI(game, brain, net, champion.meta, champion.history);
-// The hero dialog box floats above the runner's head (wide screens only).
+// The hero dialog box floats above the runner (wide screens only). It follows a
+// steady anchor (the ground under the runner, not the runner itself) and eases
+// toward it slowly, so jumps and double jumps don't make it shake.
 const dialog = document.getElementById('dialog');
 const hero = document.getElementById('top');
+let dialogX = -1;
 let dialogY = -1;
-const trackDialog = () => {
+let lastDialogT = 0;
+const trackDialog = (now: number) => {
   if (!dialog || !hero || window.innerWidth <= 980 || game.index !== 0 || game.inTransition) return;
   const hr = hero.getBoundingClientRect();
   if (hr.bottom < 0) return;
-  const p = game.runnerCss();
+  const p = game.runnerAnchorCss();
   const dw = dialog.offsetWidth;
   const dh = dialog.offsetHeight;
-  const target = p.y - dh - 34;
-  dialogY = dialogY < 0 ? target : dialogY + (target - dialogY) * 0.08;
+  const tx = Math.max(0, Math.min(window.innerWidth - dw - 24, p.x - dw / 2));
+  const ty = p.y - dh - 30;
+  // Frame-rate independent easing: about 1.5 s to settle.
+  const dt = lastDialogT ? Math.min(0.1, (now - lastDialogT) / 1000) : 0;
+  lastDialogT = now;
+  const k = 1 - Math.exp(-dt * 2.5);
+  dialogX = dialogX < 0 ? tx : dialogX + (tx - dialogX) * k;
+  dialogY = dialogY < 0 ? ty : dialogY + (ty - dialogY) * k;
   const box = (dialog.offsetParent as HTMLElement | null)?.getBoundingClientRect() ?? hr;
-  const left = Math.max(0, Math.min(window.innerWidth - dw - 24, p.x - dw / 2)) - box.left;
-  dialog.style.left = `${Math.round(left)}px`;
   // Keep it inside the hero section.
-  const y = Math.min(Math.max(hr.top + 90, dialogY), hr.bottom - dh - 40);
+  const y = Math.min(Math.max(hr.top + 90, dialogY), hr.bottom - dh - 140);
+  dialog.style.left = `${Math.round(dialogX - box.left)}px`;
   dialog.style.top = `${Math.round(y - box.top)}px`;
   dialog.style.right = 'auto';
   dialog.style.bottom = 'auto';
@@ -110,7 +119,7 @@ const trackQuip = () => {
 };
 game.onFrame = (now, dt) => {
   brainUI!.frame(now, dt);
-  trackDialog();
+  trackDialog(now);
   trackQuip();
 };
 

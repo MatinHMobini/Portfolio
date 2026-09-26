@@ -84,7 +84,7 @@ export class BrainUI {
 
   /**
    * The speech bubble next to the BRAIN button: shows 2.5 s after the site
-   * boots, then briefly every 45 s, until the visitor clicks the button once.
+   * boots, then for 8 s out of every 18 s, until the visitor opens the brain.
    */
   startTips(): void {
     let clicked = false;
@@ -94,8 +94,8 @@ export class BrainUI {
       this.widget.classList.add('has-tip');
       timers.push(window.setTimeout(() => this.widget.classList.remove('has-tip'), ms));
     };
-    timers.push(window.setTimeout(() => show(9000), 2500));
-    const every = window.setInterval(() => show(6000), 45000);
+    timers.push(window.setTimeout(() => show(10000), 2500));
+    const every = window.setInterval(() => show(8000), 18000);
     this.widget.addEventListener(
       'click',
       () => {
@@ -180,7 +180,7 @@ export class BrainUI {
             </div>
           </div>
           <div class="skills-box skills-box--wide">
-            <h3 class="skills-box__title">SKILLS THE AI HAS SHOWN YOU <span data-brain="skills"></span></h3>
+            <h3 class="skills-box__title">SKILLS THE AI HAS SHOWN YOU <span class="skills-box__count" data-brain="skills"></span></h3>
             <p class="skills-box__hint">Each one unlocks the first time you see the runner do it.</p>
             <ul class="skill-list" data-brain="skill-list"></ul>
           </div>

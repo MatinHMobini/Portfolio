@@ -1451,3 +1451,48 @@ html:not(.js) .dialog__next {
 .quip.is-on {
   opacity: 1;
 }
+
+/* HUD profile links (LinkedIn, GitHub) next to SND / CRT. */
+.tgl--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  padding: 0;
+  color: var(--text);
+  border-color: var(--text);
+}
+.tgl--icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+.tgl--icon:hover {
+  color: var(--bg);
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+.hud__toggles {
+  align-items: stretch;
+}
+
+/* The skills counter uses the body font so 8 never reads as 0. */
+.skills-box__count {
+  font-family: var(--font-body);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--pink);
+  margin-left: 8px;
+  vertical-align: -3px;
+}
+
+.quest__name {
+  font-weight: 400;
+  color: var(--yellow);
+}
+
+/* Long job titles (e.g. "Software Developer, Data Science & Analytics") stay compact. */
+.score__role {
+  font-size: 26px;
+  line-height: 1.1;
+}

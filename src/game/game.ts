@@ -371,7 +371,7 @@ export class Game {
     return {
       text: q.text,
       x: (e.x + e.w / 2 - this.cur.camX) * this.scale,
-      y: (worldTop(this.view) + e.y) * this.scale,
+      y: (worldTop(this.view) + Math.min(e.y, e.baseY) - 8) * this.scale,
     };
   }
 
@@ -624,6 +624,24 @@ export class Game {
     this.insetCss = cssPx;
     this.view.inset = Math.round(cssPx / this.scale);
     if (!this.running) this.renderNow();
+  }
+
+  /**
+   * A steady anchor above the runner for UI (the hero dialog box): it uses
+   * the highest ground near the runner instead of the runner itself, so
+   * jumps and double jumps don't make the box shake. Viewport CSS pixels.
+   */
+  runnerAnchorCss(): { x: number; y: number } {
+    const w = this.transition ? this.transition.to : this.cur;
+    const r = w.runner;
+    const col = Math.floor((r.x + RUNNER_W / 2) / TILE);
+    let h = 0;
+    for (let c = col - 3; c <= col + 3; c++) h = Math.max(h, heightAt(w.level, c));
+    const ground = WORLD_H - h * TILE;
+    return {
+      x: (r.x + RUNNER_W / 2 - w.camX) * this.scale,
+      y: (worldTop(this.view) + ground - RUNNER_H - 12) * this.scale,
+    };
   }
 
   /** Runner position (top-centre of the sprite) in viewport CSS pixels. */

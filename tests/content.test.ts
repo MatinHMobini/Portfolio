@@ -111,3 +111,36 @@ describe('page wording and layout choices', () => {
     expect(html).not.toContain('MORE AI / ML LOOT');
   });
 });
+
+describe('resume-based content', () => {
+  const html = renderApp(content);
+
+  it('lists Python as the top skill', () => {
+    const top = Math.max(...content.skills.map((s) => s.level));
+    expect(content.skills[0].name).toBe('PYTHON');
+    expect(content.skills[0].level).toBe(top);
+  });
+
+  it('has the three active quests with names', () => {
+    expect(content.quests.map((q) => q.name)).toEqual(['RALLY', 'MENTAL HEALTH ASSISTANT', 'CROPPILOT']);
+    for (const q of content.quests) expect(html).toContain(esc(q.name));
+  });
+
+  it('shows current experience and not the retail job', () => {
+    expect(html).toContain('HEALTH CANADA');
+    expect(html).not.toMatch(/SHOPPERS/i);
+    expect(content.experience.filter((j) => j.education)).toHaveLength(1);
+  });
+
+  it('pairs AI with ML when describing the work', () => {
+    expect(content.builds).toContain('AI/ML');
+    expect(content.dialog.some((l) => /LOOT/.test(l))).toBe(false);
+    expect(content.dialog.length).toBeGreaterThanOrEqual(8);
+  });
+
+  it('links LinkedIn and GitHub from the top bar', () => {
+    const hud = html.slice(html.indexOf('<header class="hud"'), html.indexOf('</header>'));
+    expect(hud).toContain(content.links.linkedin);
+    expect(hud).toContain(content.links.github);
+  });
+});

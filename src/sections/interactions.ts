@@ -26,6 +26,19 @@ export function initDialog(): void {
   let timer = 0;
   let auto = 0;
   let typing = false;
+  /** Pause after a line has finished typing, before the next one starts. */
+  const HOLD_MS = 5000;
+  // Only type while the home page is on screen (no blips while reading other pages).
+  let visible = true;
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(box);
+
+  const scheduleNext = (ms: number) => {
+    clearTimeout(auto);
+    auto = window.setTimeout(() => {
+      if (!visible) scheduleNext(1000);
+      else show((idx + 1) % lines.length);
+    }, ms);
+  };
 
   const show = (i: number) => {
     idx = i;
@@ -34,6 +47,7 @@ export function initDialog(): void {
     const line = lines[idx];
     if (reduced()) {
       text.textContent = line;
+      scheduleNext(HOLD_MS + 1500);
       return;
     }
     let n = 0;
@@ -46,16 +60,17 @@ export function initDialog(): void {
       if (n >= line.length) {
         clearInterval(timer);
         typing = false;
-        // Passive visitors still see the whole intro.
-        if (idx < lines.length - 1) auto = window.setTimeout(() => show(idx + 1), 3200);
+        // The lines loop forever, one after another.
+        scheduleNext(HOLD_MS);
       }
-    }, 38);
+    }, 45);
   };
   const advance = () => {
     if (typing) {
       clearInterval(timer);
       typing = false;
       text.textContent = lines[idx];
+      scheduleNext(HOLD_MS);
       return;
     }
     sfx.select();

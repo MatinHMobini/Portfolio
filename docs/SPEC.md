@@ -265,7 +265,7 @@ and `npm run preview` under `/Portfolio/`.
 | Where | What |
 | --- | --- |
 | `content.ts` → `quests[2]` | `[PLACEHOLDER: A SIDE PROJECT IDEA]` (the first two are reasonable guesses: this site's neuroevolution and the SEG4180 applied-ML lab) |
-| `content.ts` → University row `years` | `[PLACEHOLDER: YEAR]-NOW` (start year unknown) |
+
 | `content.ts` → Segmentation Lab description | ends with `[PLACEHOLDER: add a line about the dataset and results.]` |
 | `content.ts` → `skills` levels | estimated from the old site (Java, Python, JS/TS, SQL, React, Android, ML); adjust |
 | `content.ts` → `wantedRole`, `openTo` | guesses: "SOFTWARE / AI DEV", "INTERNSHIPS / FULL-TIME / FREELANCE" |
@@ -298,3 +298,26 @@ READMEs). The phone number on the old site was intentionally not copied.
 - **Enemy jokes** (`src/game/quips.ts`): rarely, an enemy just ahead of the runner says a one-liner in
   a speech bubble for 3 s. First possible after 12 s, then at least 30 s apart plus ~20 s random, so
   roughly one a minute.
+
+## 16. Owner updates (2026-09-26)
+
+- **Experience now comes from the owner's resume** (LinkedIn blocks logged-out/automated reads, so
+  the profile itself could not be used): Health Canada, Software Developer, Data Science & Analytics
+  (May 2025 to now) and Junior Analyst (Jan to Apr 2025); CrisperMe (startup) Website Developer
+  (Sep 2022 to Nov 2023); University of Ottawa (AI & ML concentration, graduating Dec 2026, VP of
+  HKFC). The retail job was removed. The hero's JOBS stat counts roles only (\`education: true\`
+  rows are skipped). The Health Canada tech chips are topic tags (the resume lists no stack for them).
+- House Price (Kaggle data, Random Forest + GridSearchCV, RMSE 50,414), Cycling Club (2023, team of
+  4 in 4 months) and HKFC (a uOttawa club the owner is part of) updated from the resume.
+- Skills: Python is the top skill; AI / ML added; "also speaks" list from the resume.
+- Active quests: Rally, the context-aware mental health RAG assistant, CropPilot.
+- Wherever the owner's work is described, AI is written as AI/ML (hero, bio, dialog, wanted role,
+  share image).
+- Hero dialog: 11 lines (more jokes, "wanna see my loot" removed) that loop forever with a 5 s pause
+  between lines; typing only happens while the home page is on screen.
+- The dialog box follows a steady anchor (highest ground near the runner) with ~1.5 s easing, so
+  jumps no longer shake it. Enemy joke bubbles anchor to the enemy's resting height.
+- The AI BRAIN tip shows 2.5 s after boot, then 8 s out of every 18 s until the brain is opened.
+- The skills counter uses the body font (the pixel font made 8 look like 0).
+- LinkedIn and GitHub icon links in the HUD, right of SND and CRT (the WORLD cell is hidden on
+  phones to make room; the bottom bar shows the current page).
