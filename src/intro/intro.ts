@@ -6,8 +6,9 @@
  * → a terminal runs ./<name>_portfolio.exe → boot log + progress bar →
  * glitch, flash, and the real site boots.
  *
- * Plays in full once (remembered in localStorage), then a ~1.5 s short
- * version. Skip button + Esc always work. Reduced motion skips it.
+ * Plays in full on every page load. Skip button + Esc always work.
+ * Reduced motion skips it. `short: true` gives a ~1.5 s terminal-only
+ * version (not used by default).
  */
 import { drawRunnerSprite } from '../game/renderer.ts';
 import { sprite, MOON_GRID, PAL, type PlayerFrame } from '../game/sprites.ts';
@@ -19,13 +20,13 @@ const FLOOR = 146;
 const CHAIR_X = 206;
 const SPAWN_X = 86;
 const SCREEN = { x: 231, y: 84, w: 30, h: 22 };
-const SEEN_KEY = 'pq.introSeen';
-
 interface Options {
   firstName: string;
   touch: boolean;
   /** Champion generation count, shown in the boot log. */
   generations: number;
+  /** Skip the bedroom and go straight to the quick terminal boot. */
+  short?: boolean;
 }
 
 const bootLines = (gens: number) => [
@@ -129,17 +130,9 @@ function drawChairFront(ctx: CanvasRenderingContext2D) {
   ctx.fillRect(CHAIR_X - 4, FLOOR - 2, 18, 2);
 }
 
-export function introSeen(): boolean {
-  try {
-    return localStorage.getItem(SEEN_KEY) === '1';
-  } catch {
-    return false;
-  }
-}
-
 export function runIntro(opts: Options): Promise<void> {
   return new Promise((resolve) => {
-    const short = introSeen();
+    const short = !!opts.short;
     const root = document.createElement('div');
     root.className = 'intro';
     root.setAttribute('role', 'dialog');
@@ -197,11 +190,6 @@ export function runIntro(opts: Options): Promise<void> {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
       window.removeEventListener('keydown', onKey, true);
-      try {
-        localStorage.setItem(SEEN_KEY, '1');
-      } catch {
-        /* ignore */
-      }
       root.classList.add('is-out');
       document.documentElement.classList.remove('intro-on');
       document.documentElement.classList.add('booting');

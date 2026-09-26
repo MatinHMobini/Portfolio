@@ -194,8 +194,12 @@ back to the main thread if Workers are unavailable.
 (0.9 s) → walk (1.3 s) → sit + monitor on → type → camera push-in (0.9 s) → terminal types
 `> ./matin_portfolio.exe` → boot log with a stepped progress bar → glitch + flash + zoom through →
 the site powers on (CRT turn-on). About 8 s after spawning.
-Guardrails: SKIP button (focused) and Esc; full intro once (`localStorage pq.introSeen`), then a
-~1.5 s terminal-only version; `prefers-reduced-motion` skips it; `?nointro` skips it for development.
+Guardrails: SKIP button (focused) and Esc; `prefers-reduced-motion` skips it; `?nointro` skips it
+for development.
+
+**Decision (owner, 2026-09-25): the full intro plays on every page load**, replacing the brief's
+"full once, then short" rule. The ~1.5 s terminal-only version still exists as
+`runIntro({ short: true })` but is not used.
 A dark cover hides the page before the intro starts and removes itself after 6 s if JavaScript
 fails, so the content can never stay hidden.
 

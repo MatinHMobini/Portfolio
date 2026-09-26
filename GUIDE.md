@@ -194,8 +194,7 @@ You should see:
 
 - While `npm run dev` is running, **every time you save a file the page updates by itself**.
 - Handy dev URL: **http://localhost:5173/Portfolio/?nointro** skips the intro.
-- The intro only plays in full once. To see it again, open DevTools (**F12**) → **Application** →
-  **Local Storage** → `http://localhost:5173` → delete `pq.introSeen`, then reload.
+- The full intro plays every time the page loads. **SKIP ▶▶** or **Esc** jumps straight to the site.
 
 **To stop the server:** click in the terminal and press **Ctrl + C** (if it asks
 `Terminate batch job (Y/N)?` type `Y`).
@@ -606,8 +605,7 @@ connection or ad/script blockers; the site still works with fallback fonts.
 **No sound.** Sound is **off by default** (HUD **SND** button). Browsers only allow audio after you
 click or press a key on the page, so turn it on with a click.
 
-**The intro doesn't play any more.** It plays fully only once per browser, then a short version.
-Clear `pq.introSeen` (see part C). If your system has "reduce motion" turned on (Windows Settings →
+**The intro doesn't play.** Check the address doesn't end in `?nointro`. If your system has "reduce motion" turned on (Windows Settings →
 Accessibility → Visual effects → Animation effects **off**), the intro and animations are skipped
 on purpose.
 
