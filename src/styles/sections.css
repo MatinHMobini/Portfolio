@@ -693,6 +693,40 @@ main {
   font-size: 20px;
   line-height: 1;
   color: var(--mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cart {
+  cursor: pointer;
+}
+/* "Click for details" strip pinned to the bottom of each cartridge label. */
+.cart__cta {
+  margin-top: auto;
+  align-self: stretch;
+  padding: 7px 0 6px;
+  background: var(--bg);
+  color: var(--yellow);
+  font-family: var(--font-display);
+  font-size: 9px;
+  text-align: center;
+}
+.cart-slot.is-selected .cart__cta,
+.cart:hover .cart__cta,
+.cart:focus-visible .cart__cta {
+  background: var(--pink);
+  color: var(--text);
+}
+.cart__cta-tap {
+  display: none;
+}
+@media (hover: none) {
+  .cart__cta-click {
+    display: none;
+  }
+  .cart__cta-tap {
+    display: inline;
+  }
 }
 .cart-slot__line {
   margin: 0;

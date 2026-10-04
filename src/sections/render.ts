@@ -195,6 +195,7 @@ function cartridge(p: Project, i: number): string {
       <span class="cart__shot">${shot}</span>
       <span class="cart__name">${esc(p.name)}</span>
       <span class="cart__meta">${esc(p.year)} · ${esc(p.tech.slice(0, 2).join(' · '))}</span>
+      <span class="cart__cta" aria-hidden="true"><span class="blink">▶</span> <span class="cart__cta-click">CLICK</span><span class="cart__cta-tap">TAP</span> FOR DETAILS</span>
     </span>
     <span class="sr-only">Open details for ${esc(p.name)}</span>
   </button>
