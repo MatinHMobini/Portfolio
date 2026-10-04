@@ -39,6 +39,8 @@ export interface Project {
   playUrl?: string;
   /** Source code link (CODE). */
   codeUrl?: string;
+  /** Project website, shown as a VISIT SITE button. */
+  siteUrl?: string;
   /** Sticker colour on the cartridge label. */
   color: 'yellow' | 'pink' | 'cyan';
 }
@@ -89,7 +91,7 @@ export const content = {
   stats: [
     { label: 'GPA', value: '3.9/4' },
     { label: 'PROJECTS', value: '' /* filled in automatically */ },
-    { label: 'JOBS', value: '' /* filled in automatically (roles, not school) */ },
+    { label: 'PASSION', value: '∞' },
   ],
 
   photo: 'photo.jpg',
@@ -121,8 +123,21 @@ export const content = {
     { name: 'ANDROID', level: 7 },
   ] as Skill[],
 
-  /** Other languages and tools (from the resume). */
-  alsoSpeaks: ['C++', 'GO', 'HTML/CSS', 'EXPRESS.JS', 'POSTGRESQL', 'FIREBASE', 'PROLOG', 'RACKET', 'GIT', 'JUPYTER'],
+  /** AI/ML libraries and tools (from the projects). */
+  alsoSpeaks: [
+    'PYTORCH',
+    'SCIKIT-LEARN',
+    'PANDAS',
+    'NUMPY',
+    'HUGGING FACE',
+    'OPENAI API',
+    'RAG',
+    'PROMPT ENGINEERING',
+    'STREAMLIT',
+    'FASTAPI',
+    'DOCKER',
+    'JUPYTER',
+  ],
 
   /** ACTIVE QUESTS: what I'm building or planning next. */
   quests: [
@@ -141,9 +156,12 @@ export const content = {
       type: 'CO-OP',
       role: 'AI RESEARCH & ROBOTICS ENGINEER',
       years: 'MAY 2026-NOW',
-      // [PLACEHOLDER] Add what you work on at Adaptron (bullets) and the tools you use.
-      achievements: [],
-      tech: [],
+      achievements: [
+        'Lead development of AI and robotics software in Python, delivering substantial enhancements to core intelligent systems and autonomous agent capabilities',
+        'Design and implement key features spanning Memory Management, Perception, Recognition and Action Execution, integrating sensory inputs, internal state and agent behaviour within robotic simulations',
+        'Translate AI research concepts into functional software and evaluate system behaviour through simulation, structured experimentation, root-cause analysis and regression testing',
+      ],
+      tech: ['Python', 'Robotics', 'Autonomous Agents', 'Simulation', 'Regression Testing'],
     },
     {
       team: 'HEALTH CANADA',
@@ -197,6 +215,48 @@ export const content = {
 
   projects: [
     {
+      id: 'rally',
+      name: 'RALLY',
+      year: '2026',
+      category: 'MOBILE',
+      tagline: 'Free iPhone & Android app that turns shared interests into real meetups.',
+      description:
+        'Rally puts the pickup games, study sessions and jam nights around you on one map. Find something ' +
+        'nearby, show up, and keep the crew together. A free app for iPhone and Android that brings people ' +
+        'together through shared interests.',
+      tech: ['Mobile', 'iOS', 'Android', 'Maps'],
+      screenshots: [],
+      siteUrl: 'https://rallynow.ca/',
+      color: 'yellow',
+    },
+    {
+      id: 'mental-health-assistant',
+      name: 'MENTAL HEALTH ASSISTANT',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'Context-aware RAG therapist assistant that reads your smartwatch data.',
+      description:
+        'A context-aware mental health therapist assistant: a RAG phone app that reads your smartwatch data ' +
+        'to track your health and help you through stressful times, grounded in real therapist methods. ' +
+        'In progress.',
+      tech: ['RAG', 'LLMs', 'Mobile', 'Wearables'],
+      screenshots: [],
+      color: 'pink',
+    },
+    {
+      id: 'croppilot',
+      name: 'CROPPILOT',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'Autonomous robot for crop detection, precision harvesting and storage.',
+      description:
+        'An autonomous robot for crop detection, precision harvesting and storage organization, combining ' +
+        'perception, decision making and action execution. In progress.',
+      tech: ['Robotics', 'Computer Vision', 'Autonomy'],
+      screenshots: [],
+      color: 'cyan',
+    },
+    {
       id: 'pixel-quest',
       name: 'PIXEL QUEST',
       year: '2026',
@@ -213,6 +273,68 @@ export const content = {
       color: 'yellow',
     },
     {
+      id: 'hallucination-detector',
+      name: 'HALLUCINATION DETECTOR',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'Flags unfaithful sentences in news summaries, and explains why.',
+      description:
+        'A lightweight, interpretable detector for unfaithful sentences in abstractive news summaries: wrong ' +
+        'numbers, flipped negations, swapped names, dates or units. Each summary sentence is matched to ' +
+        'evidence in the article with TF-IDF retrieval, scored on 11 hand-crafted faithfulness features by a ' +
+        'logistic-regression classifier, and explained in an interactive Streamlit app. Fast and CPU-only.',
+      tech: ['Python', 'NLP', 'Scikit-learn', 'Streamlit'],
+      screenshots: [],
+      codeUrl: 'https://github.com/MatinHMobini/hallucination-detector',
+      color: 'pink',
+    },
+    {
+      id: 'brain-mri-cnn',
+      name: 'BRAIN MRI CNN',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'From-scratch PyTorch CNN that classifies brain MRI scans (85% test accuracy).',
+      description:
+        'A convolutional neural network built from scratch in PyTorch that classifies brain MRI slices into ' +
+        'glioma, meningioma, pituitary tumor or no tumor. Full workflow: Hugging Face dataset (7,200 images), ' +
+        'augmentation, a 3-block CNN, training with best-checkpoint selection, and evaluation on 1,600 unseen ' +
+        'test images: 85.4% accuracy and 0.85 macro F1.',
+      tech: ['PyTorch', 'CNN', 'Hugging Face', 'Scikit-learn'],
+      screenshots: [],
+      codeUrl: 'https://github.com/MatinHMobini/brain-mri-cnn-pytorch',
+      color: 'cyan',
+    },
+    {
+      id: 'googl-forecasting',
+      name: 'GOOGL RETURN FORECASTING',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'Next-day GOOGL return forecasting with a leakage-free backtest.',
+      description:
+        'Forecasts next-day returns of Alphabet (GOOGL) stock with Ridge regression on lagged-return and ' +
+        'rolling-volatility features, on a strict chronological split. The predictions drive a long/flat ' +
+        'strategy that is compared with buy & hold using MAE, RMSE, directional accuracy, Sharpe and Sortino.',
+      tech: ['Python', 'pandas', 'Scikit-learn', 'yfinance'],
+      screenshots: [],
+      codeUrl: 'https://github.com/MatinHMobini/googl-return-forecasting',
+      color: 'yellow',
+    },
+    {
+      id: 'llm-recipes',
+      name: 'LLM DINNER RECIPE GENERATOR',
+      year: '2026',
+      category: 'AI/ML',
+      tagline: 'Prompt engineering that turns your diet profile into a personal recipe.',
+      description:
+        'Turns a dietary profile (allergies, diet, time, skill, ingredients) into one personalized dinner ' +
+        'recipe with the OpenAI API. A single dynamic prompt combines instruction-based rules, a few-shot ' +
+        'example and chain-of-thought guidance, and every prompt and response is logged for reproducibility.',
+      tech: ['Python', 'OpenAI API', 'Prompt Engineering', 'Jupyter'],
+      screenshots: [],
+      codeUrl: 'https://github.com/MatinHMobini/llm-dinner-recipe-generator',
+      color: 'pink',
+    },
+    {
       id: 'gambling-buddy',
       name: 'MY GAMBLING BUDDY',
       year: '2026',
@@ -225,9 +347,8 @@ export const content = {
         'to gamble. Python FastAPI + Uvicorn backend, HTML/CSS/JS frontend.',
       tech: ['Python', 'FastAPI', 'AI', 'JavaScript', 'HTML/CSS'],
       screenshots: [],
-      playUrl: 'https://www.mygamblingbuddy.tech/',
       codeUrl: 'https://github.com/MatinHMobini/My-Gambling-Buddy',
-      color: 'pink',
+      color: 'cyan',
     },
     {
       id: 'house-price',
@@ -243,53 +364,7 @@ export const content = {
       tech: ['Python', 'pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'Seaborn'],
       screenshots: ['projects/house-price.jpg'],
       codeUrl: 'https://github.com/MatinHMobini/House-Price-Prediction',
-      color: 'cyan',
-    },
-    {
-      id: 'seg-lab',
-      name: 'SEGMENTATION LAB',
-      year: '2026',
-      category: 'AI/ML',
-      tagline: 'Applied ML: segmentation model training, secrets injection and CI/CD.',
-      description:
-        'SEG4180 applied machine learning lab: training a segmentation model and wiring it into a CI/CD ' +
-        'pipeline with secrets injection. [PLACEHOLDER: add a line about the dataset and results.]',
-      tech: ['Python', 'Deep Learning', 'CI/CD'],
-      screenshots: [],
-      codeUrl:
-        'https://github.com/MatinHMobini/SEG4180_A00_Applied_Machine_Learning_Secrets_Injection_CICD_and_Segmentation_Model_Training_Lab',
       color: 'yellow',
-    },
-    {
-      id: 'hotel-booking',
-      name: 'HOTEL BOOKING SERVICE',
-      year: '2024',
-      category: 'WEB',
-      tagline: 'SQL-powered hotel search, booking and reservation manager.',
-      description:
-        'A comprehensive SQL database at the core of a hotel booking system, with a web app for searching, ' +
-        'booking and managing reservations efficiently.',
-      tech: ['TypeScript', 'PostgreSQL', 'React', 'Vite', 'Node.js', 'Bootstrap'],
-      screenshots: ['projects/hotel-booking.jpg'],
-      playUrl: 'https://matinhmobini.github.io/CSI_2132_Databases_1/',
-      codeUrl: 'https://github.com/MatinHMobini/CSI_2132_Databases_1',
-      color: 'pink',
-    },
-    {
-      id: 'hkfc',
-      name: 'UOTTAWA HKFC CLUB',
-      year: '2024',
-      category: 'WEB',
-      tagline: "Live website for HKFC, a uOttawa club I'm part of.",
-      description:
-        "The website of HKFC, a University of Ottawa student club I'm part of. It gives students an " +
-        "overview of the club's mission, upcoming events, announcements and team members. Visitors can " +
-        'join the club and browse past and future events.',
-      tech: ['JavaScript', 'HTML', 'CSS'],
-      screenshots: [],
-      playUrl: 'https://uo-hkfc.com/',
-      codeUrl: 'https://github.com/MatinHMobini/UOttawa_HKFC_Club',
-      color: 'cyan',
     },
     {
       id: 'cycling-club',
@@ -304,34 +379,21 @@ export const content = {
       tech: ['Java', 'Android Studio', 'Firebase', 'UML'],
       screenshots: ['projects/cycling-club.jpg'],
       codeUrl: 'https://github.com/MatinHMobini/Cycling-Club-Event-Management-App',
-      color: 'yellow',
-    },
-    {
-      id: 'parking-lot',
-      name: 'PARKING LOT OPTIMIZER',
-      year: '2024',
-      category: 'GAMES & ALGOS',
-      tagline: 'Simulation that finds the minimum spots to stop queues forming.',
-      description:
-        'Simulates a parking lot to find the optimal number of spots: the minimum needed to handle car ' +
-        'arrivals and departures without excessive queues at the entrance and without leaving spots unused.',
-      tech: ['Java', 'Simulation', 'Queues'],
-      screenshots: [],
-      codeUrl: 'https://github.com/MatinHMobini/Parking-Lot-Capacity-Optimizer',
       color: 'pink',
     },
     {
-      id: 'path-finder',
-      name: 'PATH FINDER',
+      id: 'hotel-booking',
+      name: 'HOTEL BOOKING SERVICE',
       year: '2024',
-      category: 'GAMES & ALGOS',
-      tagline: 'Maze solver that finds a route through obstacle grids.',
+      category: 'WEB',
+      tagline: 'SQL-powered hotel search, booking and reservation manager.',
       description:
-        'A maze solver game: it reads a maze as a grid of characters and computes a valid path from the ' +
-        'entrance on the left to the exit on the right, around the obstacles.',
-      tech: ['Python', 'Search', 'Grids'],
-      screenshots: [],
-      codeUrl: 'https://github.com/MatinHMobini/Path-Finder',
+        'A comprehensive SQL database at the core of a hotel booking system, with a web app for searching, ' +
+        'booking and managing reservations efficiently.',
+      tech: ['TypeScript', 'PostgreSQL', 'React', 'Vite', 'Node.js', 'Bootstrap'],
+      screenshots: ['projects/hotel-booking.jpg'],
+      playUrl: 'https://matinhmobini.github.io/CSI_2132_Databases_1/',
+      codeUrl: 'https://github.com/MatinHMobini/CSI_2132_Databases_1',
       color: 'cyan',
     },
   ] as Project[],

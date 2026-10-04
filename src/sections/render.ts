@@ -74,8 +74,8 @@ export function renderHero(c: Content): string {
   const [first, ...rest] = c.name.split(' ');
   const stats = c.stats
     .map((s) => {
-      const v = s.label === 'PROJECTS' ? String(c.projects.length) : s.label === 'JOBS' ? String(c.experience.filter((j) => !j.education).length) : s.value;
-      return `<li><span class="stat__v">${esc(v)}</span><span class="stat__k">${esc(s.label)}</span></li>`;
+      const v = s.label === 'PROJECTS' ? String(c.projects.length) : s.value;
+      return `<li><span class="stat__v${v === '∞' ? ' stat__v--inf' : ''}">${esc(v)}</span><span class="stat__k">${esc(s.label)}</span></li>`;
     })
     .join('');
   return `
@@ -197,6 +197,7 @@ function cartridge(p: Project, i: number): string {
   </button>
   <p class="cart-slot__line">${esc(p.tagline)}</p>
   <div class="cart-slot__btns">
+    ${p.siteUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.siteUrl)}" target="_blank" rel="noopener">VISIT SITE${EXT}</a>` : ''}
     ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${EXT}</a>` : ''}
   </div>
 </article>`;

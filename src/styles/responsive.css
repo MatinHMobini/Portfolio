@@ -149,6 +149,9 @@
   .stat__v {
     font-size: 13px;
   }
+  .stat__v--inf {
+    font-size: 28px;
+  }
   .stat__k {
     font-size: 20px;
   }

@@ -336,3 +336,18 @@ READMEs). The phone number on the old site was intentionally not copied.
   box moved up.
 - World map / PRESS START / level bar scroll so the page's title block lands just under the HUD.
 - The sky world's sun moved away from the page title (top-right corner on phones).
+
+## 18. Owner updates (October 2026)
+
+- "NEW SKILL LEARNED" pop-ups stay quiet for 15 s after the game starts, then show one at a time,
+  4 s apart, so the start of the game is less busy.
+- Enemies are about 1.5 times as common in every world, and enemy jokes come more often (first after
+  6 s, then at least 12 s apart). The champion brain was retrained on the denser levels.
+- The hero's JOBS stat is now PASSION: ∞.
+- ALSO SPEAKS lists AI/ML tools (PyTorch, scikit-learn, pandas, NumPy, Hugging Face, OpenAI API, RAG,
+  prompt engineering, Streamlit, FastAPI, Docker, Jupyter).
+- Adaptron now has its three bullets from the owner.
+- Projects replaced with: Rally (VISIT SITE to rallynow.ca), Mental Health Assistant, CropPilot,
+  Pixel Quest, Hallucination Detector, Brain MRI CNN, GOOGL Return Forecasting, LLM Dinner Recipe
+  Generator, My Gambling Buddy, House Price Predictor, Cycling Club App, and Hotel Booking Service last.
+  Projects can have a \`siteUrl\`, shown as a VISIT SITE button.

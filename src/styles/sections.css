@@ -190,6 +190,13 @@ main {
   font-size: 18px;
   color: var(--cyan);
 }
+.stat__v--inf {
+  /* The pixel font has no ∞, so use a bold system glyph at a matching size. */
+  font-family: system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 0.6;
+}
 .stat__k {
   font-size: 24px;
   color: var(--muted);

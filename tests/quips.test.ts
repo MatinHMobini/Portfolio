@@ -21,8 +21,8 @@ describe('enemy quips', () => {
     expect(pickSpeaker([enemy(10)], 50, 16)).toBeNull();
   });
 
-  it('is rare: long gaps between jokes', () => {
-    expect(QUIP_FIRST_DELAY).toBeGreaterThanOrEqual(10);
-    expect(QUIP_COOLDOWN).toBeGreaterThanOrEqual(20);
+  it('comes up often, with a short gap between jokes', () => {
+    expect(QUIP_FIRST_DELAY).toBeGreaterThanOrEqual(5);
+    expect(QUIP_COOLDOWN).toBeGreaterThanOrEqual(10);
   });
 });

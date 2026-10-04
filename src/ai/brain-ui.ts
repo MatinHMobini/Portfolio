@@ -18,6 +18,11 @@ export interface ChampionMeta {
   holdout: { levels: number; finished: number; avgProgress: number };
 }
 
+/** Quiet start: no "NEW SKILL LEARNED" pop-ups for this long after the game starts. */
+const SKILL_TOAST_DELAY_MS = 15000;
+/** Gap between queued skill pop-ups. */
+const SKILL_TOAST_GAP_MS = 4000;
+
 export class BrainUI {
   private views: { view: BrainView; el: HTMLCanvasElement; visible: boolean }[] = [];
   private panel: HTMLDialogElement | null = null;
@@ -25,6 +30,10 @@ export class BrainUI {
   private widgetCtx: CanvasRenderingContext2D | null;
   private widget = document.getElementById('brain-widget') as HTMLButtonElement;
   private human = false;
+  /** Skill pop-ups wait until a while after the game starts, then show one at a time. */
+  private skillQueue: string[] = [];
+  private skillsAt = Infinity;
+  private announcing = false;
   onOpenLab: (() => void) | null = null;
   /** Starts YOU PLAY mode (the visitor takes the controls). */
   onYouPlay: (() => void) | null = null;
@@ -68,11 +77,8 @@ export class BrainUI {
       this.renderSkillList();
       this.setText('[data-brain="skills"]', `${state.learned.size}/${SKILLS.length}`);
       if (skill && skill.id !== 'run') {
-        sfx.learn();
-        toast(`NEW SKILL LEARNED: <b>${skill.label}</b>`);
-        this.widget.classList.remove('is-learning');
-        void this.widget.offsetWidth;
-        this.widget.classList.add('is-learning');
+        this.skillQueue.push(skill.label);
+        this.announceSkills();
       }
     });
 
@@ -82,11 +88,29 @@ export class BrainUI {
     new ResizeObserver(() => this.drawCharts(document)).observe(document.querySelector('[data-brain-chart]') ?? document.body);
   }
 
+  private announceSkills(): void {
+    if (this.announcing || performance.now() < this.skillsAt) return;
+    const label = this.skillQueue.shift();
+    if (!label) return;
+    this.announcing = true;
+    sfx.learn();
+    toast(`NEW SKILL LEARNED: <b>${label}</b>`);
+    this.widget.classList.remove('is-learning');
+    void this.widget.offsetWidth;
+    this.widget.classList.add('is-learning');
+    window.setTimeout(() => {
+      this.announcing = false;
+      this.announceSkills();
+    }, SKILL_TOAST_GAP_MS);
+  }
+
   /**
    * The speech bubble next to the BRAIN button: shows 2.5 s after the site
    * boots, then for 8 s out of every 18 s, until the visitor opens the brain.
    */
   startTips(): void {
+    this.skillsAt = performance.now() + SKILL_TOAST_DELAY_MS;
+    window.setTimeout(() => this.announceSkills(), SKILL_TOAST_DELAY_MS);
     let clicked = false;
     let timers: number[] = [];
     const show = (ms: number) => {

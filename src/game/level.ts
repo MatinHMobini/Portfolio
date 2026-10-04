@@ -68,12 +68,12 @@ export interface ThemeParams {
 }
 
 export const THEME_PARAMS: Record<ThemeId, ThemeParams> = {
-  night: { gapChance: 0.22, gapMin: 2, gapMax: 3, stepChance: 0.25, stepMax: 1, pillarChance: 0.08, enemyChance: 0.25, flyerShare: 0, coinChance: 0.45, beltChance: 0, maxH: 3 },
-  sky: { gapChance: 0.38, gapMin: 2, gapMax: 5, stepChance: 0.25, stepMax: 2, pillarChance: 0.05, enemyChance: 0.2, flyerShare: 0.6, coinChance: 0.55, beltChance: 0, maxH: 4 },
-  mine: { gapChance: 0.18, gapMin: 2, gapMax: 3, stepChance: 0.4, stepMax: 2, pillarChance: 0.2, enemyChance: 0.35, flyerShare: 0.4, coinChance: 0.45, beltChance: 0, maxH: 5 },
-  factory: { gapChance: 0.25, gapMin: 2, gapMax: 4, stepChance: 0.25, stepMax: 2, pillarChance: 0.15, enemyChance: 0.3, flyerShare: 0.2, coinChance: 0.4, beltChance: 0.45, maxH: 5 },
-  circuit: { gapChance: 0.26, gapMin: 2, gapMax: 4, stepChance: 0.3, stepMax: 2, pillarChance: 0.15, enemyChance: 0.45, flyerShare: 0.45, coinChance: 0.45, beltChance: 0, maxH: 5 },
-  castle: { gapChance: 0.32, gapMin: 2, gapMax: 5, stepChance: 0.3, stepMax: 2, pillarChance: 0.18, enemyChance: 0.35, flyerShare: 0.3, coinChance: 0.4, beltChance: 0, maxH: 5 },
+  night: { gapChance: 0.22, gapMin: 2, gapMax: 3, stepChance: 0.25, stepMax: 1, pillarChance: 0.08, enemyChance: 0.38, flyerShare: 0, coinChance: 0.45, beltChance: 0, maxH: 3 },
+  sky: { gapChance: 0.38, gapMin: 2, gapMax: 5, stepChance: 0.25, stepMax: 2, pillarChance: 0.05, enemyChance: 0.3, flyerShare: 0.6, coinChance: 0.55, beltChance: 0, maxH: 4 },
+  mine: { gapChance: 0.18, gapMin: 2, gapMax: 3, stepChance: 0.4, stepMax: 2, pillarChance: 0.2, enemyChance: 0.5, flyerShare: 0.4, coinChance: 0.45, beltChance: 0, maxH: 5 },
+  factory: { gapChance: 0.25, gapMin: 2, gapMax: 4, stepChance: 0.25, stepMax: 2, pillarChance: 0.15, enemyChance: 0.45, flyerShare: 0.2, coinChance: 0.4, beltChance: 0.45, maxH: 5 },
+  circuit: { gapChance: 0.26, gapMin: 2, gapMax: 4, stepChance: 0.3, stepMax: 2, pillarChance: 0.15, enemyChance: 0.6, flyerShare: 0.45, coinChance: 0.45, beltChance: 0, maxH: 5 },
+  castle: { gapChance: 0.32, gapMin: 2, gapMax: 5, stepChance: 0.3, stepMax: 2, pillarChance: 0.18, enemyChance: 0.5, flyerShare: 0.3, coinChance: 0.4, beltChance: 0, maxH: 5 },
 };
 
 /** Y coordinate (game px, downward) of the top of ground with height h tiles. */

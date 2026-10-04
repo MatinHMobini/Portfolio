@@ -338,6 +338,7 @@ export function openProject(p: Project, returnFocus?: HTMLElement): void {
           <p class="k-label">TECH</p>
           <ul class="chips">${p.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
           <div class="pm__btns">
+            ${p.siteUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.siteUrl)}" target="_blank" rel="noopener">VISIT SITE${ext}</a>` : ''}
             ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${ext}</a>` : ''}
           </div>
         </div>

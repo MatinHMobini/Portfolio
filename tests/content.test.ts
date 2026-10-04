@@ -147,12 +147,24 @@ describe('resume-based content', () => {
 describe('latest profile details', () => {
   const html = renderApp(content);
 
-  it('lists Adaptron first as the current role, with an empty details slot', () => {
+  it('lists Adaptron first as the current role, with its details', () => {
     expect(content.experience[0].team).toMatch(/ADAPTRON/);
     expect(content.experience[0].years).toMatch(/NOW/);
-    expect(content.experience[0].achievements).toHaveLength(0);
-    // Plain row (no expand button) while it has no details.
-    expect(html).toContain('<div class="score__row"><span class="score__rank">1ST</span>');
+    expect(content.experience[0].achievements).toHaveLength(3);
+  });
+
+  it('shows PASSION as infinite instead of a job count', () => {
+    expect(html).toContain('<span class="stat__v stat__v--inf">∞</span><span class="stat__k">PASSION</span>');
+    expect(html).not.toContain('>JOBS<');
+  });
+
+  it('lists the new projects in order, Rally first with its website and hotel booking last', () => {
+    const ids = content.projects.map((p) => p.id);
+    expect(ids[0]).toBe('rally');
+    expect(ids.at(-1)).toBe('hotel-booking');
+    expect(content.projects[0].siteUrl).toBe('https://rallynow.ca/');
+    expect(html).toContain('href="https://rallynow.ca/" target="_blank" rel="noopener">VISIT SITE');
+    for (const gone of ['seg-lab', 'hkfc', 'parking-lot', 'path-finder']) expect(ids).not.toContain(gone);
   });
 
   it('shows Health Canada as a past role', () => {

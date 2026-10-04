@@ -30,10 +30,10 @@ const THEMED: Record<ThemeId, string[]> = {
 };
 
 /** Seconds before the first joke, then the minimum gap between jokes. */
-export const QUIP_FIRST_DELAY = 12;
-export const QUIP_COOLDOWN = 30;
+export const QUIP_FIRST_DELAY = 6;
+export const QUIP_COOLDOWN = 12;
 /** After the cooldown, average extra wait (seconds) before the next joke. */
-export const QUIP_MEAN_WAIT = 20;
+export const QUIP_MEAN_WAIT = 8;
 export const QUIP_DURATION = 3;
 
 export function pickQuip(theme: ThemeId, rand = Math.random): string {
