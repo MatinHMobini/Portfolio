@@ -153,8 +153,12 @@ describe('latest profile details', () => {
     expect(content.experience[0].achievements).toHaveLength(3);
   });
 
-  it('shows 2+ years of experience instead of a project count', () => {
-    expect(html).toContain('<span class="stat__v">2+</span><span class="stat__k">YRS EXP</span>');
+  it('shows the project count, and private repos get a locked badge', () => {
+    expect(html).toContain('<span class="stat__v">' + content.projects.length + '</span><span class="stat__k">PROJECTS</span>');
+    const priv = content.projects.filter((p) => p.privateRepo).map((p) => p.id);
+    expect(priv).toEqual(['mental-health-assistant', 'croppilot']);
+    expect(html.split('PRIVATE REPO</span>').length - 1).toBe(2);
+    for (const p of content.projects) expect(p.screenshots.length, p.id).toBeGreaterThan(0);
   });
 
   it('shows PASSION as infinite instead of a job count', () => {

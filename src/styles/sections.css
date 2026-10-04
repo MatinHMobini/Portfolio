@@ -547,7 +547,7 @@ main {
   color: var(--body);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 14px;
 }
 .score--coin {
   background: rgba(16, 12, 38, 0.85);

@@ -276,7 +276,7 @@ are and only change the text between quotes.
 | `role`, `builds` | hero subtitle "ROLE // BUILDS …" |
 | `dialog` | the lines the RPG dialog box types out |
 | `location`, `className`, `likes`, `bio` | ABOUT page |
-| `stats` | the GPA / YRS EXP / PASSION strip under your name |
+| `stats` | the GPA / PROJECTS / PASSION strip (PROJECTS is counted automatically) |
 | `skills` | skill bars; `level` is 1–10 blocks |
 | `alsoSpeaks` | the small chips under your bio |
 | `quests` | ACTIVE QUESTS list |
@@ -319,6 +319,7 @@ Each project in `content.ts` looks like this:
   playUrl: 'https://…',              // optional: kept for later, not shown on the site
   codeUrl: 'https://github.com/…',   // optional: shows CODE
   siteUrl: 'https://…',              // optional: shows VISIT SITE (project website)
+  privateRepo: true,                 // optional: shows a locked PRIVATE REPO badge
   color: 'cyan',                     // 'yellow' | 'pink' | 'cyan' label border
 },
 ```

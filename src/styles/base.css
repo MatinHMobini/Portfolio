@@ -351,3 +351,13 @@ code {
     visibility: hidden;
   }
 }
+
+/* Non-clickable badge styled like a button (e.g. PRIVATE REPO). */
+.btn--locked,
+.btn--locked:hover {
+  border-style: dashed;
+  border-color: var(--muted);
+  color: var(--muted);
+  background: rgba(16, 12, 38, 0.6);
+  cursor: not-allowed;
+}

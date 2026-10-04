@@ -34,6 +34,9 @@ export const SECTIONS: SectionMeta[] = [
 const HEART = '<svg class="px" viewBox="0 0 7 6" aria-hidden="true"><path d="M1 0h2v1h1v-1h2v1h1v2h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-2h1z"/></svg>';
 const CASTLE = '<svg class="px" viewBox="0 0 7 6" aria-hidden="true"><path d="M0 0h1v1h1v-1h1v1h1v-1h1v1h1v-1h1v6h-3v-2h-1v2h-3z"/></svg>';
 const DOWNLOAD = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path d="M3 0h2v4h2v1h-1v1h-1v1h-2v-1h-1v-1h-1v-1h2z"/></svg>';
+/** Locked, non-clickable badge for projects whose code is in a private repo. */
+export const PRIVATE_BADGE =
+  '<span class="btn btn--ghost btn--sm btn--locked" title="The code is in a private repository"><svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path fill-rule="evenodd" d="M2 0h4v1h1v3h1v4h-8v-4h1v-3h1zM3 1v3h2v-3zM3 5v2h2v-2z"/></svg>PRIVATE REPO</span>';
 const EXT = '<span class="sr-only"> (opens in a new tab)</span>';
 const LINKEDIN_ICON =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>';
@@ -74,7 +77,7 @@ export function renderHero(c: Content): string {
   const [first, ...rest] = c.name.split(' ');
   const stats = c.stats
     .map((s) => {
-      const v = s.value;
+      const v = s.label === 'PROJECTS' ? String(c.projects.length) : s.value;
       return `<li><span class="stat__v${v === '∞' ? ' stat__v--inf' : ''}">${esc(v)}</span><span class="stat__k">${esc(s.label)}</span></li>`;
     })
     .join('');
@@ -199,6 +202,7 @@ function cartridge(p: Project, i: number): string {
   <div class="cart-slot__btns">
     ${p.siteUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.siteUrl)}" target="_blank" rel="noopener">VISIT SITE${EXT}</a>` : ''}
     ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${EXT}</a>` : ''}
+    ${p.privateRepo ? PRIVATE_BADGE : ''}
   </div>
 </article>`;
 }

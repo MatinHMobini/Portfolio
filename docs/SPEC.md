@@ -351,3 +351,10 @@ READMEs). The phone number on the old site was intentionally not copied.
   Pixel Quest, Hallucination Detector, Brain MRI CNN, GOOGL Return Forecasting, LLM Dinner Recipe
   Generator, My Gambling Buddy, House Price Predictor, Cycling Club App, and Hotel Booking Service last.
   Projects can have a \`siteUrl\`, shown as a VISIT SITE button.
+- The hero strip is back to GPA / PROJECTS (counted) / PASSION.
+- Experience bullets have a 14 px gap between them.
+- \`privateRepo: true\` shows a dashed, non-clickable PRIVATE REPO badge with a pixel lock (Mental Health
+  Assistant, CropPilot).
+- Every project has a cartridge image (800x440 PNG in public/projects): Rally's own flag icon, real
+  figures from each repo's README (hallucination app, MRI scans, GOOGL chart, Gambling Buddy logo),
+  and hand-drawn pixel art in the site palette for the rest. Pixel Quest uses the game's real sprites.

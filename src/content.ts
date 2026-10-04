@@ -41,6 +41,8 @@ export interface Project {
   codeUrl?: string;
   /** Project website, shown as a VISIT SITE button. */
   siteUrl?: string;
+  /** Code lives in a private repo: shows a locked PRIVATE REPO badge instead of VIEW CODE. */
+  privateRepo?: boolean;
   /** Sticker colour on the cartridge label. */
   color: 'yellow' | 'pink' | 'cyan';
 }
@@ -90,7 +92,7 @@ export const content = {
     'Intelligence & Machine Learning, Web Development and Android Development.',
   stats: [
     { label: 'GPA', value: '3.9/4' },
-    { label: 'YRS EXP', value: '2+' },
+    { label: 'PROJECTS', value: '' /* filled in automatically */ },
     { label: 'PASSION', value: '∞' },
   ],
 
@@ -225,7 +227,7 @@ export const content = {
         'nearby, show up, and keep the crew together. A free app for iPhone and Android that brings people ' +
         'together through shared interests.',
       tech: ['Mobile', 'iOS', 'Android', 'Maps'],
-      screenshots: [],
+      screenshots: ['projects/rally.png'],
       siteUrl: 'https://rallynow.ca/',
       color: 'yellow',
     },
@@ -240,7 +242,8 @@ export const content = {
         'to track your health and help you through stressful times, grounded in real therapist methods. ' +
         'In progress.',
       tech: ['RAG', 'LLMs', 'Mobile', 'Wearables'],
-      screenshots: [],
+      screenshots: ['projects/mental-health.png'],
+      privateRepo: true,
       color: 'pink',
     },
     {
@@ -253,7 +256,8 @@ export const content = {
         'An autonomous robot for crop detection, precision harvesting and storage organization, combining ' +
         'perception, decision making and action execution. In progress.',
       tech: ['Robotics', 'Computer Vision', 'Autonomy'],
-      screenshots: [],
+      screenshots: ['projects/croppilot.png'],
+      privateRepo: true,
       color: 'cyan',
     },
     {
@@ -268,7 +272,7 @@ export const content = {
         'section. The Training Lab lets you watch a population learn live in a Web Worker. Canvas 2D, ' +
         'TypeScript, zero runtime dependencies.',
       tech: ['TypeScript', 'Canvas 2D', 'Neuroevolution', 'Web Workers', 'Vite'],
-      screenshots: [],
+      screenshots: ['projects/pixel-quest.png'],
       codeUrl: 'https://github.com/MatinHMobini/Portfolio',
       color: 'yellow',
     },
@@ -284,7 +288,7 @@ export const content = {
         'evidence in the article with TF-IDF retrieval, scored on 11 hand-crafted faithfulness features by a ' +
         'logistic-regression classifier, and explained in an interactive Streamlit app. Fast and CPU-only.',
       tech: ['Python', 'NLP', 'Scikit-learn', 'Streamlit'],
-      screenshots: [],
+      screenshots: ['projects/hallucination.png'],
       codeUrl: 'https://github.com/MatinHMobini/hallucination-detector',
       color: 'pink',
     },
@@ -300,7 +304,7 @@ export const content = {
         'augmentation, a 3-block CNN, training with best-checkpoint selection, and evaluation on 1,600 unseen ' +
         'test images: 85.4% accuracy and 0.85 macro F1.',
       tech: ['PyTorch', 'CNN', 'Hugging Face', 'Scikit-learn'],
-      screenshots: [],
+      screenshots: ['projects/brain-mri.png'],
       codeUrl: 'https://github.com/MatinHMobini/brain-mri-cnn-pytorch',
       color: 'cyan',
     },
@@ -315,7 +319,7 @@ export const content = {
         'rolling-volatility features, on a strict chronological split. The predictions drive a long/flat ' +
         'strategy that is compared with buy & hold using MAE, RMSE, directional accuracy, Sharpe and Sortino.',
       tech: ['Python', 'pandas', 'Scikit-learn', 'yfinance'],
-      screenshots: [],
+      screenshots: ['projects/googl.png'],
       codeUrl: 'https://github.com/MatinHMobini/googl-return-forecasting',
       color: 'yellow',
     },
@@ -330,7 +334,7 @@ export const content = {
         'recipe with the OpenAI API. A single dynamic prompt combines instruction-based rules, a few-shot ' +
         'example and chain-of-thought guidance, and every prompt and response is logged for reproducibility.',
       tech: ['Python', 'OpenAI API', 'Prompt Engineering', 'Jupyter'],
-      screenshots: [],
+      screenshots: ['projects/llm-recipes.png'],
       codeUrl: 'https://github.com/MatinHMobini/llm-dinner-recipe-generator',
       color: 'pink',
     },
@@ -346,7 +350,7 @@ export const content = {
         'them with AI-generated, slang-filled commentary. Built as an informational companion, not a push ' +
         'to gamble. Python FastAPI + Uvicorn backend, HTML/CSS/JS frontend.',
       tech: ['Python', 'FastAPI', 'AI', 'JavaScript', 'HTML/CSS'],
-      screenshots: [],
+      screenshots: ['projects/gambling-buddy.png'],
       codeUrl: 'https://github.com/MatinHMobini/My-Gambling-Buddy',
       color: 'cyan',
     },
@@ -377,7 +381,7 @@ export const content = {
         'types of cycling events, user accounts and participation tracking inside a cycling community, ' +
         'backed by Firebase. Delivered by a team of 4 in a 4-month timeframe.',
       tech: ['Java', 'Android Studio', 'Firebase', 'UML'],
-      screenshots: ['projects/cycling-club.jpg'],
+      screenshots: ['projects/cycling-club.png'],
       codeUrl: 'https://github.com/MatinHMobini/Cycling-Club-Event-Management-App',
       color: 'pink',
     },

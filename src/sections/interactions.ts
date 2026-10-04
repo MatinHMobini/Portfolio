@@ -3,7 +3,7 @@
  * into index.html); this file only enhances it.
  */
 import type { Content, Project } from '../content.ts';
-import { esc } from './render.ts';
+import { esc, PRIVATE_BADGE } from './render.ts';
 import type { Game } from '../game/game.ts';
 import { sfx } from '../audio/sfx.ts';
 import { popText } from '../ui/toasts.ts';
@@ -340,6 +340,7 @@ export function openProject(p: Project, returnFocus?: HTMLElement): void {
           <div class="pm__btns">
             ${p.siteUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.siteUrl)}" target="_blank" rel="noopener">VISIT SITE${ext}</a>` : ''}
             ${p.codeUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(p.codeUrl)}" target="_blank" rel="noopener">VIEW CODE${ext}</a>` : ''}
+            ${p.privateRepo ? PRIVATE_BADGE : ''}
           </div>
         </div>
       </div>
