@@ -276,7 +276,7 @@ are and only change the text between quotes.
 | `role`, `builds` | hero subtitle "ROLE // BUILDS …" |
 | `dialog` | the lines the RPG dialog box types out |
 | `location`, `className`, `likes`, `bio` | ABOUT page |
-| `stats` | the GPA / PROJECTS / PASSION strip (PROJECTS is counted automatically) |
+| `stats` | the GPA / YRS EXP / PASSION strip under your name |
 | `skills` | skill bars; `level` is 1–10 blocks |
 | `alsoSpeaks` | the small chips under your bio |
 | `quests` | ACTIVE QUESTS list |

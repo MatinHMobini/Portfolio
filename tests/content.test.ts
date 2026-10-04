@@ -153,6 +153,10 @@ describe('latest profile details', () => {
     expect(content.experience[0].achievements).toHaveLength(3);
   });
 
+  it('shows 2+ years of experience instead of a project count', () => {
+    expect(html).toContain('<span class="stat__v">2+</span><span class="stat__k">YRS EXP</span>');
+  });
+
   it('shows PASSION as infinite instead of a job count', () => {
     expect(html).toContain('<span class="stat__v stat__v--inf">∞</span><span class="stat__k">PASSION</span>');
     expect(html).not.toContain('>JOBS<');

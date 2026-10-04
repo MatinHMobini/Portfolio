@@ -90,7 +90,7 @@ export const content = {
     'Intelligence & Machine Learning, Web Development and Android Development.',
   stats: [
     { label: 'GPA', value: '3.9/4' },
-    { label: 'PROJECTS', value: '' /* filled in automatically */ },
+    { label: 'YRS EXP', value: '2+' },
     { label: 'PASSION', value: '∞' },
   ],
 

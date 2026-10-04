@@ -74,7 +74,7 @@ export function renderHero(c: Content): string {
   const [first, ...rest] = c.name.split(' ');
   const stats = c.stats
     .map((s) => {
-      const v = s.label === 'PROJECTS' ? String(c.projects.length) : s.value;
+      const v = s.value;
       return `<li><span class="stat__v${v === '∞' ? ' stat__v--inf' : ''}">${esc(v)}</span><span class="stat__k">${esc(s.label)}</span></li>`;
     })
     .join('');
