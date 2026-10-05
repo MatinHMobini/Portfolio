@@ -179,6 +179,7 @@ main {
   padding: 0;
   display: flex;
   gap: 28px;
+  align-items: baseline;
 }
 .stats li {
   display: flex;
