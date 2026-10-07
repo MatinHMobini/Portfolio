@@ -499,7 +499,8 @@ export class Game {
       this.squashT = 0.2;
       const r = tr.to.runner;
       this.particles.dust(r.x + RUNNER_W / 2, r.y + RUNNER_H, this.mobile ? 6 : 14);
-      this.events.landed?.(tr.to.index);
+      // Skip the WORLD card for in-between worlds when the visitor jumped several sections at once.
+      if (this.queued === null) this.events.landed?.(tr.to.index);
     }
     if (p >= 1) {
       this.cur = tr.to;
