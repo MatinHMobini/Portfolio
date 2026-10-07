@@ -33,7 +33,7 @@ export const SECTIONS: SectionMeta[] = [
 
 const HEART = '<svg class="px" viewBox="0 0 7 6" aria-hidden="true"><path d="M1 0h2v1h1v-1h2v1h1v2h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-2h1z"/></svg>';
 const CASTLE = '<svg class="px" viewBox="0 0 7 6" aria-hidden="true"><path d="M0 0h1v1h1v-1h1v1h1v-1h1v1h1v-1h1v6h-3v-2h-1v2h-3z"/></svg>';
-const DOWNLOAD = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path d="M3 0h2v4h2v1h-1v1h-1v1h-2v-1h-1v-1h-1v-1h2z"/></svg>';
+const PLAY = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 0h2v1h1v1h1v1h1v2h-1v1h-1v1h-1v1h-2z"/></svg>';
 /** Locked, non-clickable badge for projects whose code is in a private repo. */
 export const PRIVATE_BADGE =
   '<span class="btn btn--ghost btn--sm btn--locked" title="The code is in a private repository"><svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path fill-rule="evenodd" d="M2 0h4v1h1v3h1v4h-8v-4h1v-3h1zM3 1v3h2v-3zM3 5v2h2v-2z"/></svg>PRIVATE REPO</span>';
@@ -120,7 +120,7 @@ export function renderAbout(c: Content): string {
 <section class="level" id="about" data-world="2" data-theme="sky" aria-labelledby="about-title">
   <div class="level__head">
     <div><p class="k-label">WORLD 2</p><h2 class="h2" id="about-title">ABOUT</h2><p class="level__sub">WHO I AM, WHAT I'M GOOD AT AND WHAT I'M LEARNING.</p></div>
-    <a class="btn btn--ghost btn--sm" href="${esc(c.cv)}" download>${DOWNLOAD}${esc(c.cvLabel)}</a>
+    <a class="btn btn--ghost btn--sm" href="${esc(c.proudMoment.url)}" target="_blank" rel="noopener">${PLAY}${esc(c.proudMoment.label)}${EXT}</a>
   </div>
   <div class="about">
     <div class="rpg about__card">

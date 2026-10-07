@@ -53,7 +53,6 @@ describe('content.ts data shape', () => {
 
   it('points to files that exist in /public', () => {
     expect(existsSync(pub(content.photo))).toBe(true);
-    expect(existsSync(pub(content.cv))).toBe(true);
   });
 
   it('maps every section to a real level theme', () => {
@@ -159,6 +158,12 @@ describe('latest profile details', () => {
     expect(priv).toEqual(['mental-health-assistant', 'croppilot']);
     expect(html.split('PRIVATE REPO</span>').length - 1).toBe(2);
     for (const p of content.projects) expect(p.screenshots.length, p.id).toBeGreaterThan(0);
+  });
+
+  it('has no resume link, and LOAD PROUD MOMENT opens the Raptors trophy ceremony', () => {
+    expect(html).not.toMatch(/RESUME|cv.pdf|download>/);
+    expect(html).toContain('href="https://www.youtube.com/watch?v=c-_KvTHaPAo" target="_blank" rel="noopener">');
+    expect(html).toContain('LOAD PROUD MOMENT');
   });
 
   it('shows PASSION as infinite instead of a job count', () => {

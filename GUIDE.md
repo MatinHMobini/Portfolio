@@ -216,7 +216,6 @@ Portfolio/
 │  └─ deploy.yml           GitHub Actions: tests, builds and publishes the site on every push to main.
 ├─ public/                 Files copied as-is to the site.
 │  ├─ photo.jpg            Your photo (ABOUT page).
-│  ├─ cv.pdf               Your CV (LOAD MATIN'S RESUME button). Currently a placeholder!
 │  ├─ projects/*.jpg       Project screenshots.
 │  ├─ favicon.png          Browser tab icon (your MM logo).
 │  ├─ icon-192.png         Phone home-screen icon.
@@ -297,10 +296,10 @@ Save (**Ctrl + S**). If `npm run dev` is running, the page reloads with your cha
 Replace `public/photo.jpg` with your own picture (keep the name `photo.jpg`, or change `photo` in
 `content.ts`). A square image around 400×400 px looks best. It "de-pixelates" when it scrolls in.
 
-### E3. Your CV
+### E3. The LOAD PROUD MOMENT button
 
-Export your CV as PDF, name it `cv.pdf`, and copy it over `public/cv.pdf` (replace the file). The
-**LOAD MATIN'S RESUME** button downloads it (the label is `cvLabel` in `content.ts`).
+The button next to the ABOUT title opens a YouTube video in a new tab. Change its text or link in
+`proudMoment` in `content.ts`.
 
 ### E4. Add, remove or edit projects
 

@@ -93,7 +93,7 @@ Node scripts and tests). No `tsx`: Node's built-in type stripping runs the train
 | --- | --- | --- | --- |
 | 0 | Intro | pixel bedroom | spawn beam, walk, sit, type, camera push-in, terminal, boot log, glitch |
 | 1 | Home | night overworld | stars, moon, stepped mountains, brick ground; HUD; world map; dialog |
-| 2 | ABOUT | sky / clouds | photo de-pixelates, NAME/CLASS/HOME/LIKES, bio, 10-block skill bars + LEVEL UP!, quests, LOAD MATIN'S RESUME |
+| 2 | ABOUT | sky / clouds | photo de-pixelates, NAME/CLASS/HOME/LIKES, bio, 10-block skill bars + LEVEL UP!, quests, LOAD PROUD MOMENT (YouTube link) |
 | 3 | EXPERIENCE | underground mine | torches, ore, beams; arcade-table rows, all open by default (click folds); dashed INSERT COIN row → contact |
 | 4 | PROJECTS | tech factory | conveyor belts (real physics), gears; cartridge cards, ▼ P1 marker, hover lift, insert-into-console animation, detail modal, category filter, phone carousel; VIEW CODE only (no PLAY links) |
 | 5 | NEURAL NET | circuit board | live brain, readouts, fitness chart, labelled skills box, HOW IT WORKS, TRAIN IT YOURSELF, PLAY IT YOURSELF |
@@ -270,7 +270,6 @@ and `npm run preview` under `/Portfolio/`.
 | `content.ts` → `skills` levels | estimated from the old site (Java, Python, JS/TS, SQL, React, Android, ML); adjust |
 | `content.ts` → `wantedRole`, `openTo` | guesses: "SOFTWARE / AI DEV", "INTERNSHIPS / FULL-TIME / FREELANCE" |
 | `content.ts` → `formspreeId` | empty → mailto fallback until you create a Formspree form |
-| `public/cv.pdf` | a one-page placeholder PDF; replace with your real CV |
 | Project screenshots | Pixel Quest, Gambling Buddy, Segmentation Lab, HKFC, Parking Lot, Path Finder have none (pixel initials shown) |
 | Gamertag | `MATINM` (Matin Mobini) |
 
@@ -358,3 +357,5 @@ READMEs). The phone number on the old site was intentionally not copied.
 - Every project has a cartridge image (800x440 PNG in public/projects): Rally's own flag icon, real
   figures from each repo's README (hallucination app, MRI scans, GOOGL chart, Gambling Buddy logo),
   and hand-drawn pixel art in the site palette for the rest. Pixel Quest uses the game's real sprites.
+- The resume button and `public/cv.pdf` were removed. In their place, **LOAD PROUD MOMENT** (next to
+  the ABOUT title) opens the Toronto Raptors trophy ceremony video on YouTube in a new tab.

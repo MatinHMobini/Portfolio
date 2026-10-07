@@ -97,8 +97,12 @@ export const content = {
   ],
 
   photo: 'photo.jpg',
-  cv: 'cv.pdf',
-  cvLabel: "LOAD MATIN'S RESUME",
+  /** Button next to the ABOUT title (opens in a new tab). */
+  proudMoment: {
+    label: 'LOAD PROUD MOMENT',
+    // Toronto Raptors trophy ceremony, June 13, 2019 (official Raptors channel).
+    url: 'https://www.youtube.com/watch?v=c-_KvTHaPAo',
+  },
 
   openTo: 'INTERNSHIPS / FULL-TIME / FREELANCE',
   wantedRole: 'SOFTWARE / AI & ML DEV',
