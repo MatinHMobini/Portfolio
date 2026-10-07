@@ -393,16 +393,19 @@ main {
 .skill {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(150px, 210px) 1fr;
+  grid-template-columns: minmax(110px, 210px) minmax(0, 1fr);
   align-items: center;
   font-size: 26px;
 }
+/* Blocks shrink (down to 6px) when the column gets narrow, so they never spill out of the box. */
 .skill__bar {
   display: flex;
   gap: 4px;
+  min-width: 0;
 }
 .skill__bar i {
-  width: 22px;
+  flex: 0 1 22px;
+  min-width: 6px;
   height: 22px;
   background: var(--mid);
 }

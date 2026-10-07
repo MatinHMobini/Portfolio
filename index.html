@@ -30,8 +30,11 @@
         var d = document.documentElement;
         d.classList.add('js');
         try {
-          if (localStorage.getItem('pq.crt') === 'off') d.classList.add('no-crt');
-        } catch (e) {}
+          // CRT filter is off unless the visitor turned it on.
+          if (localStorage.getItem('pq.crt') !== 'on') d.classList.add('no-crt');
+        } catch (e) {
+          d.classList.add('no-crt');
+        }
         var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (reduced) d.classList.add('reduced');
         else if (!/[?&]nointro/.test(location.search)) d.classList.add('intro-pending');

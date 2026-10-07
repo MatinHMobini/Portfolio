@@ -603,8 +603,8 @@ GitHub's CDN can take a few minutes.
 **Fonts look like normal text.** The pixel fonts come from Google Fonts. Check your internet
 connection or ad/script blockers; the site still works with fallback fonts.
 
-**No sound.** Sound is **off by default** (HUD **SND** button). Browsers only allow audio after you
-click or press a key on the page, so turn it on with a click.
+**No sound.** Sound is **on by default** (HUD **SND** button), but browsers only allow audio after you
+click or press a key on the page. If it is still silent, check that SND says ON.
 
 **The intro doesn't play.** Check the address doesn't end in `?nointro`. If your system has "reduce motion" turned on (Windows Settings →
 Accessibility → Visual effects → Animation effects **off**), the intro and animations are skipped

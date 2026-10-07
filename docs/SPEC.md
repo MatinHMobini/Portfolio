@@ -208,7 +208,7 @@ fails, so the content can never stay hidden.
 
 `src/audio/sfx.ts`: jump, double jump, coin, stomp, dash, fall whoosh, land, spring, die, typewriter
 blip, menu select, level-up, skill learned, coin insert, cartridge insert, 1UP, spawn, glitch,
-countdown tick, game over. Square/triangle oscillators with pitch slides + band-passed noise. Muted
+countdown tick, game over. Square/triangle oscillators with pitch slides + band-passed noise. On
 by default; SND toggle remembered in `localStorage`; per-sound throttling.
 
 ## 9. YOU PLAY (Konami secret)
@@ -359,3 +359,6 @@ READMEs). The phone number on the old site was intentionally not copied.
   and hand-drawn pixel art in the site palette for the rest. Pixel Quest uses the game's real sprites.
 - The resume button and `public/cv.pdf` were removed. In their place, **LOAD PROUD MOMENT** (next to
   the ABOUT title) opens the Toronto Raptors trophy ceremony video on YouTube in a new tab.
+- Defaults: CRT filter off, sound on (audio starts after the first click or key press). Skill-bar
+  blocks shrink in narrow columns so they never spill out of the SKILLS box (981 to 1090 px wide).
+- The WORLD card only shows for the world you land on, not the ones passed on the way.

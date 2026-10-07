@@ -1,7 +1,8 @@
 /**
  * Chiptune sound effects synthesised live with the Web Audio API
  * (square / triangle oscillators and filtered noise). No audio files.
- * Muted by default; the choice is remembered in localStorage.
+ * On by default (muted only if the visitor turned it off); the choice is remembered in
+ * localStorage. Nothing plays until the visitor has clicked or pressed a key, as browsers require.
  */
 type Wave = OscillatorType;
 
@@ -9,18 +10,20 @@ const KEY = 'pq.sound';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
-let enabled = false;
+let enabled = true;
 let noiseBuf: AudioBuffer | null = null;
 const listeners: ((on: boolean) => void)[] = [];
 
 try {
-  enabled = localStorage.getItem(KEY) === 'on';
+  enabled = localStorage.getItem(KEY) !== 'off';
 } catch {
-  enabled = false;
+  enabled = true;
 }
 
 function ensure(): AudioContext | null {
   if (!enabled) return null;
+  // Browsers block audio before the first click/key press; skip quietly until then.
+  if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return null;
   if (!ctx) {
     const AC = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AC) return null;
