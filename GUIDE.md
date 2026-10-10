@@ -270,7 +270,7 @@ are and only change the text between quotes.
 
 | Field | Where it shows |
 | --- | --- |
-| `name`, `fullName`, `firstName` | hero title, dialog box, credits, page title; `firstName` goes in `./matin_portfolio.exe` |
+| `name`, `fullName`, `firstName` | hero title, dialog box, footer, page title; `firstName` goes in `./matin_portfolio.exe` |
 | `gamertag` | HUD "PLAYER 1" |
 | `role`, `builds` | hero subtitle "ROLE // BUILDS …" |
 | `dialog` | the lines the RPG dialog box types out |
@@ -286,8 +286,8 @@ are and only change the text between quotes.
 | `formspreeId` | contact form (see E6) |
 
 **Find what's unfinished:** press **Ctrl + Shift + F** in VS Code and search for `[PLACEHOLDER`.
-Currently: your *likes*, one *active quest*, your university *start year*, and a line for the
-*Segmentation Lab* project. Skill levels and "wanted role" are guesses too; adjust them.
+Right now there are none left. Skill levels and "wanted role" are your own estimates; adjust them
+any time.
 
 Save (**Ctrl + S**). If `npm run dev` is running, the page reloads with your change.
 
@@ -316,7 +316,7 @@ Each project in `content.ts` looks like this:
   tech: ['Python', 'pandas'],
   screenshots: ['projects/house-price.jpg'],   // files in public/projects, or [] for pixel initials
   playUrl: 'https://…',              // optional: kept for later, not shown on the site
-  codeUrl: 'https://github.com/…',   // optional: shows CODE
+  codeUrl: 'https://github.com/…',   // optional: shows VIEW CODE
   siteUrl: 'https://…',              // optional: shows VISIT SITE (project website)
   privateRepo: true,                 // optional: shows a locked PRIVATE REPO badge
   color: 'cyan',                     // 'yellow' | 'pink' | 'cyan' label border
@@ -603,8 +603,9 @@ GitHub's CDN can take a few minutes.
 **Fonts look like normal text.** The pixel fonts come from Google Fonts. Check your internet
 connection or ad/script blockers; the site still works with fallback fonts.
 
-**No sound.** Sound is **on by default** (HUD **SND** button), but browsers only allow audio after you
-click or press a key on the page. If it is still silent, check that SND says ON.
+**No sound.** Sound is on by default during the intro and in YOU PLAY, and off while browsing. The
+speaker icon in the HUD turns it on or off everywhere (yellow = on). Browsers only allow audio after
+you click or press a key on the page.
 
 **The intro doesn't play.** Check the address doesn't end in `?nointro`. If your system has "reduce motion" turned on (Windows Settings →
 Accessibility → Visual effects → Animation effects **off**), the intro and animations are skipped

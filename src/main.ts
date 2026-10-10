@@ -21,6 +21,7 @@ import { Hud } from './ui/hud.ts';
 import { toast } from './ui/toasts.ts';
 import { YouPlay } from './ui/you-play.ts';
 import { runIntro } from './intro/intro.ts';
+import { setSoundScene } from './audio/sfx.ts';
 import {
   initDialog, initNavigation, initActiveSection, initStatus, initScores, initCartridges,
   initCountdown, initContactForm, initCredits,
@@ -76,14 +77,29 @@ const hero = document.getElementById('top');
 let dialogX = -1;
 let dialogY = -1;
 let lastDialogT = 0;
+/** At or below this width the dialog sits in the page flow under the world map (responsive.css). */
+const DIALOG_FLOAT_MIN = 1180;
 const trackDialog = (now: number) => {
-  if (!dialog || !hero || window.innerWidth <= 980 || game.index !== 0 || game.inTransition) return;
+  if (!dialog || !hero) return;
+  if (window.innerWidth <= DIALOG_FLOAT_MIN) {
+    // Window got narrower: drop the floating position so the CSS layout takes over.
+    if (dialog.style.left) {
+      for (const k of ['left', 'top', 'right', 'bottom']) dialog.style.removeProperty(k);
+      dialogX = dialogY = -1;
+    }
+    return;
+  }
+  if (game.index !== 0 || game.inTransition) return;
   const hr = hero.getBoundingClientRect();
   if (hr.bottom < 0) return;
   const p = game.runnerAnchorCss();
   const dw = dialog.offsetWidth;
   const dh = dialog.offsetHeight;
-  const tx = Math.max(0, Math.min(window.innerWidth - dw - 24, p.x - dw / 2));
+  const maxX = window.innerWidth - dw - 24;
+  // Never cover the world map: stay to the right of it when there is room.
+  const wm = hero.querySelector('.wm');
+  const minX = wm ? Math.min(maxX, wm.getBoundingClientRect().right + 24) : 0;
+  const tx = Math.max(minX, Math.min(maxX, p.x - dw / 2));
   const ty = p.y - dh - 30;
   // Frame-rate independent easing: about 1.5 s to settle.
   const dt = lastDialogT ? Math.min(0.1, (now - lastDialogT) / 1000) : 0;
@@ -172,7 +188,9 @@ if (reduced) {
 } else if (root.classList.contains('intro-pending')) {
   // Draw one frame under the intro so the page is ready when it ends.
   game.renderNow();
+  setSoundScene('intro');
   void runIntro({ firstName: content.firstName, touch, generations: champion.meta.generations }).then(() => {
+    setSoundScene('browse');
     game.start();
     initDialog();
     brainUI!.startTips();

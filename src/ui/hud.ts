@@ -1,5 +1,5 @@
-/** Persistent top HUD: score, coins, world, lives, sound + CRT toggles. */
-import { isSoundOn, setSound, sfx } from '../audio/sfx.ts';
+/** Persistent top HUD: score, coins, world, lives, sound + CRT toggles, page progress bar. */
+import { isSoundOn, onSoundChange, setSound, sfx } from '../audio/sfx.ts';
 
 const pad = (n: number, w: number) => String(Math.max(0, Math.floor(n))).padStart(w, '0');
 
@@ -11,10 +11,8 @@ export class Hud {
   private hearts = this.el.querySelector<HTMLButtonElement>('[data-hud="lives"]')!;
 
   constructor() {
-    const onScroll = () => this.el.classList.toggle('is-solid', window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
     this.bindToggles();
+    this.bindProgress();
   }
 
   get heartsButton(): HTMLButtonElement {
@@ -40,19 +38,46 @@ export class Hud {
     }
   }
 
+  /** Thin bar under the HUD: how far down the page you are, with a notch where each world starts. */
+  private bindProgress(): void {
+    const bar = this.el.querySelector<HTMLElement>('.hud__progress');
+    if (!bar) return;
+    const max = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      bar.style.setProperty('--p', String(Math.min(1, Math.max(0, window.scrollY / max()))));
+    };
+    const notches = () => {
+      bar.querySelectorAll('b').forEach((b) => b.remove());
+      document.querySelectorAll<HTMLElement>('main > .level').forEach((sec, i) => {
+        if (i === 0) return;
+        const b = document.createElement('b');
+        b.style.left = `${Math.min(100, (sec.offsetTop / max()) * 100)}%`;
+        bar.appendChild(b);
+      });
+      update();
+    };
+    window.addEventListener('scroll', () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    }, { passive: true });
+    new ResizeObserver(notches).observe(document.body);
+    notches();
+  }
+
   private bindToggles(): void {
     const snd = this.el.querySelector<HTMLButtonElement>('[data-toggle="sound"]')!;
     const crt = this.el.querySelector<HTMLButtonElement>('[data-toggle="crt"]')!;
     const paint = (b: HTMLButtonElement, on: boolean) => {
       b.setAttribute('aria-pressed', String(on));
-      b.querySelector('.tgl__s')!.textContent = on ? 'ON' : 'OFF';
+      b.title = `${b.getAttribute('aria-label')}: ${on ? 'ON' : 'OFF'}`;
     };
     paint(snd, isSoundOn());
     paint(crt, !document.documentElement.classList.contains('no-crt'));
+    onSoundChange((on) => paint(snd, on));
     snd.addEventListener('click', () => {
       const on = !isSoundOn();
       setSound(on);
-      paint(snd, on);
       if (on) sfx.select();
     });
     crt.addEventListener('click', () => {

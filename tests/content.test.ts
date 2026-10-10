@@ -193,3 +193,42 @@ describe('latest profile details', () => {
     expect(content.dialog.some((l) => /HEALTH CANADA/.test(l))).toBe(false);
   });
 });
+
+describe('October tester feedback', () => {
+  const html = renderApp(content);
+  const uo = content.experience.find((j) => j.education)!;
+
+  it('graduates in April 2027 with the updated coursework', () => {
+    expect(uo.years).toBe('GRAD APR 2027');
+    const cw = uo.achievements.find((a) => a.startsWith('Coursework'))!;
+    for (const c of ['Machine Learning', 'Data Science', 'Data Structures & Algorithms', 'Probability & Statistics']) expect(cw).toContain(c);
+  });
+
+  it('lists C++ under ALSO SPEAKS', () => {
+    expect(content.alsoSpeaks).toContain('C++');
+  });
+
+  it('has a solid HUD with a progress bar and icon-only sound / CRT buttons', () => {
+    const hud = html.slice(html.indexOf('<header class="hud"'), html.indexOf('</header>'));
+    expect(hud).toContain('class="hud__progress"');
+    expect(hud).not.toMatch(/>SND|>CRT/);
+    expect(hud).toContain('data-toggle="sound"');
+    expect(hud).toContain('aria-label="Sound"');
+    expect(hud).toContain('aria-label="CRT effect"');
+  });
+
+  it('puts PLAY IT YOURSELF before TRAIN IT YOURSELF on the World 5 page', () => {
+    const brain = html.slice(html.indexOf('id="brain"'));
+    expect(brain.indexOf('data-you-play')).toBeLessThan(brain.indexOf('data-open-lab'));
+  });
+
+  it('has a MORE PROJECTS BELOW tag after the cartridges', () => {
+    expect(html).toContain('id="carts-more"');
+  });
+
+  it('drops the credits list and keeps the secret hint', () => {
+    const footer = html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));
+    expect(footer).not.toMatch(/DESIGN &amp; CODE|AI PILOT|TRAINED BY|WEB AUDIO SYNTH|<dl>/);
+    expect(footer).toContain('PSST… TRY DOING <span class="credits__code">↑ ↑ ↓ ↓ ← → ← → B A</span>');
+  });
+});

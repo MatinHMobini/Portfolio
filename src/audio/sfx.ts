@@ -1,8 +1,9 @@
 /**
  * Chiptune sound effects synthesised live with the Web Audio API
  * (square / triangle oscillators and filtered noise). No audio files.
- * On by default (muted only if the visitor turned it off); the choice is remembered in
- * localStorage. Nothing plays until the visitor has clicked or pressed a key, as browsers require.
+ * By default sound is on in the intro and in YOU PLAY, and off while browsing. Once the
+ * visitor uses the sound button, that choice wins everywhere and is remembered in localStorage.
+ * Nothing plays until the visitor has clicked or pressed a key, as browsers require.
  */
 type Wave = OscillatorType;
 
@@ -10,18 +11,26 @@ const KEY = 'pq.sound';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
-let enabled = true;
+/** Where the visitor is. Each scene has its own default when they haven't chosen. */
+export type SoundScene = 'intro' | 'play' | 'browse';
+const SCENE_DEFAULT: Record<SoundScene, boolean> = { intro: true, play: true, browse: false };
+let scene: SoundScene = 'browse';
+/** The visitor's own choice from the sound button; null until they use it. */
+let pref: boolean | null = null;
 let noiseBuf: AudioBuffer | null = null;
 const listeners: ((on: boolean) => void)[] = [];
 
 try {
-  enabled = localStorage.getItem(KEY) !== 'off';
+  const saved = localStorage.getItem(KEY);
+  pref = saved === 'on' ? true : saved === 'off' ? false : null;
 } catch {
-  enabled = true;
+  pref = null;
 }
 
+const enabled = (): boolean => pref ?? SCENE_DEFAULT[scene];
+
 function ensure(): AudioContext | null {
-  if (!enabled) return null;
+  if (!enabled()) return null;
   // Browsers block audio before the first click/key press; skip quietly until then.
   if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return null;
   if (!ctx) {
@@ -37,11 +46,12 @@ function ensure(): AudioContext | null {
 }
 
 export function isSoundOn(): boolean {
-  return enabled;
+  return enabled();
 }
 
+/** The visitor's choice (sound button). Applies everywhere and is remembered. */
 export function setSound(on: boolean): void {
-  enabled = on;
+  pref = on;
   try {
     localStorage.setItem(KEY, on ? 'on' : 'off');
   } catch {
@@ -49,6 +59,14 @@ export function setSound(on: boolean): void {
   }
   if (on) ensure();
   listeners.forEach((fn) => fn(on));
+}
+
+/** Switch scene (intro, YOU PLAY, browsing); only changes the sound if the visitor hasn't chosen. */
+export function setSoundScene(next: SoundScene): void {
+  if (next === scene) return;
+  const before = enabled();
+  scene = next;
+  if (enabled() !== before) listeners.forEach((fn) => fn(enabled()));
 }
 
 export function onSoundChange(fn: (on: boolean) => void): void {

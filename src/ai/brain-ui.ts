@@ -201,8 +201,8 @@ export class BrainUI {
               </dl>
               <canvas class="chart" data-brain-chart role="img" aria-label="Training fitness chart"></canvas>
               <p class="chart__key"><span class="key key--y"></span>BEST <span class="key key--p"></span>AVERAGE</p></div>
-              <button class="btn btn--primary btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
-              <button class="btn btn--primary btn--sm btn--pink" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
+              <button class="btn btn--primary btn--sm" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
+              <button class="btn btn--primary btn--sm btn--pink" type="button" data-open-lab>TRAIN IT YOURSELF</button>
               <a class="btn btn--ghost btn--sm" href="#brain" data-close-go>HOW IT WORKS</a>
             </div>
           </div>

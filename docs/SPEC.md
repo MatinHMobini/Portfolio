@@ -37,7 +37,7 @@ Chosen from the design canvas (concepts A and C were not chosen).
   Secondary: 4px white outline. Buttons "press" with a stepped translate.
 - **Type**: "Press Start 2P" for display, "VT323" for body (22–36px). Headings yellow with a hard
   pink text-shadow.
-- **CRT**: scanline overlay + vignette + a subtle flicker; the **CRT** toggle in the HUD turns it off
+- **CRT**: scanline overlay + vignette + a subtle flicker; off by default; the monitor icon in the HUD turns it on
   (remembered in `localStorage`).
 - **Animation style**: `steps()` timing everywhere so motion feels like sprite frames.
 - All **pixel art is code**: palette-indexed string grids in `src/game/sprites.ts` (character,
@@ -69,7 +69,7 @@ src/dev/raf-shim.ts   dev-only test helper (stripped from production)
 scripts/train.ts      offline neuroevolution trainer
 scripts/evaluate.ts   champion evaluation on unseen levels
 tests/                Vitest unit tests
-public/               photo, CV, project screenshots, favicon, og image
+public/               photo, project images, favicon, og image
 ```
 
 **Decision: content rendered at build time.** The brief asked for one editable content file *and*
@@ -96,9 +96,9 @@ Node scripts and tests). No `tsx`: Node's built-in type stripping runs the train
 | 2 | ABOUT | sky / clouds | photo de-pixelates, NAME/CLASS/HOME/LIKES, bio, 10-block skill bars + LEVEL UP!, quests, LOAD PROUD MOMENT (YouTube link) |
 | 3 | EXPERIENCE | underground mine | torches, ore, beams; arcade-table rows, all open by default (click folds); dashed INSERT COIN row → contact |
 | 4 | PROJECTS | tech factory | conveyor belts (real physics), gears; cartridge cards, ▼ P1 marker, hover lift, insert-into-console animation, detail modal, category filter, phone carousel; VIEW CODE only (no PLAY links) |
-| 5 | NEURAL NET | circuit board | live brain, readouts, fitness chart, labelled skills box, HOW IT WORKS, TRAIN IT YOURSELF, PLAY IT YOURSELF |
+| 5 | NEURAL NET | circuit board | live brain, readouts, fitness chart, labelled skills box, HOW IT WORKS, PLAY IT YOURSELF, TRAIN IT YOURSELF |
 | 6 | CONTINUE? | boss castle, lava pits | real 9→0 countdown → "GAME OVER… JUST KIDDING", links, form with INSERT COIN ▶ SEND + 1UP |
-| - | Footer | - | credits roll, waving victory flag, secret hint |
+| - | Footer | - | footer note, secret hint, waving victory flag |
 
 **Decision: page numbering and titles (owner, 2026-09-25).** Pages are numbered 1–6 (not 1-1 … 1-6)
 everywhere: HUD, world map, section labels, WORLD cards, phone bar. Pages 2–4 use plain titles
@@ -107,7 +107,7 @@ NEURAL NET and CONTINUE? keep their game-style titles.
 
 **Decision: HUD score.** The mockup's HUD said "SCORE [N] PROJECTS". The persistent HUD instead
 shows a live game score (coins, stomps, level clears) plus a coin counter, and the hero shows a
-stats strip (GPA, projects, jobs) so the project count is still visible.
+stats strip (GPA, projects, passion) so the project count is still visible.
 
 **Decision: hero dialog follows the runner.** On wide screens the RPG dialog box floats above the
 runner's head (smoothed), matching the mockup where the box sits above the character. On narrower
@@ -157,9 +157,9 @@ champion is picked among the top 8 by performance on 18 held-out levels. Output:
 (generations, population, params, episodes, held-out results, date) + best/mean fitness history.
 
 Results of the shipped champion (700 generations × 150 brains, ~16 min on a laptop): it finished
-12 of the 18 held-out levels during selection, and `npm run evaluate -- --levels 10` gives 36/60
-fresh unseen levels finished: night 9/10, sky 7/10, mine 6/10, factory 5/10, castle 6/10,
-circuit 3/10 (the enemy-heavy world). Run `npm run evaluate` for the per-theme breakdown. The champion is good, not perfect: it sometimes dies, which the lives system turns into
+14 of the 18 held-out levels during selection (retrained 2026-10-04 after enemies became about 1.5x
+more common), and `npm run evaluate -- --levels 10` gives 30/60 fresh unseen levels finished:
+night 10/10, mine 9/10, factory 6/10, circuit 3/10, sky 2/10, castle 0/10 (the enemy-heavy worlds). Run `npm run evaluate` for the per-theme breakdown. The champion is good, not perfect: it sometimes dies, which the lives system turns into
 part of the show.
 
 **Gameplay changes made to make learning work** (found by evaluating failures): flyers hover
@@ -209,7 +209,8 @@ fails, so the content can never stay hidden.
 `src/audio/sfx.ts`: jump, double jump, coin, stomp, dash, fall whoosh, land, spring, die, typewriter
 blip, menu select, level-up, skill learned, coin insert, cartridge insert, 1UP, spawn, glitch,
 countdown tick, game over. Square/triangle oscillators with pitch slides + band-passed noise. On
-by default; SND toggle remembered in `localStorage`; per-sound throttling.
+by default in the intro and YOU PLAY, off while browsing; the speaker icon in the HUD overrides it
+everywhere and is remembered in `localStorage`; per-sound throttling.
 
 ## 9. YOU PLAY (Konami secret)
 
@@ -264,14 +265,13 @@ and `npm run preview` under `/Portfolio/`.
 
 | Where | What |
 | --- | --- |
-| `content.ts` → `quests[2]` | `[PLACEHOLDER: A SIDE PROJECT IDEA]` (the first two are reasonable guesses: this site's neuroevolution and the SEG4180 applied-ML lab) |
-
-| `content.ts` → Segmentation Lab description | ends with `[PLACEHOLDER: add a line about the dataset and results.]` |
-| `content.ts` → `skills` levels | estimated from the old site (Java, Python, JS/TS, SQL, React, Android, ML); adjust |
-| `content.ts` → `wantedRole`, `openTo` | guesses: "SOFTWARE / AI DEV", "INTERNSHIPS / FULL-TIME / FREELANCE" |
-| `content.ts` → `formspreeId` | empty → mailto fallback until you create a Formspree form |
-| Project screenshots | Pixel Quest, Gambling Buddy, Segmentation Lab, HKFC, Parking Lot, Path Finder have none (pixel initials shown) |
+| `content.ts` → `skills` levels | the owner's own estimates (Python highest); adjust any time |
+| `content.ts` → `wantedRole`, `openTo` | "SOFTWARE / AI & ML DEV", "INTERNSHIPS / FULL-TIME / FREELANCE" |
+| `content.ts` → `formspreeId` | empty → the form falls back to email until you create a Formspree form |
 | Gamertag | `MATINM` (Matin Mobini) |
+
+There are no `[PLACEHOLDER` markers left in `content.ts`. The paragraph below describes the very
+first build; the owner's later updates are listed in sections 15 to 19.
 
 Real content came from the old site (name, bio, GPA, Dean's Honour List, Merit Scholarship,
 CrisperMe and Shoppers Drug Mart experience, the four projects and their screenshots, photo,
@@ -303,7 +303,7 @@ READMEs). The phone number on the old site was intentionally not copied.
 - **Experience now comes from the owner's resume** (LinkedIn blocks logged-out/automated reads, so
   the profile itself could not be used): Health Canada, Software Developer, Data Science & Analytics
   (May 2025 to now) and Junior Analyst (Jan to Apr 2025); CrisperMe (startup) Website Developer
-  (Sep 2022 to Nov 2023); University of Ottawa (AI & ML concentration, graduating Dec 2026, VP of
+  (Sep 2022 to Nov 2023); University of Ottawa (AI & ML concentration, graduating Apr 2027, VP of
   HKFC). The retail job was removed. The hero's JOBS stat counts roles only (\`education: true\`
   rows are skipped). The Health Canada tech chips are topic tags (the resume lists no stack for them).
 - House Price (Kaggle data, Random Forest + GridSearchCV, RMSE 50,414), Cycling Club (2023, team of
@@ -318,7 +318,7 @@ READMEs). The phone number on the old site was intentionally not copied.
   jumps no longer shake it. Enemy joke bubbles anchor to the enemy's resting height.
 - The AI BRAIN tip shows 2.5 s after boot, then 8 s out of every 18 s until the brain is opened.
 - The skills counter uses the body font (the pixel font made 8 look like 0).
-- LinkedIn and GitHub icon links in the HUD, right of SND and CRT (the WORLD cell is hidden on
+- LinkedIn and GitHub icon links in the HUD, right of the sound and CRT toggles (the WORLD cell is hidden on
   phones to make room; the bottom bar shows the current page).
 
 ## 17. Owner updates (2026-09-26, round 2)
@@ -359,6 +359,20 @@ READMEs). The phone number on the old site was intentionally not copied.
   and hand-drawn pixel art in the site palette for the rest. Pixel Quest uses the game's real sprites.
 - The resume button and `public/cv.pdf` were removed. In their place, **LOAD PROUD MOMENT** (next to
   the ABOUT title) opens the Toronto Raptors trophy ceremony video on YouTube in a new tab.
-- Defaults: CRT filter off, sound on (audio starts after the first click or key press). Skill-bar
+- Defaults: CRT filter off. Skill-bar
   blocks shrink in narrow columns so they never spill out of the SKILLS box (981 to 1090 px wide).
 - The WORLD card only shows for the world you land on, not the ones passed on the way.
+
+## 19. Tester feedback (October 2026)
+
+- University of Ottawa: graduating Apr 2027; coursework lists Machine Learning, Data Science, Data
+  Structures & Algorithms, Probability & Statistics first. C++ added to ALSO SPEAKS.
+- HUD: always solid (not see-through); a 4 px page-progress bar runs along its bottom edge with a
+  notch where each world starts. Sound and CRT toggles are 12x12 pixel icons (speaker with waves or
+  an X; monitor with scanlines or a dot): yellow when on, dim when off, with a tooltip.
+- Sound: on by default in the intro and in YOU PLAY, off while browsing; using the speaker toggle
+  sets the visitor's choice for every scene (remembered).
+- PROJECTS on laptop/desktop: a "▼ N MORE PROJECTS BELOW" note at the right end of the filter row
+  while cartridges are still below the fold; clicking it scrolls to the next row. Hidden on phones.
+- Footer: the credits list was removed and the footer is shorter; the hint reads "PSST… TRY DOING".
+- PLAY IT YOURSELF comes before TRAIN IT YOURSELF in the brain popup and on the World 5 page.

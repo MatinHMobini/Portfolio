@@ -256,8 +256,35 @@ export function initCartridges(content: Content): void {
       const first = slots.find((s) => !s.hidden);
       if (first) select(first);
       sfx.select();
+      showMore();
     });
   });
+
+  // Laptop/desktop: a "▼ N MORE PROJECTS BELOW" note at the end of the filter row while some
+  // cartridges are still below the screen, so nobody thinks the first row is all there is.
+  const more = document.getElementById('carts-more');
+  let raf = 0;
+  const below = () => slots.filter((s) => !s.hidden && s.getBoundingClientRect().top > window.innerHeight - 140);
+  const update = () => {
+    raf = 0;
+    if (!more) return;
+    const first = slots.find((s) => !s.hidden);
+    const started = !!first && first.getBoundingClientRect().top < window.innerHeight * 0.7;
+    const n = started ? below().length : 0;
+    if (n) more.innerHTML = `<span class="carts__more-arrow">▼</span> ${n} MORE PROJECT${n === 1 ? '' : 'S'} BELOW`;
+    more.classList.toggle('is-on', n > 0);
+  };
+  const showMore = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', showMore, { passive: true });
+  window.addEventListener('resize', showMore);
+  more?.addEventListener('click', () => {
+    const next = below()[0];
+    const hudH = document.getElementById('hud')?.offsetHeight ?? 0;
+    if (next) window.scrollBy({ top: next.getBoundingClientRect().top - hudH - 24, behavior: 'smooth' });
+  });
+  showMore();
 }
 
 let consoleEl: HTMLElement | null = null;

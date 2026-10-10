@@ -143,6 +143,7 @@ export const content = {
     'FASTAPI',
     'DOCKER',
     'JUPYTER',
+    'C++',
   ],
 
   /** ACTIVE QUESTS: what I'm building or planning next. */
@@ -207,13 +208,13 @@ export const content = {
     {
       team: 'UNIVERSITY OF OTTAWA',
       role: 'HONOURS BSC COMPUTER SCIENCE',
-      years: 'GRAD DEC 2026',
+      years: 'GRAD APR 2027',
       education: true,
       achievements: [
         'Concentration in Artificial Intelligence & Machine Learning',
         "GPA 3.9 / 4.0, nine-time Dean's Honour List, Merit Scholarship",
         'Vice President of HKFC, a uOttawa student club',
-        'Coursework: data structures & algorithms, OOP, computer architecture, programming paradigms, probability & statistics, databases',
+        'Coursework: Machine Learning, Data Science, Data Structures & Algorithms, Probability & Statistics, OOP, Databases, Computer Architecture, Programming Paradigms',
       ],
       tech: ['Python', 'Java', 'SQL', 'C++', 'Racket', 'Prolog'],
     },

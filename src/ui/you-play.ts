@@ -6,7 +6,7 @@
 import { KonamiDetector } from './konami.ts';
 import type { Game } from '../game/game.ts';
 import { toast } from './toasts.ts';
-import { sfx } from '../audio/sfx.ts';
+import { sfx, setSoundScene } from '../audio/sfx.ts';
 
 const isTyping = (t: EventTarget | null) =>
   t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
@@ -47,6 +47,7 @@ export class YouPlay {
     this.active = true;
     this.game.setMode('human');
     document.documentElement.classList.add('you-play');
+    setSoundScene('play');
     sfx.oneUp();
     const touchPad = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const controls = touchPad ? '◀ ▶ MOVE · A JUMP · B DASH · ▼ DIVE' : 'ARROWS/WASD · SPACE JUMP · SHIFT DASH · ESC EXIT';
@@ -65,6 +66,7 @@ export class YouPlay {
     this.active = false;
     this.game.setMode('ai');
     document.documentElement.classList.remove('you-play');
+    setSoundScene('browse');
     this.banner?.remove();
     this.pad?.remove();
     this.banner = this.pad = null;

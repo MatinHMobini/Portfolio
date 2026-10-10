@@ -37,6 +37,10 @@ const PLAY = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 0
 /** Locked, non-clickable badge for projects whose code is in a private repo. */
 export const PRIVATE_BADGE =
   '<span class="btn btn--ghost btn--sm btn--locked" title="The code is in a private repository"><svg class="px" viewBox="0 0 8 8" aria-hidden="true"><path fill-rule="evenodd" d="M2 0h4v1h1v3h1v4h-8v-4h1v-3h1zM3 1v3h2v-3zM3 5v2h2v-2z"/></svg>PRIVATE REPO</span>';
+const SOUND_ICON =
+  '<svg class="tgl__ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4h2v4h-2zM3 3h1v6h-1zM4 2h1v8h-1zM5 1h1v10h-1z"/><path class="ico-on" d="M7 4h1v4h-1zM9 2h1v1h-1zM10 3h1v6h-1zM9 9h1v1h-1z"/><path class="ico-off" d="M8 4h1v1h-1zM11 4h1v1h-1zM9 5h2v2h-2zM8 7h1v1h-1zM11 7h1v1h-1z"/></svg>';
+const CRT_ICON =
+  '<svg class="tgl__ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M0 1h12v1h-12zM0 8h12v1h-12zM0 2h1v6h-1zM11 2h1v6h-1zM5 9h2v1h-2zM3 10h6v1h-6z"/><path class="ico-on" d="M2 3h8v1h-8zM2 5h8v1h-8z"/><path class="ico-off" d="M5 4h2v2h-2z"/></svg>';
 const EXT = '<span class="sr-only"> (opens in a new tab)</span>';
 const LINKEDIN_ICON =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>';
@@ -56,11 +60,12 @@ export function renderHud(c: Content): string {
     <button class="hud__hearts" type="button" data-hud="lives" aria-label="Lives: 3">${HEART}${HEART}${HEART}</button>
   </div>
   <div class="hud__toggles">
-    <button class="tgl" type="button" data-toggle="sound" aria-pressed="false" aria-label="Sound">SND <span class="tgl__s">OFF</span></button>
-    <button class="tgl" type="button" data-toggle="crt" aria-pressed="true" aria-label="CRT effect">CRT <span class="tgl__s">ON</span></button>
+    <button class="tgl tgl--icon tgl--state" type="button" data-toggle="sound" aria-pressed="false" aria-label="Sound" title="Sound: OFF">${SOUND_ICON}</button>
+    <button class="tgl tgl--icon tgl--state" type="button" data-toggle="crt" aria-pressed="false" aria-label="CRT effect" title="CRT effect: OFF">${CRT_ICON}</button>
     <a class="tgl tgl--icon" href="${esc(c.links.linkedin)}" target="_blank" rel="noopener" aria-label="LinkedIn profile (opens in a new tab)">${LINKEDIN_ICON}</a>
     <a class="tgl tgl--icon" href="${esc(c.links.github)}" target="_blank" rel="noopener" aria-label="GitHub profile (opens in a new tab)">${GITHUB_ICON}</a>
   </div>
+  <div class="hud__progress" aria-hidden="true"><i></i></div>
 </header>`;
 }
 
@@ -216,9 +221,9 @@ export function renderProjects(c: Content): string {
   return `
 <section class="level" id="projects" data-world="4" data-theme="factory" aria-labelledby="projects-title">
   <div class="level__head">
-    <div><p class="k-label">WORLD 4</p><h2 class="h2" id="projects-title">PROJECTS</h2><p class="level__sub">MY CODING PROJECTS. CLICK A CARTRIDGE FOR DETAILS.</p></div>
+    <div><p class="k-label">WORLD 4</p><h2 class="h2" id="projects-title">PROJECTS</h2><p class="level__sub">MY CODING PROJECTS. <span class="cart__cta-click">CLICK</span><span class="cart__cta-tap">TAP</span> A CARTRIDGE FOR DETAILS.</p></div>
   </div>
-  <div class="filters" role="group" aria-label="Filter projects by category">${filters}</div>
+  <div class="filters" role="group" aria-label="Filter projects by category">${filters}<button class="carts__more" id="carts-more" type="button" tabindex="-1" aria-hidden="true"></button></div>
   <div class="carts" id="carts">${c.projects.map(cartridge).join('')}</div>
   <p class="carts__hint" aria-hidden="true">◀ SWIPE ▶</p>
 </section>`;
@@ -230,8 +235,8 @@ export function renderBrain(): string {
   <div class="level__head">
     <div><p class="k-label">WORLD 5</p><h2 class="h2" id="brain-title">NEURAL NET</h2><p class="level__sub">THE AI THAT PLAYS THIS SITE. IT'S A REAL NETWORK, TRAINED BY EVOLUTION.</p></div>
     <div class="brain__ctas">
-      <button class="btn btn--primary btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
-      <button class="btn btn--ghost btn--sm" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
+      <button class="btn btn--primary btn--sm" type="button" data-you-play>▶ PLAY IT YOURSELF</button>
+      <button class="btn btn--ghost btn--sm" type="button" data-open-lab>TRAIN IT YOURSELF</button>
     </div>
   </div>
   <div class="brain">
@@ -266,8 +271,8 @@ export function renderBrain(): string {
       <p><b>The brain.</b> A small neural network (a multilayer perceptron: 8 inputs, hidden layers of 10 and 8 neurons, 5 outputs, 223 weights) controls the runner. Every frame it reads 8 senses: distance to the next gap, gap width, distance and height of the nearest enemy, a coin above, a wall ahead, whether it's on the ground, and its vertical speed. Its 5 outputs decide how fast to run and whether to jump, double jump, dive or dash.</p>
       <p><b>How it learned.</b> Nobody hand-coded the moves. The weights were found offline with neuroevolution: a genetic algorithm ran a population of networks on seeded levels of all six themes, scored each one (distance, coins and stomps, minus a penalty for dying), kept the best, and bred the next generation with crossover and random mutation. The script is <code>npm run train</code>; the chart shows its best and average fitness per generation. The same physics code runs here and in training, so the site plays exactly the brain that was trained.</p>
       <p><b>The growing map.</b> The full network drives the runner the whole time. The map starts mostly hidden and reveals a pathway (the strongest weighted connections from the relevant senses to an action) the first time you see the runner use that behaviour. Yellow edges are positive weights, pink are negative, thicker means stronger; squares glow with live activation.</p>
-      <p><b>Watch it learn.</b> Press <b>TRAIN IT YOURSELF</b> to open the Training Lab: a fresh population of ghost runners starts from random weights and learns a level live, generation after generation, in your browser.</p>
       <p><b>Your turn.</b> Press <b>PLAY IT YOURSELF</b> to give the AI a break and take the controls.</p>
+      <p><b>Watch it learn.</b> Press <b>TRAIN IT YOURSELF</b> to open the Training Lab: a fresh population of ghost runners starts from random weights and learns a level live, generation after generation, in your browser.</p>
     </div>
   </details>
 </section>`;
@@ -306,15 +311,8 @@ export function renderFooter(c: Content): string {
   return `
 <footer class="credits" id="credits">
   <div class="credits__roll" aria-label="Credits">
-    <p class="k-label">CREDITS</p>
-    <dl>
-      <dt>DESIGN &amp; CODE</dt><dd>${esc(c.name)}</dd>
-      <dt>AI PILOT</dt><dd>223-WEIGHT NEURAL NET</dd>
-      <dt>TRAINED BY</dt><dd>NEUROEVOLUTION</dd>
-      <dt>SOUND</dt><dd>WEB AUDIO SYNTH</dd>
-    </dl>
     <p class="credits__note">${esc(c.footerNote)}</p>
-    <p class="credits__secret">PSST… ↑ ↑ ↓ ↓ ← → ← → B A <span class="credits__or">(OR TAP THE HEARTS 5×)</span></p>
+    <p class="credits__secret">PSST… TRY DOING <span class="credits__code">↑ ↑ ↓ ↓ ← → ← → B A</span> <span class="credits__or">(OR TAP THE HEARTS 5×)</span></p>
   </div>
   <div class="credits__flag" aria-hidden="true"><span class="flag__pole"></span><span class="flag__cloth"></span><span class="flag__base"></span></div>
   <div class="credits__bar"><span>THANKS FOR PLAYING</span><span>© ${year} ${esc(c.name)}</span><span>CREDITS 00</span></div>

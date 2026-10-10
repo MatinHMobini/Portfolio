@@ -20,6 +20,27 @@
   }
 }
 
+/* Below 1180 px the hero dialog sits in the page flow (floating, it covered world-map nodes). */
+@media (max-width: 1180px) {
+  .hero .dialog {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 44px;
+  }
+  .hero {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  /* About in one column (long likes overflowed the card). */
+  .about {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
 @media (max-width: 980px) {
   .about,
   .contact {
@@ -33,25 +54,33 @@
   .score__more {
     padding-left: calc(24px + 70px + 12px);
   }
-  .hero .dialog {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 44px;
-  }
-  .hero {
-    min-height: 0;
-  }
   .lab__body {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(260px, 45vh) auto;
+    grid-template-rows: minmax(260px, 45vh) auto auto;
     overflow: auto;
   }
+  /* The lab body scrolls as a whole; the side panel must not collapse into its own tiny scroll box. */
   .lab__side {
     grid-row: auto;
+    overflow: visible;
+    min-height: auto;
   }
   .bp {
     grid-template-columns: 1fr;
+  }
+  /* One column: diagram, then the PLAY / TRAIN buttons, then the explanation and readouts. */
+  .bp__main {
+    display: contents;
+  }
+  .bp__how {
+    order: 2;
+    margin: 0;
+  }
+  .bp__side {
+    order: 1;
+  }
+  .bp__side .readouts {
+    order: 1;
   }
 }
 
@@ -99,11 +128,9 @@
     padding: 0 6px;
     min-width: 44px;
   }
-  .tgl__s {
+  /* Phones swipe through the cartridges instead (◀ SWIPE ▶). */
+  .carts__more {
     display: none;
-  }
-  .tgl[aria-pressed='false'] {
-    text-decoration: line-through;
   }
 
   .level {
@@ -293,7 +320,7 @@
     height: 228px;
   }
   .cart__shot {
-    height: 124px;
+    height: 108px;
   }
   .cart-slot__line {
     width: 260px;
@@ -347,14 +374,13 @@
     font-size: 24px;
   }
 
-  .credits__roll dl {
-    font-size: 21px;
-  }
   .credits__bar {
     justify-content: center;
     text-align: center;
     font-size: 9px;
     line-height: 1.8;
+    /* Room for the AI BRAIN button in the bottom-right corner. */
+    padding-right: calc(var(--gutter) + 72px);
   }
 
   .level-bar {
@@ -560,5 +586,9 @@
   .tgl--icon svg {
     width: 18px;
     height: 18px;
+  }
+  .tgl--state .tgl__ico {
+    width: 24px;
+    height: 24px;
   }
 }
