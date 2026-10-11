@@ -1,6 +1,6 @@
 # Pixel Quest · Design spec
 
-Owner: Matin Mobini (GitHub `MatinHMobini`), deployed at https://matinhmobini.github.io/Portfolio/.
+Owner: Matin Mobini (GitHub `MatinHMobini`), deployed at https://matinmobini.com/ (GitHub Pages with a custom domain).
 This document describes what was built, how, the decisions made along the way and what is still a
 placeholder. It reflects the code in this repository.
 
@@ -52,7 +52,7 @@ Chosen from the design canvas (concepts A and C were not chosen).
 
 ```
 index.html            shell; <!--APP--> is replaced at build time with the rendered site
-vite.config.ts        base '/Portfolio/' + plugin that renders content.ts into index.html
+vite.config.ts        base '/' + plugin that renders content.ts into index.html
 src/content.ts        ALL copy and personal data
 src/main.ts           boots everything
 src/sections/         render.ts (HTML strings, runs in Node at build time), interactions.ts
@@ -259,7 +259,7 @@ reveal logic, sense normalisation.
 Manual/automated browser checks were run at 1440×900 and 390×844 (headless Chrome): intro (full and
 short), every section and transition, brain panel, Training Lab (1× and MAX), YOU PLAY, contact
 validation and mailto fallback, reduced motion, no-JavaScript rendering of the production build,
-and `npm run preview` under `/Portfolio/`.
+and `npm run preview` at `/`.
 
 ## 14. Placeholders and assumptions (please review)
 
@@ -376,3 +376,9 @@ READMEs). The phone number on the old site was intentionally not copied.
   while cartridges are still below the fold; clicking it scrolls to the next row. Hidden on phones.
 - Footer: the credits list was removed and the footer is shorter; the hint reads "PSST… TRY DOING".
 - PLAY IT YOURSELF comes before TRAIN IT YOURSELF in the brain popup and on the World 5 page.
+
+## 20. Custom domain (October 2026)
+
+- The site moved to https://matinmobini.com/ (GoDaddy domain, GitHub Pages custom domain set in the
+  repository settings). Vite `base` changed from `/Portfolio/` to `/`, and the og:url / og:image
+  tags point to the new domain. https://matinhmobini.github.io/Portfolio/ redirects there.

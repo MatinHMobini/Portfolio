@@ -6,7 +6,7 @@ A retro arcade portfolio where **every section is a playable level** and the lit
 driven by a **real neural network trained with neuroevolution**. Scroll, and the AI runs, jumps and
 stomps its way through six themed worlds while the page tells you about me.
 
-**Live site:** https://matinhmobini.github.io/Portfolio/
+**Live site:** https://matinmobini.com/
 
 I'm Matin Mobini, an Honours Computer Science student at the University of Ottawa (AI & ML
 concentration) building AI/ML, web and Android apps.
@@ -49,7 +49,7 @@ Needs Node.js 22.6 or newer.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173/Portfolio/
+npm run dev        # http://localhost:5173/
 ```
 
 | Command | What it does |
@@ -57,7 +57,7 @@ npm run dev        # http://localhost:5173/Portfolio/
 | `npm run dev` | Dev server with hot reload |
 | `npm test` | Unit tests |
 | `npm run build` | Type-check and production build into `dist/` |
-| `npm run preview` | Serve `dist/` at http://localhost:4173/Portfolio/ |
+| `npm run preview` | Serve `dist/` at http://localhost:4173/ |
 | `npm run train` | Retrain the AI and save `src/ai/champion.json` |
 | `npm run evaluate` | Test the trained AI on levels it has never seen |
 

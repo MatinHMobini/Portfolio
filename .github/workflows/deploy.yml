@@ -1,5 +1,5 @@
 # Builds the site and publishes it to GitHub Pages:
-#   https://matinhmobini.github.io/Portfolio/
+#   https://matinmobini.com/
 # Runs on every push to main, and manually from the Actions tab.
 # One-time setup: repo Settings → Pages → Source: "GitHub Actions".
 name: Deploy to GitHub Pages

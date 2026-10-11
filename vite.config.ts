@@ -22,8 +22,8 @@ function renderContent(): Plugin {
 }
 
 export default defineConfig({
-  // The site is served from https://matinhmobini.github.io/Portfolio/
-  base: '/Portfolio/',
+  // The site is served from the root of https://matinmobini.com/ (custom domain on GitHub Pages).
+  base: '/',
   plugins: [renderContent()],
   build: {
     target: 'es2022',

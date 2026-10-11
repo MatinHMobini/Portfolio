@@ -186,14 +186,14 @@ You should see:
 
 ```
   VITE v8.x  ready in 500 ms
-  ➜  Local:   http://localhost:5173/Portfolio/
+  ➜  Local:   http://localhost:5173/
 ```
 
 **Ctrl + click** the link (or open it in Chrome/Edge). You should see the dark pixel bedroom and
 **PRESS ANY KEY TO SPAWN**. Press a key and watch the intro, then scroll through the levels.
 
 - While `npm run dev` is running, **every time you save a file the page updates by itself**.
-- Handy dev URL: **http://localhost:5173/Portfolio/?nointro** skips the intro.
+- Handy dev URL: **http://localhost:5173/?nointro** skips the intro.
 - The full intro plays every time the page loads. **SKIP ▶▶** or **Esc** jumps straight to the site.
 
 **To stop the server:** click in the terminal and press **Ctrl + C** (if it asks
@@ -206,7 +206,7 @@ You should see:
 ```
 Portfolio/
 ├─ index.html              The page shell. <!--APP--> gets replaced with your content at build time.
-├─ vite.config.ts          Vite settings: base path /Portfolio/ + the plugin that renders content.ts.
+├─ vite.config.ts          Vite settings: base path / + the plugin that renders content.ts.
 ├─ package.json            Project name, scripts (dev/build/test/train) and dev tools.
 ├─ tsconfig.json           TypeScript settings.
 ├─ README.md               Short overview.
@@ -426,7 +426,7 @@ This type-checks everything and creates the final site in the `dist/` folder. Th
 npm run preview
 ```
 
-Open **http://localhost:4173/Portfolio/**. This is exactly what GitHub Pages will serve. Stop with
+Open **http://localhost:4173/**. This is exactly what GitHub Pages will serve. Stop with
 **Ctrl + C**.
 
 ---
@@ -544,10 +544,23 @@ few minutes.
 Test it on your phone too, and share the link: LinkedIn will show the `og.png` preview.
 
 <a id="why-base-matters"></a>
-**Why `base: '/Portfolio/'` matters:** the site lives in a sub-folder of your GitHub Pages domain
-(`/Portfolio/`). `vite.config.ts` tells Vite to prefix every file path with `/Portfolio/`. If you
-ever rename the repository, change `base` to `'/NewName/'` (or `'/'` for a repo named
-`matinhmobini.github.io`).
+**Why `base` matters:** it tells Vite where the site lives. The site now uses your own domain
+(**matinmobini.com**, see G6), so it lives at the root and `base` is `'/'`. Without a custom domain
+it would live in a sub-folder (`matinhmobini.github.io/Portfolio/`) and `base` would have to be
+`'/Portfolio/'`.
+
+### G6. Your own domain (matinmobini.com)
+
+1. **GoDaddy → My Products → matinmobini.com → DNS.** Delete the default **A** record for `@`
+   (often "Parked") and any **CNAME** for `www`. Then add:
+   - Four **A** records, Name `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
+     `185.199.111.153`
+   - One **CNAME** record, Name `www`, Value `matinhmobini.github.io`
+2. **GitHub → repo Settings → Pages → Custom domain:** type `matinmobini.com`, click **Save**,
+   wait for the DNS check to pass, then tick **Enforce HTTPS** when it becomes available.
+3. Push the code with `base: '/'` (already done in this project).
+
+The old address https://matinhmobini.github.io/Portfolio/ redirects to the new domain.
 
 ---
 
@@ -583,9 +596,9 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 and answer `Y`.
 
 **Blank page or 404s for `.js`/`.css` files on the live site.** The `base` in `vite.config.ts`
-doesn't match the repository name. It must be `/Portfolio/` (capital P, with both slashes) for
-`matinhmobini.github.io/Portfolio/`. Also make sure Pages **Source** is **GitHub Actions**, not a
-branch (a branch would serve the unbuilt source code).
+doesn't match where the site lives: `'/'` for matinmobini.com, `'/Portfolio/'` if you ever remove the
+custom domain. Also make sure Pages **Source** is **GitHub Actions**, not a branch (a branch would
+serve the unbuilt source code).
 
 **The Actions run fails.**
 - Red ✗ on **Run the tests**: open it to read which test failed; run `npm test` locally to fix.
