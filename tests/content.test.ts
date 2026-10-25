@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { content } from '../src/content.ts';
 import { renderApp, esc, SECTIONS } from '../src/sections/render.ts';
@@ -230,5 +230,26 @@ describe('October tester feedback', () => {
     const footer = html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));
     expect(footer).not.toMatch(/DESIGN &amp; CODE|AI PILOT|TRAINED BY|WEB AUDIO SYNTH|<dl>/);
     expect(footer).toContain('PSST… TRY DOING <span class="credits__code">↑ ↑ ↓ ↓ ← → ← → B A</span>');
+  });
+});
+
+describe('page title and icons', () => {
+  const html = readFileSync(resolve(__dirname, '../index.html'), 'utf8');
+
+  it('uses just the name as the page title', () => {
+    expect(html).toContain('<title>%FULLNAME%</title>');
+    expect(html).not.toMatch(/<title>[^<]*Pixel Quest/);
+    expect(content.fullName).toBe('Matin Mobini');
+  });
+
+  it('links square favicons that Google can show', () => {
+    expect(html).toContain('href="favicon.ico"');
+    expect(html).toContain('href="favicon-96.png"');
+    for (const [file, size] of [['favicon-48.png', 48], ['favicon-96.png', 96], ['icon-192.png', 192]] as const) {
+      const png = readFileSync(pub(file));
+      expect(png.readUInt32BE(16), file + ' width').toBe(size);
+      expect(png.readUInt32BE(20), file + ' height').toBe(size);
+    }
+    expect(existsSync(pub('favicon.ico'))).toBe(true);
   });
 });
